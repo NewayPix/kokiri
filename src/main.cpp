@@ -55,15 +55,26 @@ int main(int argc, char **argv) {
             case SDL_QUIT:
                 running = false;
                 break;
+            case SDL_KEYDOWN:
+            	switch(event.key.keysym.sym) {
+            		case SDLK_x:
+            			opengl_renderer.rotate(4, 1, 0, 0);
+            			break;
+            		case SDLK_y:
+            			opengl_renderer.rotate(4, 0, 1, 0);
+            			break;
+            		case SDLK_z:
+            			opengl_renderer.rotate(4, 0, 0, 1);
+            			break;
+            	}
             default:
                 //std::cout << "Event: " << event.type << std::endl;
             	break;
 		}
 
         opengl_renderer.render_cube(2.0);
-        opengl_renderer.rotate(0.5, 1, 1, 1);
         SDL_GL_SwapWindow(window);
-		
+
 		if (1000/fps > (SDL_GetTicks() - frame)) {
 			SDL_Delay(1000/fps-(SDL_GetTicks()-frame));
 		}
