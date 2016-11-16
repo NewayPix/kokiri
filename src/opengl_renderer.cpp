@@ -16,7 +16,7 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     glEnable(GL_COLOR_MATERIAL);
 
     // Position of the light
-    float gl_light_pos[] = {-2.0, 2.0, 3.0};
+    float gl_light_pos[] = {-2.0, 2.0, 1.0};
     // Diffuse light
     float diffuse_light[] = {1.0, 1.0, 1.0, 1.0};
     // Ambient light intensity
@@ -28,7 +28,7 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
   	//Setting ambient light
   	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
 
-  	glTranslatef(0.0, 0.0, -5.0);
+  	glTranslatef(0.0, 0.0, -3.0);
 }
 
 void Renderer::render_triangle() {
@@ -49,7 +49,7 @@ void Renderer::render_cube(int size) {
 	glClearColor(0.3, 0.3, 0.3, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	float material_light[] = {1, 1, 1, 1};
+	float material_light[] = {0.2, 0.2, 0.2, 0.2};
 
 	glBegin(GL_QUADS);
 		// front face
