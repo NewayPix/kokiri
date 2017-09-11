@@ -1,0 +1,10 @@
+#
+# Ignore the objs folder
+#
+objs/
+
+#
+# Ignore executables created with the Makefile
+#
+*.out
+
