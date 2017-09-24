@@ -1,4 +1,5 @@
 CXX = g++
+CLANG = clang++
 # Using C++11
 CXX_FLAGS = -Wall -O3 -std=c++0x
 CXX_DFLAGS = -DDEBUG
@@ -27,6 +28,18 @@ debug:
 	$(CXX) $(CXX_FLAGS) $(CXX_DFLAGS) -c $(SOURCES) $(LIBS)
 	\mv -f *.o $(OBJ_DIR)
 	$(CXX) $(CXX_FLAGS) $(CXX_DFLAGS) $(OBJECTS) -o $(DEXEC) $(LIBS)
+
+clang:
+	\mkdir -p objs
+	$(CLANG) $(CXX_FLAGS) -c $(SOURCES) $(LIBS)
+	\mv -f *.o $(OBJ_DIR)
+	$(CLANG) $(CXX_FLAGS) $(OBJECTS) -o $(EXEC) $(LIBS)
+
+clang-debug:
+	\mkdir -p objs
+	$(CLANG) $(CXX_FLAGS) $(CXX_DFLAGS) -c $(SOURCES) $(LIBS)
+	\mv -f *.o $(OBJ_DIR)
+	$(CLANG) $(CXX_FLAGS) $(CXX_DFLAGS) $(OBJECTS) -o $(EXEC) $(LIBS)
 
 clean:
 	\rm $(OBJ_DIR)/*
