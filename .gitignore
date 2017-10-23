@@ -8,3 +8,9 @@ objs/
 #
 *.out
 
+#
+# Ignore CMake cache and folder files
+#
+CMakeFiles/*
+CMakeCache.txt
+
