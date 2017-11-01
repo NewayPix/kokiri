@@ -9,8 +9,9 @@ objs/
 *.out
 
 #
-# Ignore CMake cache and folder files
+# Ignore CMake cache files and folders
 #
-CMakeFiles/*
 CMakeCache.txt
-
+CMakeFiles/
+cmake_install.cmake
+Makefile
