@@ -15,6 +15,14 @@
 
 #include <iostream>
 
+#if __unix__
+#define WARNING_COLOR "\e[1;33m"
+#define ERROR_COLOR "\e[0;31m"
+#else
+#define WARNING_COLOR ""
+#define ERROR_COLOR ""
+#endif
+
 /**
  * @brief The Debug class is where debug functions are defined, using the power
  * of variadic templates it .
@@ -44,7 +52,7 @@ public:
     template<typename... Ts>
     static void log_warn(const Ts&... args)
     {
-        std::cout << "\e[1;33mWARN: ";
+        std::cout << WARNING_COLOR << "WARN: ";
 
         int expanded[] = { (std::cout << args, 0)... };
         (void)expanded;
@@ -60,7 +68,7 @@ public:
     template<typename... Ts>
     static void log_err(const Ts&... args)
     {
-        std::cerr << "\e[0;31mERROR: ";
+        std::cerr << ERROR_COLOR << "ERROR: ";
 
         int expanded[] = { (std::cerr << args, 0)... };
         (void)expanded;
