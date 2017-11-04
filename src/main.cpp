@@ -49,7 +49,9 @@ int main(int argc, char **argv) {
     Debug::log("OpenGL version: ", glGetString(GL_VERSION));
     Debug::log("OpenGL vendor: ", glGetString(GL_VENDOR));
     Debug::log("OpenGL renderer: ", glGetString(GL_RENDERER));
+#if !__WIN32__
     Debug::log("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
+#endif // not adding more headers just to have this working, for now.
 
     while (running) {
         frame = SDL_GetTicks();
