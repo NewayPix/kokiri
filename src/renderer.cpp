@@ -100,3 +100,7 @@ void Renderer::render_cube(int size) {
 void Renderer::rotate(float angle, float x, float y, float z) {
 	glRotatef(angle, x, y, z);
 }
+
+void Renderer::rotate(float angle, Vector3<float> v) {
+    glRotatef(angle, v.m_x, v.m_y, v.m_z);
+}
