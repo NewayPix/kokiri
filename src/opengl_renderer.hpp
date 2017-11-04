@@ -3,13 +3,12 @@
 
 #include <SDL2/SDL.h>
 
-#ifdef __linux__
-	#include <GL/gl.h>
-	#include <GL/glu.h>
-#elif __windows__
-	#include <gl.h>
-	#include <glu.h>
-#endif
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+#ifdef __WIN32__
+    #include <GL/glext.h>
+#endif 
 
 class Renderer {
 private:
