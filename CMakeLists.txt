@@ -5,7 +5,7 @@ find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
 
 # Compile options
-option(debug "Builds the renderer in debug mode" off)
+option(DEBUG "Builds the renderer in debug mode" off)
 
 # Compile flags
 set(CXX_FLAGS "-Wall -O3 -pedantic -std=c++11")
@@ -23,7 +23,7 @@ find_path(SDL2_INCLUDE_DIR "SDL2/SDL.h")
 include_directories("Object Renderer" ${SDL2_INCLUDE_DIR})
 
 if (WIN32)
-  if (debug)
+  if (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_DEBUG_FLAGS}")
     set(EXEC_NAME "renderer_debug")
   else()
@@ -31,7 +31,7 @@ if (WIN32)
     set(EXEC_NAME "renderer")
   endif()
 elseif (UNIX)
-  if (debug)
+  if (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_DEBUG_FLAGS}")
     set(EXEC_NAME "renderer_debug.out")
   else()
