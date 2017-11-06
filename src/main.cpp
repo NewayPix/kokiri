@@ -30,15 +30,23 @@
 
 #include "debug.hpp"
 #include "renderer.hpp"
+#include "object_loader.hpp"
 
-int main(int argc, char **argv) {
+/**
+ * @brief Prints the usage of the renderer.
+ */
+void usage();
+
+int main(int argc, char *argv[]) {
 
     bool running = true;
     bool debug = false;
 
-    SDL_Window* window = nullptr;
-    SDL_Renderer* renderer = nullptr;
+    SDL_Window *window = nullptr;
+    SDL_Renderer *renderer = nullptr;
     SDL_Event event;
+
+    ObjectLoader *loader = nullptr;
 
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
         Debug::log_err("Failed to initialize SDL2 video system. Reason: ",
@@ -71,6 +79,7 @@ int main(int argc, char **argv) {
     uint32_t frame = 0;
     uint32_t fps = 60;
 
+    Debug::log("Plataform: ", SDL_GetPlatform());
     Debug::log("OpenGL version: ", glGetString(GL_VERSION));
     Debug::log("OpenGL vendor: ", glGetString(GL_VENDOR));
     Debug::log("OpenGL renderer: ", glGetString(GL_RENDERER));
@@ -78,6 +87,21 @@ int main(int argc, char **argv) {
     Debug::log("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
 #endif // not adding more headers just to have this working, for now.
 
+
+    if (argc >= 1) {
+	const std::string object_path = argv[1];
+	auto const dot_pos = object_path.find_last_of('.');
+
+	if (object_path.substr(dot_pos+1) == "obj") {
+	    loader = new ObjectLoader(object_path);
+	    
+	} else {
+	    usage();
+	}
+
+	// TODO: Render the loaded object onto the screen.
+    }
+    
     while (running) {
         frame = SDL_GetTicks();
 
@@ -118,8 +142,7 @@ int main(int argc, char **argv) {
             break;
         }
 
-        //opengl_renderer.rotate(1, 1, 1, 0);
-        opengl_renderer.render_cube(2.0);
+        opengl_renderer.render_cube();
         SDL_GL_SwapWindow(window);
 
         double delay = 1000/fps-(SDL_GetTicks()-frame);
@@ -143,5 +166,20 @@ int main(int argc, char **argv) {
 
     SDL_Quit();
 
+    // Cleaning everything else.
+    delete loader;
+
     return 0;
+}
+
+void usage() {
+    std::cerr << "This program should be run with one of the current ways:\n";
+#ifdef __WIN32__
+    std::cerr << "renderer.exe <path_to_object.obj>\n"
+	      << "renderer.exe";
+#else
+    std::cerr << "renderer.out <path_to_object.obj>\n"
+	      << "renderer.out";
+#endif
+    std::cerr << std::endl;
 }
