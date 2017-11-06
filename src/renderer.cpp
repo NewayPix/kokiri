@@ -36,7 +36,7 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     glMatrixMode(GL_MODELVIEW);
 
     glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_COLOR_MATERIAL);
 
@@ -49,25 +49,11 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     // Setting a light1
     glLightfv(GL_LIGHT0, GL_POSITION, gl_light_pos);
     //Setting the diffuse light
-  	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
-  	//Setting ambient light
-  	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
-
-  	glTranslatef(0.0, 0.0, -3.0);
-}
-
-void Renderer::render_triangle() {
-    glClearColor(0.2, 0.2, 0.2, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_TRIANGLES);
-    	// x, y, z
-    	glColor3f(1, 0, 0);
-    	glVertex3f(0, 10, -20);
-    	glColor3f(0, 1, 0);
-    	glVertex3f(-2, -10, -20);
-    	glColor3f(0, 0, 1);
-    	glVertex3f(2, -10, -20);
-    glEnd();
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
+    //Setting ambient light
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
+    
+    glTranslatef(0.0, 0.0, -3.0);
 }
 
 void Renderer::render_cube(float size) {
@@ -120,6 +106,11 @@ void Renderer::render_cube(float size) {
 		glVertex3f(-size/2,-size/2,-size/2);
 		glVertex3f(size/2,-size/2,-size/2);
     glEnd();
+}
+
+void Renderer::render(Object object) {
+    glBufferData(GL_ARRAY_BUFFER, object.vertices.size() * sizeof(glm::vec3),
+		 &object.vertices[0], GL_STATIC_DRAW);
 }
 
 void Renderer::rotate(float angle, float x, float y, float z) {

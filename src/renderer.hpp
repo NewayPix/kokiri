@@ -33,9 +33,11 @@
 
 #ifdef __WIN32__
     #include <GL/glext.h>
+    #include <glm.hpp>
 #endif 
 
 #include "vector3.hpp"
+#include "object.hpp"
 
 class Renderer {
 private:
@@ -49,14 +51,17 @@ public:
     ~Renderer() {};
 
     /**
-     * @brief Renders a triangle
-     */
-    void render_triangle();
-    /**
      * @brief Renders a cube of any size.
-     * @param size The size of the cube to be rendered.
+     * @param size The optional size of the cube to be rendered.
      */
-    void render_cube(float size);
+    void render_cube(float size = 1.8);
+
+    /**
+     * @brief Renders any kind of the object.
+     * @param obj The object to be rendered.
+     */
+    void render(Object obj);
+    
     /**
      * @brief Rotates the object being rendered in the x, y, z direction
      * by angle angles.

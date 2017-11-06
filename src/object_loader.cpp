@@ -25,10 +25,25 @@
 
 #include "object_loader.hpp"
 
-ObjectLoader::ObjectLoader(const std::string path) {
+#include "debug.hpp"
 
+ObjectLoader::ObjectLoader(const std::string path) {
+    file = std::make_unique<std::ifstream>(path, std::ios::in);
+
+    if (!file.is_open()) {
+	Debug::log("Failure to open the file: ", path,
+		   ". The renderer will now quit.");
+	exit(1);
+	
+    }
 }
 
 ObjectLoader::~ObjectLoader() {
 
 }
+
+Object ObjectLoader::load() {
+    
+}
+
+

@@ -24,25 +24,21 @@
  */
 
 #ifndef OBJECT_LOADER_H
-#define OBEJCT_LOADER_H
+#define OBJECT_LOADER_H
 
 #include <fstream>
-#include <vector>
-#include <string>
+#include <memory>
+
+#include "object.hpp"
 
 class ObjectLoader {
 public:
     ObjectLoader(const std::string path);
     ~ObjectLoader();
-private:
-    struct vertex {
-	float x;
-	float y;
-	float z;
-    };
 
-    // A collection of vertex in space
-    std::vector<struct Vertex*> points;
+    Object load();
+private:
+    std::unique_ptr<std::ifstream> file;
 };
 
 #endif // OBJECT_LOADER_H
