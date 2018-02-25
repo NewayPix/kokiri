@@ -57,54 +57,54 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
 }
 
 void Renderer::render_cube(float size) {
-	glClearColor(0.3, 0.3, 0.3, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	float material_light[] = {0.2, 0.2, 0.2, 0.2};
-
-	glBegin(GL_QUADS);
-		// front face
-		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, material_light);
-		glNormal3f(0, 0, 1);
-		glVertex3f(size/2,size/2,size/2);
-		glVertex3f(-size/2,size/2,size/2);
-		glVertex3f(-size/2,-size/2,size/2);
-		glVertex3f(size/2,-size/2,size/2);
-
-		// left face
-		glNormal3f(-1, 0, 0);
-		glVertex3f(-size/2,size/2,size/2);
-		glVertex3f(-size/2,-size/2,size/2);
-		glVertex3f(-size/2,-size/2,-size/2);
-		glVertex3f(-size/2,size/2,-size/2);
-
-		// back face
-		glNormal3f(0, 0, -1);
-		glVertex3f(size/2,size/2,-size/2);
-		glVertex3f(-size/2,size/2,-size/2);
-		glVertex3f(-size/2,-size/2,-size/2);
-		glVertex3f(size/2,-size/2,-size/2);
-
-		// right face
-		glNormal3f(1, 0, 0);
-		glVertex3f(size/2,size/2,size/2);
-		glVertex3f(size/2,-size/2,size/2);
-		glVertex3f(size/2,-size/2,-size/2);
-		glVertex3f(size/2,size/2,-size/2);
-
-		// top face
-		glNormal3f(0, 1, 0);
-		glVertex3f(size/2,size/2,size/2);
-		glVertex3f(-size/2,size/2,size/2);
-		glVertex3f(-size/2,size/2,-size/2);
-		glVertex3f(size/2,size/2,-size/2);
-
-		// bottom face
-		glNormal3f(0, -1, 0);
-		glVertex3f(size/2,-size/2,size/2);
-		glVertex3f(-size/2,-size/2,size/2);
-		glVertex3f(-size/2,-size/2,-size/2);
-		glVertex3f(size/2,-size/2,-size/2);
+    glClearColor(0.3, 0.3, 0.3, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    float material_light[] = {0.2, 0.2, 0.2, 0.2};
+    
+    glBegin(GL_QUADS);
+    // front face
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, material_light);
+    glNormal3f(0, 0, 1);
+    glVertex3f(size/2,size/2,size/2);
+    glVertex3f(-size/2,size/2,size/2);
+    glVertex3f(-size/2,-size/2,size/2);
+    glVertex3f(size/2,-size/2,size/2);
+    
+    // left face
+    glNormal3f(-1, 0, 0);
+    glVertex3f(-size/2,size/2,size/2);
+    glVertex3f(-size/2,-size/2,size/2);
+    glVertex3f(-size/2,-size/2,-size/2);
+    glVertex3f(-size/2,size/2,-size/2);
+    
+    // back face
+    glNormal3f(0, 0, -1);
+    glVertex3f(size/2,size/2,-size/2);
+    glVertex3f(-size/2,size/2,-size/2);
+    glVertex3f(-size/2,-size/2,-size/2);
+    glVertex3f(size/2,-size/2,-size/2);
+    
+    // right face
+    glNormal3f(1, 0, 0);
+    glVertex3f(size/2,size/2,size/2);
+    glVertex3f(size/2,-size/2,size/2);
+    glVertex3f(size/2,-size/2,-size/2);
+    glVertex3f(size/2,size/2,-size/2);
+    
+    // top face
+    glNormal3f(0, 1, 0);
+    glVertex3f(size/2,size/2,size/2);
+    glVertex3f(-size/2,size/2,size/2);
+    glVertex3f(-size/2,size/2,-size/2);
+    glVertex3f(size/2,size/2,-size/2);
+    
+    // bottom face
+    glNormal3f(0, -1, 0);
+    glVertex3f(size/2,-size/2,size/2);
+    glVertex3f(-size/2,-size/2,size/2);
+    glVertex3f(-size/2,-size/2,-size/2);
+    glVertex3f(size/2,-size/2,-size/2);
     glEnd();
 }
 
@@ -114,7 +114,7 @@ void Renderer::render(Object object) {
 }
 
 void Renderer::rotate(float angle, float x, float y, float z) {
-	glRotatef(angle, x, y, z);
+    glRotatef(angle, x, y, z);
 }
 
 void Renderer::rotate(float angle, Vector3<float> v) {
