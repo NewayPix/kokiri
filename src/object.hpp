@@ -28,9 +28,7 @@
 
 #include <vector>
 
-#ifdef __WIN32__
-    #include <glm.hpp>
-#endif 
+#include <glm.hpp>
 
 /**
  * @brief Represents an object to be rendered
