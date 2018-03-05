@@ -8,8 +8,8 @@ find_package(OpenGL REQUIRED)
 option(DEBUG "Builds the renderer in debug mode" off)
 
 # Compile flags
-set(CXX_FLAGS "-Wall -O3 -pedantic -std=c++11")
-set(CXX_DEBUG_FLAGS "-Wall -O0 -g -DDEBUG -pedantic -std=c++11")
+set(CXX_FLAGS "-Wall -O3 -pedantic -std=c++14")
+set(CXX_DEBUG_FLAGS "-Wall -O0 -g -DDEBUG -pedantic -std=c++14")
 
 # Build directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
