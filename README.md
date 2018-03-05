@@ -1,7 +1,8 @@
 # An object renderer
 
 An experimental renderer which uses SDL2 and OpenGL to render `.obj`
-files. It is in early stages of development, so don't expect much of it. 
+files. It is in early stages of development, so don't expect much of it.
+
 
 *This was just used in a Computer Graphics presentation. The images
 below demonstrate what can be visualized.*
@@ -16,6 +17,7 @@ building it yourself, such as:
 
 * SDL2
 * OpenGL
+* C++14
 
 ## Linux
 
@@ -43,4 +45,3 @@ Follow the steps below to build it:
 ## OSX
 
 Not tested on this platform, yet. I appreciate your assistance on this. :-)
-
