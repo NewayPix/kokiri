@@ -43,12 +43,12 @@ public:
     template<typename... Ts>
     static void log(const Ts&... args)
     {
-        std::cout << "LOG: ";
+        std::cout << SUCCESS_COLOR << "LOG: ";
 
         int expanded[] = { (std::cout << args << "", 0)... };
         (void)expanded;
 
-        std::cout << std::endl;
+        std::cout << RESET_COLOR << std::endl;
     }
 
     /**
@@ -64,7 +64,7 @@ public:
         int expanded[] = { (std::cout << args, 0)... };
         (void)expanded;
 
-        std::cout << std::endl;
+        std::cout << RESET_COLOR << std::endl;
     }
 
     /**
@@ -80,7 +80,7 @@ public:
         int expanded[] = { (std::cerr << args, 0)... };
         (void)expanded;
 
-        std::cerr << std::endl;
+        std::cerr << RESET_COLOR << std::endl;
     }
 };
 
