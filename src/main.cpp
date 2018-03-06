@@ -88,20 +88,20 @@ int main(int argc, char *argv[]) {
 #endif // not adding more headers just to have this working, for now.
 
 
-    if (argc >= 1) {
-	const std::string object_path = argv[1];
-	auto const dot_pos = object_path.find_last_of('.');
+    if (argc > 1) {
+        const std::string object_path = argv[1];
+        auto const dot_pos = object_path.find_last_of('.');
 
-	if (object_path.substr(dot_pos+1) == "obj") {
-	    loader = new ObjectLoader(object_path);
-	    
-	} else {
-	    usage();
-	}
+        if (object_path.substr(dot_pos+1) == "obj") {
+            loader = new ObjectLoader(object_path);
 
-	// TODO: Render the loaded object onto the screen.
+        } else {
+            usage();
+        }
     }
-    
+
+    // TODO: Render the loaded object onto the screen.
+
     while (running) {
         frame = SDL_GetTicks();
 
