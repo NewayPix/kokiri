@@ -1,13 +1,26 @@
-/*
- * Game: Pong Game.
- * Author: Rafael Campos Nunes.
- * License: Apache v2.
+/**
+ * MIT License
  *
- * Fell free to contact me on
- * Email: rafaelnunes737@hotmail.com
- * Github: https://github.com/rafaelcn
+ * Copyright (c) 2016 Rafael C. Nunes
  *
- * Also you can contact me on IRC(freenode.net server) my nickname is: ranu.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE  SOFTWARE.
  */
 
 #ifndef DEBUG_HPP
@@ -15,13 +28,7 @@
 
 #include <iostream>
 
-#if __unix__
-#define WARNING_COLOR "\e[1;33m"
-#define ERROR_COLOR "\e[0;31m"
-#else
-#define WARNING_COLOR ""
-#define ERROR_COLOR ""
-#endif
+#include "utils/macros.hpp"
 
 /**
  * @brief The Debug class is where debug functions are defined, using the power
@@ -76,4 +83,5 @@ public:
         std::cerr << std::endl;
     }
 };
+
 #endif // DEBUG_H
