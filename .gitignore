@@ -16,8 +16,20 @@ CMakeFiles/
 cmake_install.cmake
 Makefile
 
-
 #
 # Ignore vscode folder
 #
 .vscode/
+
+#
+# Ignore VS config folders
+#
+.vs/
+
+#
+# Ignore Microsoft Visual Studio files
+#
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
