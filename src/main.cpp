@@ -97,6 +97,7 @@ int main(int argc, char *argv[]) {
 
         } else {
             usage();
+            exit(0);
         }
     }
 
@@ -173,13 +174,15 @@ int main(int argc, char *argv[]) {
 }
 
 void usage() {
-    std::cerr << "This program should be run with one of the current ways:\n";
+    std::cerr << ERROR_COLOR
+              << "This program should be run with one of the current ways:\n"
+              << "\n";
 #ifdef __WIN32__
-    std::cerr << "renderer.exe <path_to_object.obj>\n"
-	      << "renderer.exe";
+    std::cerr << "\t1) renderer.exe <path_to_object.obj>\n"
+              << "\t2) renderer.exe";
 #else
-    std::cerr << "renderer.out <path_to_object.obj>\n"
-	      << "renderer.out";
+    std::cerr << "\t1) renderer.out <path_to_object.obj>\n"
+              << "\t2) renderer.out";
 #endif
-    std::cerr << std::endl;
+    std::cerr << RESET_COLOR << std::endl;
 }
