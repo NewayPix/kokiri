@@ -20,7 +20,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # "C:/SDL2/include/"
 find_path(SDL2_INCLUDE_DIR "SDL2/SDL.h")
 
-find_path(GLM_DIR "glm.hpp" PATH_SUFFIXES "glm")
+#find_path(GLM_DIR "glm.hpp" PATH_SUFFIXES "glm")
 
 message("Found SDL2: " ${SDL2_INCLUDE_DIR})
 message("Found GLM: " ${GLM_DIR})
@@ -46,8 +46,12 @@ elseif (UNIX)
   endif()
 endif()
 
-set(SRC src/vector3.cpp
-  src/vector3.hpp
+# TODO: Include all of those projects later
+
+set(SRC src/maths/vector3.cpp
+  src/maths/vector3.hpp
+  src/graphics/primitives.hpp
+  src/graphics/primitives.cpp
   src/renderer.cpp
   src/renderer.hpp
   src/object.cpp
