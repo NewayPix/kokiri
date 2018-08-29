@@ -23,26 +23,18 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef OBJECT_H
-#define OBJECT_H
-
-#include <vector>
-
-#include "maths/vector3.hpp"
-
-//#include <glm.hpp>
-
 /**
- * @brief Represents an object to be rendered
+ * @brief This class contains a lot of definitions of solids in the old OpenGL
+ * for testing purposes.
  */
-class Object {
-public:
-    Object();
-    ~Object();
+class Primitives {
+
+private:
+    Primitives() {}
+    ~Primitives() {}
 
 public:
-    std::vector<Vector3<int>> vertices;
-    std::vector<Vector3<int>> normals;
+    static void cube(float size = 2.0);
+    static void cone();
+    static void triangle();
 };
-
-#endif // OBJECT

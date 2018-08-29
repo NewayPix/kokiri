@@ -34,9 +34,9 @@
 #ifdef __WIN32__
     #include <GL/glext.h>
     #include <glm.hpp>
-#endif 
+#endif
 
-#include "vector3.hpp"
+#include "maths/vector3.hpp"
 #include "object.hpp"
 
 class Renderer {
@@ -61,7 +61,7 @@ public:
      * @param obj The object to be rendered.
      */
     void render(Object obj);
-    
+
     /**
      * @brief Rotates the object being rendered in the x, y, z direction
      * by angle angles.

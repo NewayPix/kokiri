@@ -25,6 +25,8 @@
 
 #include "renderer.hpp"
 
+#include "graphics/primitives.hpp"
+
 Renderer::Renderer(SDL_GLContext& gl_context) {
     // making _renderer point to a copy of the renderer pointer.
     _gl_context = gl_context;
@@ -52,65 +54,23 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
     //Setting ambient light
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
-    
+
     glTranslatef(0.0, 0.0, -3.0);
 }
 
 void Renderer::render_cube(float size) {
     glClearColor(0.3, 0.3, 0.3, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
+    // not used here
     float material_light[] = {0.2, 0.2, 0.2, 0.2};
-    
-    glBegin(GL_QUADS);
-    // front face
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, material_light);
-    glNormal3f(0, 0, 1);
-    glVertex3f(size/2,size/2,size/2);
-    glVertex3f(-size/2,size/2,size/2);
-    glVertex3f(-size/2,-size/2,size/2);
-    glVertex3f(size/2,-size/2,size/2);
-    
-    // left face
-    glNormal3f(-1, 0, 0);
-    glVertex3f(-size/2,size/2,size/2);
-    glVertex3f(-size/2,-size/2,size/2);
-    glVertex3f(-size/2,-size/2,-size/2);
-    glVertex3f(-size/2,size/2,-size/2);
-    
-    // back face
-    glNormal3f(0, 0, -1);
-    glVertex3f(size/2,size/2,-size/2);
-    glVertex3f(-size/2,size/2,-size/2);
-    glVertex3f(-size/2,-size/2,-size/2);
-    glVertex3f(size/2,-size/2,-size/2);
-    
-    // right face
-    glNormal3f(1, 0, 0);
-    glVertex3f(size/2,size/2,size/2);
-    glVertex3f(size/2,-size/2,size/2);
-    glVertex3f(size/2,-size/2,-size/2);
-    glVertex3f(size/2,size/2,-size/2);
-    
-    // top face
-    glNormal3f(0, 1, 0);
-    glVertex3f(size/2,size/2,size/2);
-    glVertex3f(-size/2,size/2,size/2);
-    glVertex3f(-size/2,size/2,-size/2);
-    glVertex3f(size/2,size/2,-size/2);
-    
-    // bottom face
-    glNormal3f(0, -1, 0);
-    glVertex3f(size/2,-size/2,size/2);
-    glVertex3f(-size/2,-size/2,size/2);
-    glVertex3f(-size/2,-size/2,-size/2);
-    glVertex3f(size/2,-size/2,-size/2);
-    glEnd();
+
+    Primitives::cube(size);
 }
 
 void Renderer::render(Object object) {
-    glBufferData(GL_ARRAY_BUFFER, object.vertices.size() * sizeof(glm::vec3),
-		 &object.vertices[0], GL_STATIC_DRAW);
+    //glBufferData(GL_ARRAY_BUFFER, object.vertices.size() * sizeof(Vector3<int>),
+    //             &object.vertices[0], GL_STATIC_DRAW);
 }
 
 void Renderer::rotate(float angle, float x, float y, float z) {
