@@ -23,6 +23,9 @@
  * IN THE  SOFTWARE.
  */
 
+#ifndef PRIMITIVES_H
+#define PRIMITIVES_H
+
 /**
  * @brief This class contains a lot of definitions of solids in the old OpenGL
  * for testing purposes.
@@ -38,3 +41,5 @@ public:
     static void cone();
     static void triangle();
 };
+
+#endif // PRIMITIVES_H
