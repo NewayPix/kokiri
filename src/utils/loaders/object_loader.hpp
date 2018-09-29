@@ -23,22 +23,23 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef OBJECT_LOADER_H
-#define OBJECT_LOADER_H
-
-#include <fstream>
-#include <memory>
+#ifndef GENERIC_LOADER_H
+#define GENERIC_LOADER_H
 
 #include "object.hpp"
+#include "generic_loader.hpp"
 
-class ObjectLoader {
+/**
+ * @brief Loads an object file
+ */
+class ObjectLoader : protected GenericLoader {
 public:
-    ObjectLoader(const std::string path);
-    ~ObjectLoader();
+    ObjectLoader();
+    ObjectLoader(const std::string &path);
+    virtual ~ObjectLoader();
 
-    Object load();
-private:
-    std::unique_ptr<std::ifstream> file;
+    Object load() override;
+    Object load(const std::string &path) override;
 };
 
-#endif // OBJECT_LOADER_H
+#endif // GENERIC_LOADER_H

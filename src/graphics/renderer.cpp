@@ -24,11 +24,13 @@
  */
 
 #include "renderer.hpp"
+#include "primitives.hpp"
 
-#include "graphics/primitives.hpp"
+#include "../utils/debug/debug.hpp"
 
 Renderer::Renderer(SDL_GLContext& gl_context) {
-    // making _renderer point to a copy of the renderer pointer.
+
+// making _renderer point to a copy of the renderer pointer.
     _gl_context = gl_context;
 
     glClearColor(0, 0, 0, 1);
@@ -58,18 +60,52 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     glTranslatef(0.0, 0.0, -3.0);
 }
 
+Renderer::~Renderer() {}
+
+void Renderer::information() {
+
+    Debug::log("Plataform: ", SDL_GetPlatform());
+    Debug::log("OpenGL version: ", glGetString(GL_VERSION));
+    Debug::log("OpenGL vendor: ", glGetString(GL_VENDOR));
+    Debug::log("OpenGL renderer: ", glGetString(GL_RENDERER));
+#if !__WIN32__
+    Debug::log("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
+#endif // not adding more headers just to have this working, for now.
+}
+
 void Renderer::render_cube(float size) {
-    glClearColor(0.3, 0.3, 0.3, 1);
+
+    glClearColor(0.3, 0.3, 0.5, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // not used here
     float material_light[] = {0.2, 0.2, 0.2, 0.2};
 
+    // Axis lines
+    glColor3f(255, 0, 0);
+    glBegin(GL_LINES);
+    glVertex3d(0, 0, 0);
+    glVertex3d(size, 0, 0);
+    glEnd();
+
+    glColor3f(0, 255, 0);
+    glBegin(GL_LINES);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, size, 0);
+    glEnd();
+
+    glColor3f(0, 0, 255);
+    glBegin(GL_LINES);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 0, size);
+    glEnd();
+
+    glColor3f(120, 120, 120);
     Primitives::cube(size);
 }
 
 void Renderer::render(Object object) {
-    //glBufferData(GL_ARRAY_BUFFER, object.vertices.size() * sizeof(Vector3<int>),
+    //glBufferData(GL_ARRAY_BUFFER, object.vertices.size() * sizeof(glm::vec3),
     //             &object.vertices[0], GL_STATIC_DRAW);
 }
 
