@@ -28,9 +28,10 @@
 
 #include <SDL2/SDL.h>
 
-#include "debug.hpp"
-#include "renderer.hpp"
-#include "object_loader.hpp"
+#include "graphics/window.hpp"
+#include "graphics/renderer.hpp"
+#include "utils/loaders/object_loader.hpp"
+#include "utils/debug/debug.hpp"
 
 /**
  * @brief Prints the usage of the renderer.
@@ -41,59 +42,26 @@ int main(int argc, char *argv[]) {
 
     bool running = true;
     bool debug = false;
-
-    SDL_Window *window = nullptr;
-    SDL_Renderer *renderer = nullptr;
     SDL_Event event;
+
+    Window window(800, 600, "Kokiri Framework",
+                  SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
     ObjectLoader *loader = nullptr;
 
-    if(SDL_Init(SDL_INIT_VIDEO) != 0) {
-        Debug::log_err("Failed to initialize SDL2 video system. Reason: ",
-                       SDL_GetError());
-        return 1;
-    }
-
-    window = SDL_CreateWindow("Object Renderer", SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED, 800, 600,
-                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-
-    if (window == nullptr) {
-        Debug::log_err("Failed to initialize window");
-        Debug::log_err("Reason: ", SDL_GetError());
-        return 1;
-    }
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    if (renderer == nullptr) {
-        Debug::log_err("Failed to initialize renderer");
-        Debug::log_err("Reason: ", SDL_GetError());
-        return 1;
-    }
-
-    SDL_GLContext gl = SDL_GL_CreateContext(window);
+    SDL_GLContext gl = SDL_GL_CreateContext(window.get_window());
     // Send the gl context to the renderer
     Renderer opengl_renderer = Renderer(gl);
 
     uint32_t frame = 0;
     uint32_t fps = 60;
 
-    Debug::log("Plataform: ", SDL_GetPlatform());
-    Debug::log("OpenGL version: ", glGetString(GL_VERSION));
-    Debug::log("OpenGL vendor: ", glGetString(GL_VENDOR));
-    Debug::log("OpenGL renderer: ", glGetString(GL_RENDERER));
-#if !__WIN32__
-    Debug::log("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
-#endif // not adding more headers just to have this working, for now.
-
-
     if (argc > 1) {
         const std::string object_path = argv[1];
         auto const dot_pos = object_path.find_last_of('.');
 
         if (object_path.substr(dot_pos+1) == "obj") {
-            loader = new ObjectLoader(object_path);
+            //loader = new ObjectLoader(object_path);
 
         } else {
             usage();
@@ -144,7 +112,7 @@ int main(int argc, char *argv[]) {
         }
 
         opengl_renderer.render_cube();
-        SDL_GL_SwapWindow(window);
+        SDL_GL_SwapWindow(window.get_window());
 
         double delay = 1000/fps-(SDL_GetTicks()-frame);
 
@@ -160,8 +128,6 @@ int main(int argc, char *argv[]) {
     Debug::log("Destroying context/renderer/window");
 
     SDL_GL_DeleteContext(gl);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
 
     Debug::log("Exiting SDL2\n");
 

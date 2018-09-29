@@ -1,0 +1,4 @@
+* Printer Module
+
+This module let you print the rendered object into a file with a single key
+press. This is still being planned and it will be implemented.

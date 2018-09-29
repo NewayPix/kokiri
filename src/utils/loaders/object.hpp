@@ -1,5 +1,3 @@
-#include "object.hpp"
-
 /**
  * MIT License
  *
@@ -24,3 +22,30 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE  SOFTWARE.
  */
+
+#ifndef OBJECT_H
+#define OBJECT_H
+
+#include <vector>
+#include <string>
+
+#include "../../maths/vector3.hpp"
+
+#include <glm.hpp>
+
+/**
+ * @brief Represents an object to be rendered.
+ */
+class Object {
+public:
+    Object();
+    ~Object();
+
+    Object load_file(std::string &filename);
+
+public:
+    std::vector<glm::vec3> vertices;
+    std::vector<glm::vec3> normals;
+};
+
+#endif // OBJECT

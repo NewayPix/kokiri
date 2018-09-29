@@ -23,26 +23,35 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef WINDOW_H
+#define WINDOW_H
 
-#include <vector>
+#include <SDL2/SDL.h>
 
-#include "maths/vector3.hpp"
+#include <cinttypes>
 
-//#include <glm.hpp>
+// Kokiri related includes
+
+#include "../utils/debug/debug.hpp"
 
 /**
- * @brief Represents an object to be rendered
+ * @brief
  */
-class Object {
+class Window {
 public:
-    Object();
-    ~Object();
+    Window(int width, int height, const std::string &title);
+    Window(int width, int height, const std::string &title, int32_t flags);
+    ~Window();
 
-public:
-    std::vector<Vector3<int>> vertices;
-    std::vector<Vector3<int>> normals;
+    SDL_Window   *get_window();
+    SDL_Renderer *get_renderer();
+
+private:
+    SDL_Window* m_window;
+    SDL_Renderer* m_window_renderer;
+
+
 };
 
-#endif // OBJECT
+
+#endif // WINDOW_H

@@ -1,0 +1,4 @@
+* Object Loaders
+
+This directory contains implementations of file loaders, specifically those
+files that describe 3D models.

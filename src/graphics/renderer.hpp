@@ -36,9 +36,13 @@
     #include <glm.hpp>
 #endif
 
-#include "maths/vector3.hpp"
-#include "object.hpp"
+// This is ugly but I have to use for a while
+#include "../maths/vector3.hpp"
+#include "../utils/loaders/object.hpp"
 
+/**
+ * @brief
+ */
 class Renderer {
 private:
     SDL_GLContext _gl_context;
@@ -48,7 +52,12 @@ public:
      * @param gl_context
      */
     Renderer(SDL_GLContext& gl_context);
-    ~Renderer() {};
+    ~Renderer();
+
+    /**
+     * @brief Writes information about the renderer on the default stdout.
+     */
+    void information();
 
     /**
      * @brief Renders a cube of any size.
