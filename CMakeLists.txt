@@ -17,10 +17,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Call CMake defining the CMAKE_PREFIX_PATH to find the SDL2 include directory
 # properly on windows.
 # Something like -DCMAKE_PREFIX_PATH=<sdl2_path> where <sdl2_path> may be
-# "C:/SDL2/include/"
+# "C:/SDL2/"
 find_path(SDL2_INCLUDE_DIR "SDL2/SDL.h")
 
-#find_path(GLM_DIR "glm.hpp" PATH_SUFFIXES "glm")
+find_path(GLM_DIR "glm.hpp" PATH_SUFFIXES "glm")
 
 message("Found SDL2: " ${SDL2_INCLUDE_DIR})
 message("Found GLM: " ${GLM_DIR})
@@ -50,16 +50,20 @@ endif()
 
 set(SRC src/maths/vector3.cpp
   src/maths/vector3.hpp
+  src/graphics/window.hpp
+  src/graphics/window.cpp
   src/graphics/primitives.hpp
   src/graphics/primitives.cpp
-  src/renderer.cpp
-  src/renderer.hpp
-  src/object.cpp
-  src/object.hpp
-  src/object_loader.cpp
-  src/object_loader.hpp
-  src/debug.cpp
-  src/debug.hpp
+  src/graphics/renderer.cpp
+  src/graphics/renderer.hpp
+  src/utils/loaders/object.cpp
+  src/utils/loaders/object.hpp
+  src/utils/loaders/generic_loader.hpp
+  src/utils/loaders/generic_loader.cpp
+  src/utils/loaders/object_loader.cpp
+  src/utils/loaders/object_loader.hpp
+  src/utils/debug/debug.cpp
+  src/utils/debug/debug.hpp
   src/main.cpp)
 
 add_executable(${EXEC_NAME} ${SRC})
