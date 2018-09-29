@@ -17,7 +17,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Call CMake defining the CMAKE_PREFIX_PATH to find the SDL2 include directory
 # properly on windows.
 # Something like -DCMAKE_PREFIX_PATH=<sdl2_path> where <sdl2_path> may be
-# "C:/SDL2/include/"
+# "C:/SDL2/"
 find_path(SDL2_INCLUDE_DIR "SDL2/SDL.h")
 
 find_path(GLM_DIR "glm.hpp" PATH_SUFFIXES "glm")
