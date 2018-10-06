@@ -60,10 +60,10 @@ public:
     void information();
 
     /**
-     * @brief Renders a cube of any size.
-     * @param size The optional size of the cube to be rendered.
+     * @brief Renders the render view GUI.
+     * TODO: Should be moved to a UI module.
      */
-    void render_cube(float size = 1.8);
+    void render_view();
 
     /**
      * @brief Renders any kind of the object.

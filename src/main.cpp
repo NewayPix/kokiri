@@ -30,6 +30,7 @@
 
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
+#include "graphics/primitives.hpp"
 #include "utils/loaders/object_loader.hpp"
 #include "utils/debug/debug.hpp"
 
@@ -71,6 +72,16 @@ int main(int argc, char *argv[]) {
 
     // TODO: Render the loaded object onto the screen.
 
+    // if it isn't rendering an .obj file there's an enum to switch the rendered
+    // polyhedron.
+    enum Polyhedron {
+        cube = 0,
+        sphere = 2,
+        tetrahedron = 4
+    };
+
+    Polyhedron render_polyhedron = Polyhedron::cube;
+
     while (running) {
         frame = SDL_GetTicks();
 
@@ -103,6 +114,15 @@ int main(int argc, char *argv[]) {
             case SDLK_d:
                 debug = !debug;
                 break;
+            case SDLK_1:
+                render_polyhedron = Polyhedron::cube;
+                break;
+            case SDLK_2:
+                render_polyhedron = Polyhedron::sphere;
+                break;
+            case SDLK_3:
+                render_polyhedron = Polyhedron::tetrahedron;
+                break;
             }
         default:
 #ifdef DEBUG
@@ -111,7 +131,20 @@ int main(int argc, char *argv[]) {
             break;
         }
 
-        opengl_renderer.render_cube();
+        opengl_renderer.render_view();
+
+        switch (render_polyhedron) {
+        case cube:
+            Primitives::cube();
+            break;
+        case sphere:
+            Primitives::sphere();
+            break;
+        case tetrahedron:
+            Primitives::tetrahedron();
+            break;
+        }
+
         SDL_GL_SwapWindow(window.get_window());
 
         double delay = 1000/fps-(SDL_GetTicks()-frame);

@@ -73,35 +73,49 @@ void Renderer::information() {
 #endif // not adding more headers just to have this working, for now.
 }
 
-void Renderer::render_cube(float size) {
+void Renderer::render_view() {
 
-    glClearColor(0.3, 0.3, 0.5, 1);
+    glClearColor(0.3, 0.5, 0.9, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // not used here
     float material_light[] = {0.2, 0.2, 0.2, 0.2};
 
+    // need the width and the height of the screen for grid lines
+    /*glColor3f(255, 255, 255);
+    for (int i = 0; i < 800; i += 5) {
+        glBegin(GL_LINES);
+        glVertex2d(-1000, i);
+        glVertex2d(1000, i);
+        glEnd();
+    }
+    for (int i = 0; i < 600; i += 5) {
+        glBegin(GL_LINES);
+        glVertex2d(i, -1000);
+        glVertex2d(i, 1000);
+        glEnd();
+    }*/
+
     // Axis lines
     glColor3f(255, 0, 0);
     glBegin(GL_LINES);
     glVertex3d(0, 0, 0);
-    glVertex3d(size, 0, 0);
+    glVertex3d(2, 0, 0);
     glEnd();
 
     glColor3f(0, 255, 0);
     glBegin(GL_LINES);
     glVertex3d(0, 0, 0);
-    glVertex3d(0, size, 0);
+    glVertex3d(0, 2, 0);
     glEnd();
 
     glColor3f(0, 0, 255);
     glBegin(GL_LINES);
     glVertex3d(0, 0, 0);
-    glVertex3d(0, 0, size);
+    glVertex3d(0, 0, 2);
     glEnd();
 
     glColor3f(120, 120, 120);
-    Primitives::cube(size);
 }
 
 void Renderer::render(Object object) {
