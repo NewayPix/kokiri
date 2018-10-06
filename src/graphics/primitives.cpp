@@ -26,6 +26,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
+#include <cmath>
+
 #include "primitives.hpp"
 
 void Primitives::cube(float size) {
@@ -73,6 +75,38 @@ void Primitives::cube(float size) {
     glVertex3f(-size/2,-size/2,-size/2);
     glVertex3f(size/2,-size/2,-size/2);
     glEnd();
+}
+
+void Primitives::sphere(float radius) {
+
+
+
+}
+
+void Primitives::tetrahedron(float length) {
+
+    glBegin(GL_TRIANGLES);
+    // front side face
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 0, length/2);
+    glVertex3d(length/2, 0, 0);
+
+    // bottom face
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, length/2, 0);
+    glVertex3d(0, 0, length/2);
+
+    // back side face
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, length/2, 0);
+    glVertex3d(length/2, 0, 0);
+
+    // left side face
+    glVertex3d(0, 0, length/2);
+    glVertex3d(0, length/2, 0);
+    glVertex3d(length/2, 0, 0);
+    glEnd();
+
 }
 
 void Primitives::cone() {
