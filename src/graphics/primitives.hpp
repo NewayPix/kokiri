@@ -26,6 +26,7 @@
 #ifndef PRIMITIVES_H
 #define PRIMITIVES_H
 
+
 /**
  * @brief This class contains a lot of definitions of solids in the old OpenGL
  * for testing purposes.
@@ -38,6 +39,8 @@ private:
 
 public:
     static void cube(float size = 2.0);
+    static void sphere(float radius = 2.0);
+    static void tetrahedron(float length = 2.0);
     static void cone();
     static void triangle();
 };
