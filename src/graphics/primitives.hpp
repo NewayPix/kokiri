@@ -41,7 +41,7 @@ public:
     static void cube(float size = 2.0);
     static void sphere(float radius = 2.0);
     static void tetrahedron(float length = 2.0);
-    static void cone();
+    static void cone(float height = 1.0, float radius = 2.0);
     static void triangle();
 };
 

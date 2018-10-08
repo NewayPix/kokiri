@@ -30,6 +30,13 @@
 
 #include "primitives.hpp"
 
+
+// Quick fix for a while, some extended math library has to be written in order
+// to provide some extensions.
+#ifndef M_PI
+#define M_PI 3.141592653589793 // defined as acos(-1.0)
+#endif // M_PI
+
 void Primitives::cube(float size) {
 
     glBegin(GL_QUADS);
@@ -79,8 +86,19 @@ void Primitives::cube(float size) {
 
 void Primitives::sphere(float radius) {
 
+    float partition_angle = 2*M_PI/360;
 
+    for (int i = 0; i < 360; i++) {
+        glBegin(GL_LINES);
+        for (int j = 0; j < 180; j++) {
+            float x = radius*cos(partition_angle*i)*sin(partition_angle*j);
+            float y = radius*sin(partition_angle*i)*sin(partition_angle*j);
+            float z = radius*cos(partition_angle*j);
 
+            glVertex3f(x, y, z);
+        }
+        glEnd();
+    }
 }
 
 void Primitives::tetrahedron(float length) {
@@ -109,10 +127,38 @@ void Primitives::tetrahedron(float length) {
 
 }
 
-void Primitives::cone() {
+void Primitives::cone(float height, float radius) {
 
+    float partition_angle = 2*M_PI/360;
+
+    // circumference + a line from each point of the circle to a top vertex
+    glBegin(GL_POLYGON);
+    for (int i = 0; i < 360; i++) {
+        float x = radius*cos(partition_angle*i)/2;
+        float z = radius*sin(partition_angle*i)/2;
+
+        glVertex3f(x, 0, z);
+    }
+    glEnd();
+
+    partition_angle = 2*M_PI/720;
+
+    glBegin(GL_LINES);
+    for (int i = 0; i < 720; i++) {
+        float x = radius*cos(partition_angle*i)/2;
+        float z = radius*sin(partition_angle*i)/2;
+
+        glVertex3f(x, 0, z);
+        glVertex3f(0, height, 0);
+    }
+    glEnd();
 }
 
 void Primitives::triangle() {
 
+    glBegin(GL_TRIANGLES);
+        glVertex2f(-1.0, 0.0);
+        glVertex2f(1.0, 0.0);
+        glVertex2f(0.0, 2.0);
+    glEnd();
 }

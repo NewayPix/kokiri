@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -41,21 +41,7 @@ void usage();
 
 int main(int argc, char *argv[]) {
 
-    bool running = true;
-    bool debug = false;
-    SDL_Event event;
-
-    Window window(800, 600, "Kokiri Framework",
-                  SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-
     ObjectLoader *loader = nullptr;
-
-    SDL_GLContext gl = SDL_GL_CreateContext(window.get_window());
-    // Send the gl context to the renderer
-    Renderer opengl_renderer = Renderer(gl);
-
-    uint32_t frame = 0;
-    uint32_t fps = 60;
 
     if (argc > 1) {
         const std::string object_path = argv[1];
@@ -72,12 +58,28 @@ int main(int argc, char *argv[]) {
 
     // TODO: Render the loaded object onto the screen.
 
+    bool running = true;
+    bool debug = false;
+    SDL_Event event;
+
+    uint32_t frame = 0;
+    uint32_t fps = 60;
+
+    Window window(800, 600, "Kokiri Framework",
+                  SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+
+    SDL_GLContext gl = SDL_GL_CreateContext(window.get_window());
+    // Send the gl context to the renderer
+    Renderer opengl_renderer = Renderer(gl);
+
     // if it isn't rendering an .obj file there's an enum to switch the rendered
     // polyhedron.
     enum Polyhedron {
         cube = 0,
-        sphere = 2,
-        tetrahedron = 4
+        sphere = 1,
+        tetrahedron = 2,
+        cone = 3,
+        triangle = 4
     };
 
     Polyhedron render_polyhedron = Polyhedron::cube;
@@ -123,6 +125,12 @@ int main(int argc, char *argv[]) {
             case SDLK_3:
                 render_polyhedron = Polyhedron::tetrahedron;
                 break;
+            case SDLK_4:
+                render_polyhedron = Polyhedron::cone;
+                break;
+            case SDLK_5:
+                render_polyhedron = Polyhedron::triangle;
+                break;
             }
         default:
 #ifdef DEBUG
@@ -142,6 +150,12 @@ int main(int argc, char *argv[]) {
             break;
         case tetrahedron:
             Primitives::tetrahedron();
+            break;
+        case cone:
+            Primitives::cone();
+            break;
+        case triangle:
+            Primitives::triangle();
             break;
         }
 
