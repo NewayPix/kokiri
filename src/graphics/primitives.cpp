@@ -88,7 +88,7 @@ void Primitives::sphere(float radius) {
 
     float partition_angle = 2*M_PI/360;
 
-    for (int i = 0; i < 360; i++) {
+    for (int i = 0; i < 720; i++) {
         glBegin(GL_LINES);
         for (int j = 0; j < 180; j++) {
             float x = radius*cos(partition_angle*i)*sin(partition_angle*j);
