@@ -27,7 +27,7 @@
 #define GENERIC_LOADER_H
 
 #include "object.hpp"
-#include "generic_loader.hpp"
+#include "loader.hpp"
 
 /**
  * @brief Loads an object file

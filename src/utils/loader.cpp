@@ -23,4 +23,8 @@
  * IN THE  SOFTWARE.
  */
 
-#include "generic_loader.hpp"
+#include "loader.hpp"
+
+Loader::Loader() {}
+
+Loader::~Loader() {}

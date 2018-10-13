@@ -23,29 +23,8 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef OBJECT_LOADER_H
-#define GENERIC_LOADER_H
+#include "printer.hpp"
 
-#include <fstream>
-#include <memory>
+Printer::Printer() {}
 
-#include "object.hpp"
-
-/**
- * @brief This interface provides the basic API on which the Kokiri object
- * loader subsystem works. It implements the strategy design patter which lets
- * you choose the specific loader that complies with the API provided.
- */
-class GenericLoader {
-public:
-    GenericLoader() {};
-    GenericLoader(const std::string path) {};
-    virtual ~GenericLoader() {};
-
-    virtual Object load() = 0;
-    virtual Object load(const std::string &path) = 0;
-protected:
-    std::unique_ptr<std::ifstream> file;
-};
-
-#endif // GENERIC_LOADER_H
+Printer::~Printer() {}
