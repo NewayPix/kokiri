@@ -37,7 +37,7 @@
 
 // This is ugly but I have to use for a while
 #include "../maths/vector3.hpp"
-#include "../utils/loaders/object.hpp"
+#include "../utils/object.hpp"
 
 /**
  * @brief
