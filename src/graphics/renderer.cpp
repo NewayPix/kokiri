@@ -30,8 +30,8 @@
 
 Renderer::Renderer(SDL_GLContext& gl_context) {
 
-// making _renderer point to a copy of the renderer pointer.
-    _gl_context = gl_context;
+    // making _renderer point to a copy of the renderer pointer.
+    m_gl_context = gl_context;
 
     glClearColor(0, 0, 0, 1);
     glMatrixMode(GL_PROJECTION);
@@ -60,7 +60,10 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     glTranslatef(0.0, 0.0, -3.0);
 }
 
-Renderer::~Renderer() {}
+Renderer::~Renderer() {
+    Debug::log("Destroying context/renderer/window");
+    SDL_GL_DeleteContext(m_gl_context);
+}
 
 void Renderer::information() {
 
@@ -77,9 +80,6 @@ void Renderer::render_view() {
 
     glClearColor(0.3, 0.5, 0.9, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // not used here
-    float material_light[] = {0.2, 0.2, 0.2, 0.2};
 
     // need the width and the height of the screen for grid lines
     /*glColor3f(255, 255, 255);
