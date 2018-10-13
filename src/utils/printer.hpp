@@ -23,29 +23,26 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef PRINTER_H
+#define PRINTER_H
 
-#include <vector>
 #include <string>
 
-#include "../../maths/vector3.hpp"
-
-#include <glm.hpp>
+#include "object.hpp"
 
 /**
- * @brief Represents an object to be rendered.
+ * @brief The printer interface describes a function to print objects,
+ * implemented by all sort of specific printers like the object_printer which
+ * prints an *.obj file.
  */
-class Object {
-public:
-    Object();
-    ~Object();
-
-    Object load_file(std::string &filename);
+class Printer {
+private:
 
 public:
-    std::vector<glm::vec3> vertices;
-    std::vector<glm::vec3> normals;
+    Printer();
+    virtual ~Printer();
+
+    virtual void print(const std::string& filename, const Object& obj) = 0;
 };
 
-#endif // OBJECT
+#endif // PRINTER_H
