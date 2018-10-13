@@ -56,12 +56,18 @@ set(SRC src/maths/vector3.cpp
   src/graphics/primitives.cpp
   src/graphics/renderer.cpp
   src/graphics/renderer.hpp
-  src/utils/loaders/object.cpp
-  src/utils/loaders/object.hpp
-  src/utils/loaders/generic_loader.hpp
-  src/utils/loaders/generic_loader.cpp
-  src/utils/loaders/object_loader.cpp
-  src/utils/loaders/object_loader.hpp
+  src/graphics/shader.hpp
+  src/graphics/shader.cpp
+  src/utils/object.cpp
+  src/utils/object.hpp
+  src/utils/loader.hpp
+  src/utils/loader.cpp
+  src/utils/object_loader.cpp
+  src/utils/object_loader.hpp
+  src/utils/printer.hpp
+  src/utils/printer.cpp
+  src/utils/object_printer.hpp
+  src/utils/object_printer.cpp
   src/utils/debug/debug.cpp
   src/utils/debug/debug.hpp
   src/main.cpp)
