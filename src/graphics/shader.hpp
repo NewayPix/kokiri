@@ -23,24 +23,46 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef PRIMITIVES_H
-#define PRIMITIVES_H
+#ifndef SHADER_H
+#define SHADER_H
+
+#include <string>
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+#include <glm.hpp>
+
+#ifdef __WIN32__
+    #include <GL/glext.h>
+#endif
 
 /**
- * @brief This class contains a lot of definitions of solids in the old OpenGL
- * for testing purposes.
+ * The Shader class represents a resource that is used in the OpenGL pipeline in
+ * order to provide post rendering effects. The shader can be of these three
+ * main types:
+ * 1. Fragment shader
+ * 2. Vertex shader
+ * 3. Volume shader
+ *
+ * The first two are quite used on most applications and the are available
+ * through GL_<SHADER_TYPE>_SHADER.
  */
-class Primitives {
+class Shader {
 private:
-    Primitives() {}
-    ~Primitives() {}
+    /// The handle that represents the shader
+    GLuint handle;
+
+    /// The source code of the shader
+    std::string code;
 
 public:
-    static void cube(float size = 2.0);
-    static void sphere(float radius = 1.5);
-    static void tetrahedron(float length = 2.0);
-    static void cone(float height = 1.0, float radius = 2.0);
-    static void triangle();
+    Shader(const std::string &shader, GLenum  shader_type);
+    virtual ~Shader();
+
+    std::string get_source_code() const;
+
+    GLuint get_handle() const;
 };
 
-#endif // PRIMITIVES_H
+#endif // SHADER_H

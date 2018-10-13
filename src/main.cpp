@@ -31,7 +31,7 @@
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
 #include "graphics/primitives.hpp"
-#include "utils/loaders/object_loader.hpp"
+#include "utils/object_loader.hpp"
 #include "utils/debug/debug.hpp"
 
 /**
@@ -143,18 +143,23 @@ int main(int argc, char *argv[]) {
 
         switch (render_polyhedron) {
         case cube:
+            glColor3f(.5, .0, .5);
             Primitives::cube();
             break;
         case sphere:
+            glColor3f(.5, .0, .5);
             Primitives::sphere();
             break;
         case tetrahedron:
+            glColor3f(.5, .0, .5);
             Primitives::tetrahedron();
             break;
         case cone:
+            glColor3f(.5, .0, .5);
             Primitives::cone();
             break;
         case triangle:
+            glColor3f(.5, .0, .5);
             Primitives::triangle();
             break;
         }
@@ -172,12 +177,7 @@ int main(int argc, char *argv[]) {
 #endif // DEBUG
     }
 
-    Debug::log("Destroying context/renderer/window");
-
-    SDL_GL_DeleteContext(gl);
-
     Debug::log("Exiting SDL2\n");
-
     SDL_Quit();
 
     // Cleaning everything else.

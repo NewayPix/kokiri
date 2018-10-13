@@ -33,7 +33,6 @@
 
 #ifdef __WIN32__
     #include <GL/glext.h>
-    #include <glm.hpp>
 #endif
 
 // This is ugly but I have to use for a while
@@ -45,7 +44,7 @@
  */
 class Renderer {
 private:
-    SDL_GLContext _gl_context;
+    SDL_GLContext m_gl_context;
 public:
     /**
      * @brief Creates a renderer with an OpenGL context.
