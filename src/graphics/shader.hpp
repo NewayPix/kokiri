@@ -31,10 +31,10 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-#include <glm.hpp>
-
 #ifdef __WIN32__
-    #include <GL/glext.h>
+#include <GL/glext.h>
+#else
+#include <glm/glm.hpp>
 #endif
 
 /**
