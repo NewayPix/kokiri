@@ -39,7 +39,7 @@
 class Loader {
 public:
     Loader() {};
-    Loader(const std::string path) {};
+    Loader(const std::string &path) {};
     virtual ~Loader() {};
 
     virtual Object load() = 0;

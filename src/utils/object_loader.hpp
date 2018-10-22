@@ -32,7 +32,7 @@
 /**
  * @brief Loads an object file
  */
-class ObjectLoader : protected GenericLoader {
+class ObjectLoader : protected Loader {
 public:
     ObjectLoader();
     ObjectLoader(const std::string &path);
