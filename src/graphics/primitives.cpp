@@ -23,13 +23,11 @@
  * IN THE  SOFTWARE.
  */
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-
 #include <cmath>
 
-#include "primitives.hpp"
+#include <glad/glad.h>
 
+#include "primitives.hpp"
 
 // Quick fix for a while, some extended math library has to be written in order
 // to provide some extensions.
