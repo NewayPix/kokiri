@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8)
-project ("Object Renderer")
+project ("Kokiri")
 
 find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -19,14 +19,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Something like -DCMAKE_PREFIX_PATH=<sdl2_path> where <sdl2_path> may be
 # "C:/SDL2/"
 find_path(SDL2_INCLUDE_DIR "SDL2/SDL.h")
-
 find_path(GLM_DIR "glm.hpp" PATH_SUFFIXES "glm")
 
 message("Found SDL2: " ${SDL2_INCLUDE_DIR})
 message("Found GLM: " ${GLM_DIR})
 
-include_directories("Object Renderer" ${SDL2_INCLUDE_DIR})
-include_directories("Object Renderer" ${GLM_DIR})
+include_directories("Kokiri" ${SDL2_INCLUDE_DIR})
+include_directories("Kokiri" ${GLM_DIR})
 
 if (WIN32)
   if (DEBUG)
@@ -48,7 +47,9 @@ endif()
 
 # TODO: Include all of those projects later
 
-set(SRC src/maths/vector3.cpp
+set(SRC
+  src/3rd/glad/glad.c
+  src/maths/vector3.cpp
   src/maths/vector3.hpp
   src/graphics/window.hpp
   src/graphics/window.cpp
@@ -76,4 +77,4 @@ add_executable(${EXEC_NAME} ${SRC})
 
 # Link with OpenGL and SDL2
 target_link_libraries(${EXEC_NAME} ${SDL2_LIBRARIES} ${OPENGL_LIBRARIES}
-  ${GLU_LIBRARY})
+  ${GLU_LIBRARY} ${CMAKE_DL_LIBS})
