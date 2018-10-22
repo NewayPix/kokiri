@@ -28,7 +28,9 @@
 
 #include <SDL2/SDL.h>
 
-#include <GL/gl.h>
+#include <glad/glad.h>
+
+// FIXME: Using glu while not using the glm implementation of the camera
 #include <GL/glu.h>
 
 #ifdef __WIN32__

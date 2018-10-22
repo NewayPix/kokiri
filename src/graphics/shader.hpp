@@ -28,8 +28,7 @@
 
 #include <string>
 
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include <glad/glad.h>
 
 #ifdef __WIN32__
 #include <GL/glext.h>
@@ -38,9 +37,9 @@
 #endif
 
 /**
- * The Shader class represents a resource that is used in the OpenGL pipeline in
- * order to provide post rendering effects. The shader can be of these three
- * main types:
+ * @brief The Shader class represents a resource that is used in the OpenGL
+ * pipeline in order to provide post rendering effects. The shader can be of
+ * these three main types:
  * 1. Fragment shader
  * 2. Vertex shader
  * 3. Volume shader
@@ -54,10 +53,15 @@ private:
     GLuint handle;
 
     /// The source code of the shader
-    std::string code;
+    std::string m_code;
 
 public:
-    Shader(const std::string &shader, GLenum  shader_type);
+    /**
+     * @brief Constructs the shader of a shader_type param
+     * @param code
+     * @param shader_type
+     */
+    Shader(const std::string &code, GLenum  shader_type);
     virtual ~Shader();
 
     std::string get_source_code() const;

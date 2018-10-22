@@ -28,6 +28,8 @@
 
 #include <SDL2/SDL.h>
 
+#include <glad/glad.h>
+
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
 #include "graphics/primitives.hpp"
@@ -71,6 +73,9 @@ int main(int argc, char *argv[]) {
     SDL_GLContext gl = SDL_GL_CreateContext(window.get_window());
     // Send the gl context to the renderer
     Renderer opengl_renderer = Renderer(gl);
+
+    // TODO: Refactor this in some other way.
+    Debug::log("OpenGL version: ", GLVersion.major, ".", GLVersion.minor);
 
     // if it isn't rendering an .obj file there's an enum to switch the rendered
     // polyhedron.
@@ -173,7 +178,7 @@ int main(int argc, char *argv[]) {
         }
 
 #ifdef DEBUG
-            Debug::log("Delay: ", delay);
+        Debug::log("Delay: ", delay);
 #endif // DEBUG
     }
 
