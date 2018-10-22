@@ -24,7 +24,3 @@
  */
 
 #include "loader.hpp"
-
-Loader::Loader() {}
-
-Loader::~Loader() {}
