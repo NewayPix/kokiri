@@ -27,8 +27,8 @@
 #define PRIMITIVES_H
 
 /**
- * @brief This class contains a lot of definitions of solids in the old OpenGL
- * for testing purposes.
+ * @brief This class contains a lot of definitions of some solids implemented 
+ * only for testing purposes with OpenGL 1.0.
  */
 class Primitives {
 private:
