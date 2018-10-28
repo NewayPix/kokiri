@@ -17,5 +17,9 @@ Object ObjectLoader::load() {
 }
 
 Object ObjectLoader::load(const std::string &path) {
-    return Object();
+    Object dummy;
+
+    // TODO: Load the object (Julio's task)
+
+    return dummy;
 }
