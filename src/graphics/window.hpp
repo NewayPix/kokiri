@@ -35,7 +35,7 @@
 #include "../utils/debug/debug.hpp"
 
 /**
- * @brief
+ * @brief An abstraction over the SDL_Window struct that provides an object oriented facilities.
  */
 class Window {
 public:
@@ -43,7 +43,13 @@ public:
     Window(int width, int height, const std::string &title, int32_t flags);
     ~Window();
 
+    /**
+     * @brief Returns a pointer to the current SDL_Window.
+     */
     SDL_Window   *get_window();
+    /**
+     * @brief Returns a pointer to the current renderer of the window.
+     */
     SDL_Renderer *get_renderer();
 
 private:

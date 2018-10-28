@@ -56,7 +56,9 @@ Window::Window(int width, int height, const std::string &title, int32_t flags) {
 }
 
 Window::~Window() {
+    Debug::log("Destroying renderer");
     SDL_DestroyRenderer(m_window_renderer);
+    Debug::log("Destroying window");
     SDL_DestroyWindow(m_window);
 }
 
