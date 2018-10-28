@@ -37,6 +37,8 @@
     #include <GL/glext.h>
 #endif
 
+#include "window.hpp"
+
 // This is ugly but I have to use for a while
 #include "../maths/vector3.hpp"
 #include "../utils/object.hpp"
@@ -52,7 +54,7 @@ public:
      * @brief Creates a renderer with an OpenGL context.
      * @param gl_context
      */
-    Renderer(SDL_GLContext& gl_context);
+    Renderer(Window&& window);
     ~Renderer();
 
     /**

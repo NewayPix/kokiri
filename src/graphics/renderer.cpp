@@ -28,10 +28,7 @@
 
 #include "../utils/debug/debug.hpp"
 
-Renderer::Renderer(SDL_GLContext& gl_context) {
-
-    // making _renderer point to a copy of the renderer pointer.
-    m_gl_context = gl_context;
+Renderer::Renderer(Window&& window) {
 
     // Before constructing the OpenGL context set the GL attributes.
     // TODO: Create an interface to change this (it depends on glad as well).
@@ -39,6 +36,9 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
                         SDL_GL_CONTEXT_PROFILE_CORE);
+
+    // making _renderer point to a copy of the renderer pointer.
+    m_gl_context = SDL_GL_CreateContext(window.get_window());
 
     if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
         // TODO: Improve error message

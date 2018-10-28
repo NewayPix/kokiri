@@ -69,10 +69,7 @@ int main(int argc, char *argv[]) {
     Window window(800, 600, "Kokiri Framework",
                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    SDL_GLContext gl = SDL_GL_CreateContext(window.get_window());
-
-    // Send the gl context to the renderer
-    Renderer opengl_renderer = Renderer(gl);
+    Renderer opengl_renderer(std::move(window));
     opengl_renderer.information();
 
     // if it isn't rendering an .obj file there's an enum to switch the rendered
