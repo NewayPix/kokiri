@@ -33,6 +33,7 @@
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
 #include "graphics/primitives.hpp"
+#include "graphics/shader.hpp"
 #include "utils/object_loader.hpp"
 #include "utils/debug/debug.hpp"
 
@@ -50,15 +51,13 @@ int main(int argc, char *argv[]) {
         auto const dot_pos = object_path.find_last_of('.');
 
         if (object_path.substr(dot_pos+1) == "obj") {
-            //loader = new ObjectLoader(object_path);
-
+            // TODO: Render the loaded object onto the screen.
+            loader = new ObjectLoader(object_path);
         } else {
             usage();
             exit(0);
         }
     }
-
-    // TODO: Render the loaded object onto the screen.
 
     bool running = true;
     bool debug = false;
@@ -71,11 +70,10 @@ int main(int argc, char *argv[]) {
                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
     SDL_GLContext gl = SDL_GL_CreateContext(window.get_window());
+
     // Send the gl context to the renderer
     Renderer opengl_renderer = Renderer(gl);
-
-    // TODO: Refactor this in some other way.
-    Debug::log("OpenGL version: ", GLVersion.major, ".", GLVersion.minor);
+    opengl_renderer.information();
 
     // if it isn't rendering an .obj file there's an enum to switch the rendered
     // polyhedron.
@@ -182,7 +180,7 @@ int main(int argc, char *argv[]) {
 #endif // DEBUG
     }
 
-    Debug::log("Exiting SDL2\n");
+    Debug::log("Exiting SDL2");
     SDL_Quit();
 
     // Cleaning everything else.
