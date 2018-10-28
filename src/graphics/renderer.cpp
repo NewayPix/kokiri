@@ -29,12 +29,17 @@
 
 #include "../utils/debug/debug.hpp"
 
-Renderer::Renderer(Window &&window) {}
+Renderer::Renderer(Window&& window) {
+    // making _renderer point to a copy of the renderer pointer.
+    m_gl_context = SDL_GL_CreateContext(window.get_window());
 
-Renderer::~Renderer() {}
+    if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
+        // TODO: Improve error message
+        Debug::log_err("OpenGL context couldn't be created");
+        exit(1);
+    }
+}
 
 void Renderer::render_view() {}
-
-void Renderer::render(Object object) {}
 
 void Renderer::information() {}

@@ -51,7 +51,20 @@ int main(int argc, char *argv[]) {
     Window window(800, 600, "Kokiri Framework",
                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    OpenGLRenderer renderer = OpenGLRenderer(std::move(window));
+    Renderer opengl_renderer(std::move(window));
+    opengl_renderer.information();
+
+    // if it isn't rendering an .obj file there's an enum to switch the rendered
+    // polyhedron.
+    enum Polyhedron {
+        cube = 0,
+        sphere = 1,
+        tetrahedron = 2,
+        cone = 3,
+        triangle = 4
+    };
+
+    Polyhedron render_polyhedron = Polyhedron::cube;
 
     while (running) {
         frame = SDL_GetTicks();
