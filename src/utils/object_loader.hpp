@@ -30,7 +30,7 @@
 #include "loader.hpp"
 
 /**
- * @brief Loads an object file
+ * @brief Loads an object file of the .obj extension.
  */
 class ObjectLoader : protected Loader {
 public:

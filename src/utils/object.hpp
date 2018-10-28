@@ -41,11 +41,13 @@ public:
     Object();
     ~Object();
 
-    Object load_file(std::string &filename);
-
 public:
+    /// The vertices of the object as encoded on the specified format
     std::vector<glm::vec3> vertices;
+    /// The normals of the vertices as encoded on the specified format
     std::vector<glm::vec3> normals;
 };
+
+
 
 #endif // OBJECT
