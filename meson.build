@@ -31,4 +31,5 @@ src = ['src/main.cpp',
 #                             input : sources,
 #)
 
-executable('renderer', src, dependencies : [dl, sdl2, sdl2_ttf, sdl2_image, glu])
+executable('renderer', src,
+           dependencies : [dl, sdl2, sdl2_ttf, sdl2_image, glu])
