@@ -17,6 +17,12 @@ cmake_install.cmake
 Makefile
 
 #
+# Meson and ninja files
+#
+bin/*ninja*
+bin/
+
+#
 # Ignore vscode folder
 #
 .vscode/
