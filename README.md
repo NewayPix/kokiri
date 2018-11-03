@@ -1,27 +1,25 @@
-# An object renderer
+# Kokiri
 
-An experimental renderer which uses SDL2 and OpenGL to render `.obj`
-files. It is in early stages of development, so don't expect much of it.
-
-
-*This was just used in a Computer Graphics presentation. The images
-below demonstrate what can be visualized.*
-
-![Cube](cube.png)
+Kokiri is a framework used to build games. It uses the SDL2 layer to construct
+windows, renderers and to handle events. It uses OpenGL as the backend with the
+mind of supporting other backends in the future as well, although this may be
+quite difficult an effort should be put into to support at least Vulkan.
 
 # Building it
 
-It is simple, download the source code and use CMake to generate the
-proper makefiles. Mind you some dependencies are required before
-building it yourself, such as:
+today we are quite busy on a transition to meson, for now you can use CMake.
+Just download the source code and use CMake to generate the proper makefiles.
+Mind you some dependencies are required before building it yourself, such as:
 
 * SDL2
+* SDL2 image
+* SDL2 ttf
 * OpenGL
 * C++14
 
 ## Linux
 
-Follow the steps below to build it:
+On linux you can follow the steps below to build it:
 
 1. `cmake ./`
 2. `make`
