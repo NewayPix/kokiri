@@ -74,7 +74,7 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
 }
 
 Renderer::~Renderer() {
-    Debug::log("Destroying OpenGL context");
+    Debug::log("Destroying OpenGL Context");
     SDL_GL_DeleteContext(m_gl_context);
 }
 
