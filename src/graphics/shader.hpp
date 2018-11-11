@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -50,7 +50,7 @@
 class Shader {
 private:
     /// The handle that represents the shader
-    GLuint handle;
+    GLuint m_handle;
 
     /// The source code of the shader
     std::string m_code;
@@ -58,8 +58,9 @@ private:
 public:
     /**
      * @brief Constructs the shader of a shader_type param
-     * @param code
-     * @param shader_type
+     * @param code The source code of the shader
+     * @param shader_type The type of the shader, which can vary from
+     *  fragment, vertex and volume shader.
      */
     Shader(const std::string &code, GLenum  shader_type);
     virtual ~Shader();

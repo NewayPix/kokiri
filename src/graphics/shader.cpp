@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -29,13 +29,13 @@
 
 Shader::Shader(const std::string &code, GLenum shader_type) : m_code(code) {
     // TODO: Change this for the choosen enum
-    handle = glCreateShader(GL_FRAGMENT_SHADER);
+    m_handle = glCreateShader(GL_FRAGMENT_SHADER);
 
     // Not sure if this is the way to do it
     const GLchar *const *source = (const GLchar* const *) code.c_str();
 
-    glShaderSource(handle, 1, source,  nullptr);
-    glCompileShader(handle);
+    glShaderSource(m_handle, 1, source,  nullptr);
+    glCompileShader(m_handle);
 
     // Change this for exceptions and get all possible errors that can occur.
     if (glGetError() != GL_NO_ERROR) {
@@ -44,8 +44,11 @@ Shader::Shader(const std::string &code, GLenum shader_type) : m_code(code) {
     }
 }
 
-Shader::~Shader() {}
+Shader::~Shader() {
+    glDeleteShader(m_handle);
+}
+
 
 GLuint Shader::get_handle() const {
-    return handle;
+    return m_handle;
 }
