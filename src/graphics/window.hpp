@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -35,7 +35,8 @@
 #include "../utils/debug/debug.hpp"
 
 /**
- * @brief An abstraction over the SDL_Window struct that provides an object oriented facilities.
+ * @brief An abstraction over the SDL_Window struct that provides an object
+ * oriented facilities.
  */
 class Window {
 public:
@@ -52,11 +53,21 @@ public:
      */
     SDL_Renderer *get_renderer();
 
+    /**
+     * @brief Returns the width of the window
+     */
+    int width();
+    /**
+     * @brief Returns the height of the window
+     */
+    int height();
+
 private:
     SDL_Window* m_window;
     SDL_Renderer* m_window_renderer;
 
-
+    int m_width;
+    int m_height;
 };
 
 

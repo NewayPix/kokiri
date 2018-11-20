@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -53,6 +53,9 @@ Window::Window(int width, int height, const std::string &title, int32_t flags) {
         Debug::log_err("Reason: ", SDL_GetError());
         exit(1);
     }
+
+    m_width = width;
+    m_height = height;
 }
 
 Window::~Window() {
@@ -68,4 +71,12 @@ SDL_Window *Window::get_window() {
 
 SDL_Renderer *Window::get_renderer() {
     return m_window_renderer;
+}
+
+int Window::width() {
+    return m_width;
+}
+
+int Window::height() {
+    return m_height;
 }
