@@ -23,18 +23,32 @@
  * IN THE  SOFTWARE.
  */
 
+#ifndef RENDERER_OPENGL_H
+#define RENDERER_OPENGL_H
+
+#include <glad/glad.h>
+
+#include <GL/glu.h>
+
+#if defined(__WIN32__) || defined(__WIN32) || defined(__MINGW32__)
+#include <GL/glext.h>
+#endif
+
 #include "renderer.hpp"
-#include "primitives.hpp"
-#include "context.hpp"
+#include "window.hpp"
 
-#include "../utils/debug/debug.hpp"
+class OpenGLRenderer : Renderer {
+public:
+    OpenGLRenderer(Window &&window);
+    ~OpenGLRenderer();
 
-Renderer::Renderer(Window &&window) {}
+    void render_view() override;
+    void render(Object object) override;
 
-Renderer::~Renderer() {}
+    /**
+     * @brief Writes information about the renderer on the default stdout.
+     */
+    void information() override;
+};
 
-void Renderer::render_view() {}
-
-void Renderer::render(Object object) {}
-
-void Renderer::information() {}
+#endif // RENDERER_OPENGL_H

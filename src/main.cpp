@@ -32,6 +32,7 @@
 
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
+#include "graphics/renderer_opengl.hpp"
 #include "graphics/primitives.hpp"
 #include "graphics/shader.hpp"
 #include "utils/object_loader.hpp"
@@ -69,11 +70,7 @@ int main(int argc, char *argv[]) {
     Window window(800, 600, "Kokiri Framework",
                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    SDL_GLContext gl = SDL_GL_CreateContext(window.get_window());
-
-    // Send the gl context to the renderer
-    Renderer opengl_renderer = Renderer(gl);
-    opengl_renderer.information();
+    OpenGLRenderer renderer = OpenGLRenderer(std::move(window));
 
     // if it isn't rendering an .obj file there's an enum to switch the rendered
     // polyhedron.
@@ -102,16 +99,16 @@ int main(int argc, char *argv[]) {
              */
             switch(event.key.keysym.sym) {
             case SDLK_UP:
-                opengl_renderer.rotate(2, -1, 0, 0);
+                renderer.rotate(2, -1, 0, 0);
                 break;
             case SDLK_DOWN:
-                opengl_renderer.rotate(2, 1, 0, 0);
+                renderer.rotate(2, 1, 0, 0);
                 break;
             case SDLK_LEFT:
-                opengl_renderer.rotate(2, 0, -1, 0);
+                renderer.rotate(2, 0, -1, 0);
                 break;
             case SDLK_RIGHT:
-                opengl_renderer.rotate(2, 0, 1, 0);
+                renderer.rotate(2, 0, 1, 0);
                 break;
             case SDLK_ESCAPE:
                 running = false;
@@ -134,15 +131,15 @@ int main(int argc, char *argv[]) {
             case SDLK_5:
                 render_polyhedron = Polyhedron::triangle;
                 break;
-            }
-        default:
-#ifdef DEBUG
-            std::cout << "Event: " << event.type << std::endl;
+
+            default:
+#ifdef DEBUG}
+                std::cout << "Event: " << event.type << std::endl;
 #endif // DEBUG
             break;
         }
 
-        opengl_renderer.render_view();
+        renderer.render_view();
 
         switch (render_polyhedron) {
         case cube:
@@ -189,16 +186,17 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+
 void usage() {
     std::cerr << ERROR_COLOR
               << "This program should be run with one of the current ways:\n"
               << "\n";
 #ifdef __WIN32__
-    std::cerr << "\t1) renderer.exe <path_to_object.obj>\n"
-              << "\t2) renderer.exe";
+    std::cerr << "\t1) kokiri.exe <path_to_object.obj>\n"
+              << "\t2) kokiri.exe";
 #else
-    std::cerr << "\t1) renderer.out <path_to_object.obj>\n"
-              << "\t2) renderer.out";
+    std::cerr << "\t1) kokiri.out <path_to_object.obj>\n"
+              << "\t2) kokiri.out";
 #endif
     std::cerr << RESET_COLOR << std::endl;
 }
