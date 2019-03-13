@@ -30,25 +30,25 @@ include_directories("Kokiri" ${GLM_DIR})
 if (WIN32)
   if (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_DEBUG_FLAGS}")
-    set(EXEC_NAME "renderer_debug")
+    set(EXEC_NAME "kokiri_debug")
   else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_FLAGS}")
-    set(EXEC_NAME "renderer")
+    set(EXEC_NAME "kokiri")
   endif()
 elseif (UNIX)
   if (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_DEBUG_FLAGS}")
-    set(EXEC_NAME "renderer_debug.out")
+    set(EXEC_NAME "kokiri_debug.out")
   else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_FLAGS}")
-    set(EXEC_NAME "renderer.out")
+    set(EXEC_NAME "kokiri.out")
   endif()
 endif()
 
 # TODO: Include all of those projects later
 
 set(SRC
-  src/3rd/glad/glad.c
+#  src/3rd/glad/glad.c
   src/maths/vector3.cpp
   src/maths/vector3.hpp
   src/graphics/window.hpp
@@ -59,6 +59,10 @@ set(SRC
   src/graphics/renderer.hpp
   src/graphics/shader.hpp
   src/graphics/shader.cpp
+  src/graphics/context.hpp
+  src/graphics/context.cpp
+  src/graphics/renderer_opengl.hpp
+  src/graphics/renderer_opengl.cpp
   src/utils/object.cpp
   src/utils/object.hpp
   src/utils/loader.hpp
@@ -71,6 +75,8 @@ set(SRC
   src/utils/object_printer.cpp
   src/utils/debug/debug.cpp
   src/utils/debug/debug.hpp
+  src/ui/font.cpp
+  src/ui/font.hpp
   src/main.cpp)
 
 add_executable(${EXEC_NAME} ${SRC})
