@@ -48,13 +48,11 @@ endif()
 # TODO: Include all of those projects later
 
 set(SRC
-#  src/3rd/glad/glad.c
+  src/3rd/glad/glad.c
   src/maths/vector3.cpp
   src/maths/vector3.hpp
   src/graphics/window.hpp
   src/graphics/window.cpp
-  src/graphics/primitives.hpp
-  src/graphics/primitives.cpp
   src/graphics/renderer.cpp
   src/graphics/renderer.hpp
   src/graphics/shader.hpp

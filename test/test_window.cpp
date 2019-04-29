@@ -68,16 +68,16 @@ int main(int argc, char *argv[]) {
              */
             switch(event.key.keysym.sym) {
             case SDLK_UP:
-                renderer.rotate(2, -1, 0, 0);
+                //renderer.rotate(2, -1, 0, 0);
                 break;
             case SDLK_DOWN:
-                renderer.rotate(2, 1, 0, 0);
+                //renderer.rotate(2, 1, 0, 0);
                 break;
             case SDLK_LEFT:
-                renderer.rotate(2, 0, -1, 0);
+                //renderer.rotate(2, 0, -1, 0);
                 break;
             case SDLK_RIGHT:
-                renderer.rotate(2, 0, 1, 0);
+                //renderer.rotate(2, 0, 1, 0);
                 break;
             case SDLK_ESCAPE:
                 running = false;
@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
                 std::cout << "Event: " << event.type << std::endl;
 #endif // DEBUG
-            break;
+                break;
             }
         }
 
@@ -113,3 +113,20 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+<<<<<<< HEAD:test/test_window.cpp
+=======
+
+void usage() {
+    std::cerr << ERROR_COLOR
+              << "This program should be run with one of the current ways:\n"
+              << "\n";
+#ifdef __WIN32__
+    std::cerr << "\t1) kokiri.exe <path_to_object.obj>\n"
+              << "\t2) kokiri.exe";
+#else
+    std::cerr << "\t1) kokiri.out <path_to_object.obj>\n"
+              << "\t2) kokiri.out";
+#endif
+    std::cerr << RESET_COLOR << std::endl;
+}
+>>>>>>> 9d7b62f (Remove the primitives files):src/main.cpp
