@@ -72,18 +72,6 @@ int main(int argc, char *argv[]) {
 
     OpenGLRenderer renderer = OpenGLRenderer(std::move(window));
 
-    // if it isn't rendering an .obj file there's an enum to switch the rendered
-    // polyhedron.
-    enum Polyhedron {
-        cube = 0,
-        sphere = 1,
-        tetrahedron = 2,
-        cone = 3,
-        triangle = 4
-    };
-
-    Polyhedron render_polyhedron = Polyhedron::cube;
-
     while (running) {
         frame = SDL_GetTicks();
 
@@ -99,16 +87,16 @@ int main(int argc, char *argv[]) {
              */
             switch(event.key.keysym.sym) {
             case SDLK_UP:
-                renderer.rotate(2, -1, 0, 0);
+                //renderer.rotate(2, -1, 0, 0);
                 break;
             case SDLK_DOWN:
-                renderer.rotate(2, 1, 0, 0);
+                //renderer.rotate(2, 1, 0, 0);
                 break;
             case SDLK_LEFT:
-                renderer.rotate(2, 0, -1, 0);
+                //renderer.rotate(2, 0, -1, 0);
                 break;
             case SDLK_RIGHT:
-                renderer.rotate(2, 0, 1, 0);
+                //renderer.rotate(2, 0, 1, 0);
                 break;
             case SDLK_ESCAPE:
                 running = false;
@@ -116,53 +104,15 @@ int main(int argc, char *argv[]) {
             case SDLK_d:
                 debug = !debug;
                 break;
-            case SDLK_1:
-                render_polyhedron = Polyhedron::cube;
-                break;
-            case SDLK_2:
-                render_polyhedron = Polyhedron::sphere;
-                break;
-            case SDLK_3:
-                render_polyhedron = Polyhedron::tetrahedron;
-                break;
-            case SDLK_4:
-                render_polyhedron = Polyhedron::cone;
-                break;
-            case SDLK_5:
-                render_polyhedron = Polyhedron::triangle;
-                break;
-
             default:
-#ifdef DEBUG}
+#ifdef DEBUG
                 std::cout << "Event: " << event.type << std::endl;
 #endif // DEBUG
-            break;
+                break;
+            }
         }
 
         renderer.render_view();
-
-        switch (render_polyhedron) {
-        case cube:
-            glColor3f(.5, .0, .5);
-            Primitives::cube();
-            break;
-        case sphere:
-            glColor3f(.5, .0, .5);
-            Primitives::sphere();
-            break;
-        case tetrahedron:
-            glColor3f(.5, .0, .5);
-            Primitives::tetrahedron();
-            break;
-        case cone:
-            glColor3f(.5, .0, .5);
-            Primitives::cone();
-            break;
-        case triangle:
-            glColor3f(.5, .0, .5);
-            Primitives::triangle();
-            break;
-        }
 
         SDL_GL_SwapWindow(window.get_window());
 
@@ -185,7 +135,6 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
 
 void usage() {
     std::cerr << ERROR_COLOR
