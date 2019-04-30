@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,11 +23,18 @@
  * IN THE  SOFTWARE.
  */
 
-#include "renderer.hpp"
+#include "context.hpp"
+#include "renderer_opengl.hpp"
 
-Renderer::Renderer(SDL_GLContext& gl_context) {
-    // making _renderer point to a copy of the renderer pointer.
-    _gl_context = gl_context;
+#include "../3rd/glad/glad.h"
+#include "../utils/debug/debug.hpp"
+
+
+OpenGLRenderer::OpenGLRenderer(Window &&window) : Renderer(std::move(window)) {
+
+    // Creates an OpenGL context for drawing
+    OpenGLContext opengl_context(std::move(window),
+                                 OpenGLContext::OGLContextType::CORE);
 
     glClearColor(0, 0, 0, 1);
     glMatrixMode(GL_PROJECTION);
@@ -52,71 +59,65 @@ Renderer::Renderer(SDL_GLContext& gl_context) {
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
     //Setting ambient light
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
-    
+
     glTranslatef(0.0, 0.0, -3.0);
 }
 
-void Renderer::render_cube(float size) {
-    glClearColor(0.3, 0.3, 0.3, 1);
+OpenGLRenderer::~OpenGLRenderer() {}
+
+void OpenGLRenderer::render_view() {
+    glClearColor(0.3, 0.5, 0.9, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    float material_light[] = {0.2, 0.2, 0.2, 0.2};
-    
-    glBegin(GL_QUADS);
-    // front face
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, material_light);
-    glNormal3f(0, 0, 1);
-    glVertex3f(size/2,size/2,size/2);
-    glVertex3f(-size/2,size/2,size/2);
-    glVertex3f(-size/2,-size/2,size/2);
-    glVertex3f(size/2,-size/2,size/2);
-    
-    // left face
-    glNormal3f(-1, 0, 0);
-    glVertex3f(-size/2,size/2,size/2);
-    glVertex3f(-size/2,-size/2,size/2);
-    glVertex3f(-size/2,-size/2,-size/2);
-    glVertex3f(-size/2,size/2,-size/2);
-    
-    // back face
-    glNormal3f(0, 0, -1);
-    glVertex3f(size/2,size/2,-size/2);
-    glVertex3f(-size/2,size/2,-size/2);
-    glVertex3f(-size/2,-size/2,-size/2);
-    glVertex3f(size/2,-size/2,-size/2);
-    
-    // right face
-    glNormal3f(1, 0, 0);
-    glVertex3f(size/2,size/2,size/2);
-    glVertex3f(size/2,-size/2,size/2);
-    glVertex3f(size/2,-size/2,-size/2);
-    glVertex3f(size/2,size/2,-size/2);
-    
-    // top face
-    glNormal3f(0, 1, 0);
-    glVertex3f(size/2,size/2,size/2);
-    glVertex3f(-size/2,size/2,size/2);
-    glVertex3f(-size/2,size/2,-size/2);
-    glVertex3f(size/2,size/2,-size/2);
-    
-    // bottom face
-    glNormal3f(0, -1, 0);
-    glVertex3f(size/2,-size/2,size/2);
-    glVertex3f(-size/2,-size/2,size/2);
-    glVertex3f(-size/2,-size/2,-size/2);
-    glVertex3f(size/2,-size/2,-size/2);
+
+    // need the width and the height of the screen for grid lines
+    /*glColor3f(255, 255, 255);
+      for (int i = 0; i < 800; i += 5) {
+      glBegin(GL_LINES);
+      glVertex2d(-1000, i);
+      glVertex2d(1000, i);
+      glEnd();
+      }
+      for (int i = 0; i < 600; i += 5) {
+      glBegin(GL_LINES);
+      glVertex2d(i, -1000);
+      glVertex2d(i, 1000);
+      glEnd();
+      }*/
+
+    // Axis lines
+    glColor3f(255, 0, 0);
+    glBegin(GL_LINES);
+    glVertex3d(0, 0, 0);
+    glVertex3d(2, 0, 0);
     glEnd();
+
+    glColor3f(0, 255, 0);
+    glBegin(GL_LINES);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 2, 0);
+    glEnd();
+
+    glColor3f(0, 0, 255);
+    glBegin(GL_LINES);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 0, 2);
+    glEnd();
+
+    glColor3f(120, 120, 120);
 }
 
-void Renderer::render(Object object) {
+void OpenGLRenderer::render(Object object) {
     glBufferData(GL_ARRAY_BUFFER, object.vertices.size() * sizeof(glm::vec3),
-		 &object.vertices[0], GL_STATIC_DRAW);
+                 &object.vertices[0], GL_STATIC_DRAW);
 }
 
-void Renderer::rotate(float angle, float x, float y, float z) {
-    glRotatef(angle, x, y, z);
-}
 
-void Renderer::rotate(float angle, Vector3<float> v) {
-    glRotatef(angle, v.m_x, v.m_y, v.m_z);
+void OpenGLRenderer::information() {
+    Debug::log("Plataform: ", SDL_GetPlatform());
+    Debug::log("OpenGL version: ", glGetString(GL_VERSION));
+    Debug::log("OpenGL vendor: ", glGetString(GL_VENDOR));
+    Debug::log("OpenGL renderer: ", glGetString(GL_RENDERER));
+#if !__WIN32__
+    Debug::log("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
+#endif // not adding more headers just to have this working, for now.
 }

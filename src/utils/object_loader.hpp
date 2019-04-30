@@ -1,5 +1,3 @@
-#include "object.hpp"
-
 /**
  * MIT License
  *
@@ -24,3 +22,24 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE  SOFTWARE.
  */
+
+#ifndef GENERIC_LOADER_H
+#define GENERIC_LOADER_H
+
+#include "object.hpp"
+#include "loader.hpp"
+
+/**
+ * @brief Loads an object file of the .obj extension.
+ */
+class ObjectLoader : protected Loader {
+public:
+    ObjectLoader();
+    ObjectLoader(const std::string &path);
+    virtual ~ObjectLoader();
+
+    Object load() override;
+    Object load(const std::string &path) override;
+};
+
+#endif // GENERIC_LOADER_H

@@ -23,27 +23,31 @@
  * IN THE  SOFTWARE.
  */
 
-#include "object_loader.hpp"
+#ifndef OBJECT_H
+#define OBJECT_H
 
-#include "debug.hpp"
+#include <vector>
+#include <string>
 
-ObjectLoader::ObjectLoader(const std::string path) {
-    file = std::make_unique<std::ifstream>(path, std::ios::in);
+#include "../maths/vector3.hpp"
 
-    if (!file.is_open()) {
-	Debug::log("Failure to open the file: ", path,
-		   ". The renderer will now quit.");
-	exit(1);
-	
-    }
-}
+#include <glm/glm.hpp>
 
-ObjectLoader::~ObjectLoader() {
+/**
+ * @brief Represents an object to be rendered.
+ */
+class Object {
+public:
+    Object();
+    ~Object();
 
-}
+public:
+    /// The vertices of the object as encoded on the specified format
+    std::vector<glm::vec3> vertices;
+    /// The normals of the vertices as encoded on the specified format
+    std::vector<glm::vec3> normals;
+};
 
-Object ObjectLoader::load() {
-    
-}
 
 
+#endif // OBJECT

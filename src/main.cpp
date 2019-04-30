@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -28,9 +28,13 @@
 
 #include <SDL2/SDL.h>
 
-#include "debug.hpp"
-#include "renderer.hpp"
-#include "object_loader.hpp"
+#include <glad/glad.h>
+
+#include "graphics/window.hpp"
+#include "graphics/renderer_opengl.hpp"
+#include "graphics/shader.hpp"
+#include "utils/object_loader.hpp"
+#include "utils/debug/debug.hpp"
 
 /**
  * @brief Prints the usage of the renderer.
@@ -39,68 +43,32 @@ void usage();
 
 int main(int argc, char *argv[]) {
 
-    bool running = true;
-    bool debug = false;
-
-    SDL_Window *window = nullptr;
-    SDL_Renderer *renderer = nullptr;
-    SDL_Event event;
-
     ObjectLoader *loader = nullptr;
-
-    if(SDL_Init(SDL_INIT_VIDEO) != 0) {
-        Debug::log_err("Failed to initialize SDL2 video system. Reason: ",
-                       SDL_GetError());
-        return 1;
-    }
-
-    window = SDL_CreateWindow("Object Renderer", SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED, 800, 600,
-                              SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-
-    if (window == nullptr) {
-        Debug::log_err("Failed to initialize window");
-        Debug::log_err("Reason: ", SDL_GetError());
-        return 1;
-    }
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    if (renderer == nullptr) {
-        Debug::log_err("Failed to initialize renderer");
-        Debug::log_err("Reason: ", SDL_GetError());
-        return 1;
-    }
-
-    SDL_GLContext gl = SDL_GL_CreateContext(window);
-    // Send the gl context to the renderer
-    Renderer opengl_renderer = Renderer(gl);
-
-    uint32_t frame = 0;
-    uint32_t fps = 60;
-
-    Debug::log("Plataform: ", SDL_GetPlatform());
-    Debug::log("OpenGL version: ", glGetString(GL_VERSION));
-    Debug::log("OpenGL vendor: ", glGetString(GL_VENDOR));
-    Debug::log("OpenGL renderer: ", glGetString(GL_RENDERER));
-#if !__WIN32__
-    Debug::log("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
-#endif // not adding more headers just to have this working, for now.
-
 
     if (argc > 1) {
         const std::string object_path = argv[1];
         auto const dot_pos = object_path.find_last_of('.');
 
         if (object_path.substr(dot_pos+1) == "obj") {
+            // TODO: Render the loaded object onto the screen.
             loader = new ObjectLoader(object_path);
-
         } else {
             usage();
+            exit(0);
         }
     }
 
-    // TODO: Render the loaded object onto the screen.
+    bool running = true;
+    bool debug = false;
+    SDL_Event event;
+
+    uint32_t frame = 0;
+    uint32_t fps = 60;
+
+    Window window(800, 600, "Kokiri Framework",
+                  SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+
+    OpenGLRenderer renderer = OpenGLRenderer(std::move(window));
 
     while (running) {
         frame = SDL_GetTicks();
@@ -117,16 +85,16 @@ int main(int argc, char *argv[]) {
              */
             switch(event.key.keysym.sym) {
             case SDLK_UP:
-                opengl_renderer.rotate(2, -1, 0, 0);
+                //renderer.rotate(2, -1, 0, 0);
                 break;
             case SDLK_DOWN:
-                opengl_renderer.rotate(2, 1, 0, 0);
+                //renderer.rotate(2, 1, 0, 0);
                 break;
             case SDLK_LEFT:
-                opengl_renderer.rotate(2, 0, -1, 0);
+                //renderer.rotate(2, 0, -1, 0);
                 break;
             case SDLK_RIGHT:
-                opengl_renderer.rotate(2, 0, 1, 0);
+                //renderer.rotate(2, 0, 1, 0);
                 break;
             case SDLK_ESCAPE:
                 running = false;
@@ -134,16 +102,17 @@ int main(int argc, char *argv[]) {
             case SDLK_d:
                 debug = !debug;
                 break;
-            }
-        default:
+            default:
 #ifdef DEBUG
-            std::cout << "Event: " << event.type << std::endl;
+                std::cout << "Event: " << event.type << std::endl;
 #endif // DEBUG
-            break;
+                break;
+            }
         }
 
-        opengl_renderer.render_cube();
-        SDL_GL_SwapWindow(window);
+        renderer.render_view();
+
+        SDL_GL_SwapWindow(window.get_window());
 
         double delay = 1000/fps-(SDL_GetTicks()-frame);
 
@@ -152,18 +121,11 @@ int main(int argc, char *argv[]) {
         }
 
 #ifdef DEBUG
-            Debug::log("Delay: ", delay);
+        Debug::log("Delay: ", delay);
 #endif // DEBUG
     }
 
-    Debug::log("Destroying context/renderer/window");
-
-    SDL_GL_DeleteContext(gl);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-
-    Debug::log("Exiting SDL2\n");
-
+    Debug::log("Exiting SDL2");
     SDL_Quit();
 
     // Cleaning everything else.
@@ -173,13 +135,15 @@ int main(int argc, char *argv[]) {
 }
 
 void usage() {
-    std::cerr << "This program should be run with one of the current ways:\n";
+    std::cerr << ERROR_COLOR
+              << "This program should be run with one of the current ways:\n"
+              << "\n";
 #ifdef __WIN32__
-    std::cerr << "renderer.exe <path_to_object.obj>\n"
-	      << "renderer.exe";
+    std::cerr << "\t1) kokiri.exe <path_to_object.obj>\n"
+              << "\t2) kokiri.exe";
 #else
-    std::cerr << "renderer.out <path_to_object.obj>\n"
-	      << "renderer.out";
+    std::cerr << "\t1) kokiri.out <path_to_object.obj>\n"
+              << "\t2) kokiri.out";
 #endif
-    std::cerr << std::endl;
+    std::cerr << RESET_COLOR << std::endl;
 }
