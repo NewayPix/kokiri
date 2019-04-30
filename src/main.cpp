@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -32,7 +32,6 @@
 
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
-#include "graphics/primitives.hpp"
 #include "graphics/shader.hpp"
 #include "utils/object_loader.hpp"
 #include "utils/debug/debug.hpp"
@@ -72,18 +71,6 @@ int main(int argc, char *argv[]) {
     Renderer opengl_renderer(std::move(window));
     opengl_renderer.information();
 
-    // if it isn't rendering an .obj file there's an enum to switch the rendered
-    // polyhedron.
-    enum Polyhedron {
-        cube = 0,
-        sphere = 1,
-        tetrahedron = 2,
-        cone = 3,
-        triangle = 4
-    };
-
-    Polyhedron render_polyhedron = Polyhedron::cube;
-
     while (running) {
         frame = SDL_GetTicks();
 
@@ -116,21 +103,6 @@ int main(int argc, char *argv[]) {
             case SDLK_d:
                 debug = !debug;
                 break;
-            case SDLK_1:
-                render_polyhedron = Polyhedron::cube;
-                break;
-            case SDLK_2:
-                render_polyhedron = Polyhedron::sphere;
-                break;
-            case SDLK_3:
-                render_polyhedron = Polyhedron::tetrahedron;
-                break;
-            case SDLK_4:
-                render_polyhedron = Polyhedron::cone;
-                break;
-            case SDLK_5:
-                render_polyhedron = Polyhedron::triangle;
-                break;
             }
         default:
 #ifdef DEBUG
@@ -140,29 +112,6 @@ int main(int argc, char *argv[]) {
         }
 
         opengl_renderer.render_view();
-
-        switch (render_polyhedron) {
-        case cube:
-            glColor3f(.5, .0, .5);
-            Primitives::cube();
-            break;
-        case sphere:
-            glColor3f(.5, .0, .5);
-            Primitives::sphere();
-            break;
-        case tetrahedron:
-            glColor3f(.5, .0, .5);
-            Primitives::tetrahedron();
-            break;
-        case cone:
-            glColor3f(.5, .0, .5);
-            Primitives::cone();
-            break;
-        case triangle:
-            glColor3f(.5, .0, .5);
-            Primitives::triangle();
-            break;
-        }
 
         SDL_GL_SwapWindow(window.get_window());
 
