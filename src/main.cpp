@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -31,9 +31,7 @@
 #include <glad/glad.h>
 
 #include "graphics/window.hpp"
-#include "graphics/renderer.hpp"
 #include "graphics/renderer_opengl.hpp"
-#include "graphics/primitives.hpp"
 #include "graphics/shader.hpp"
 #include "utils/object_loader.hpp"
 #include "utils/debug/debug.hpp"
