@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -32,6 +32,8 @@
 
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
+#include "graphics/shader.hpp"
+#include "utils/object_loader.hpp"
 #include "utils/debug/debug.hpp"
 
 /**
@@ -53,18 +55,6 @@ int main(int argc, char *argv[]) {
 
     Renderer opengl_renderer(std::move(window));
     opengl_renderer.information();
-
-    // if it isn't rendering an .obj file there's an enum to switch the rendered
-    // polyhedron.
-    enum Polyhedron {
-        cube = 0,
-        sphere = 1,
-        tetrahedron = 2,
-        cone = 3,
-        triangle = 4
-    };
-
-    Polyhedron render_polyhedron = Polyhedron::cube;
 
     while (running) {
         frame = SDL_GetTicks();
@@ -98,15 +88,10 @@ int main(int argc, char *argv[]) {
             case SDLK_d:
                 debug = !debug;
                 break;
-            default:
-#ifdef DEBUG
-                std::cout << "Event: " << event.type << std::endl;
-#endif // DEBUG
-                break;
             }
         }
 
-        renderer.render_view();
+        opengl_renderer.render_view();
 
         SDL_GL_SwapWindow(window.get_window());
 
@@ -126,8 +111,6 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-<<<<<<< HEAD:test/test_window.cpp
-=======
 
 void usage() {
     std::cerr << ERROR_COLOR
@@ -142,4 +125,3 @@ void usage() {
 #endif
     std::cerr << RESET_COLOR << std::endl;
 }
->>>>>>> 9d7b62f (Remove the primitives files):src/main.cpp

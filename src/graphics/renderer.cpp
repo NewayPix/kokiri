@@ -1,7 +1,11 @@
 /**
  * MIT License
  *
+<<<<<<< HEAD
  * Copyright (c) 2018 Rafael C. Nunes
+=======
+ * Copyright (c) 2019 Rafael C. Nunes
+>>>>>>> b432674 (Remove any references of the old primitives)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -24,8 +28,6 @@
  */
 
 #include "renderer.hpp"
-#include "primitives.hpp"
-#include "context.hpp"
 
 #include "../utils/debug/debug.hpp"
 
