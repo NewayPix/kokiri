@@ -9,14 +9,6 @@ objs/
 *.out
 
 #
-# Ignore CMake cache files and folders
-#
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-
-#
 # Ignore VS config folders
 #
 .vs/
@@ -28,3 +20,14 @@ Makefile
 *.vcxproj.filters
 *.vcxproj.user
 *.sln
+
+#
+# Meson and ninja files
+#
+bin/*ninja*
+bin/
+
+#
+# VScode directory
+#
+.vscode

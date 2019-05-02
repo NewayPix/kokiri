@@ -23,24 +23,39 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef VECTOR_H
+#define VECTOR_H
 
-#include <vector>
+#include <cmath>
 
-#include <glm.hpp>
-
-/**
- * @brief Represents an object to be rendered
- */
-class Object {
+template <class T>
+class Vector3 {
 public:
-    Object();
-    ~Object();
-
+    T m_x;
+    T m_y;
+    T m_z;
 public:
-    std::vector<glm::vec3> vertices;
-    std::vector<glm::vec3> normals;
+    Vector3(T x, T y, T z) {
+        m_x = x;
+        m_y = y;
+        m_z = z;
+    }
+
+    ~Vector3() {}
+
+    Vector3<T> norm() {
+        Vector3<T> normalized = *this;
+
+        normalized.m_x /= mag();
+        normalized.m_y /= mag();
+        normalized.m_z /= mag();
+
+        return normalized;
+    }
+
+    T mag() {
+        return  sqrt(pow(m_x, 2) + pow(m_y, 2) + pow(m_z, 2));
+    }
 };
 
-#endif // OBJECT
+#endif // VECTOR_H
