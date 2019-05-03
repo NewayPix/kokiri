@@ -7,9 +7,9 @@ quite difficult an effort should be put into to support at least Vulkan.
 
 # Building it
 
-today we are quite busy on a transition to meson, for now you can use CMake.
-Just download the source code and use CMake to generate the proper makefiles.
-Mind you some dependencies are required before building it yourself, such as:
+We use Meson as our build system, so just install Meson following (this)[https://mesonbuild.com/Getting-meson.html]
+instructions. Mind you some dependencies are required before building it
+yourself, such as:
 
 * SDL2
 * SDL2 image
@@ -21,9 +21,9 @@ Mind you some dependencies are required before building it yourself, such as:
 
 On linux you can follow the steps below to build it:
 
-1. `cmake ./`
-2. `make`
-3. `cd bin`
+1. `meson .`
+2. `cd bin`
+3. `ninja`
 4. `./renderer.out`
 
 ## Windows
@@ -35,9 +35,9 @@ order to make it work, feel free to use other compiler though (i.e MSVC).
 
 Follow the steps below to build it:
 
-1. `cmake -G "Unix Makefiles" ./ -DCMAKE_PREFIX_PATH=<path_for_sdl2>`
-2. `make`
+1. `meson`
 2. `cd bin`
+2. `ninja`
 3. `./renderer.exe`
 
 ## OSX

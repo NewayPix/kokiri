@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -27,6 +27,16 @@
 #define OPENGL_RENDERER_HPP
 
 #include <SDL2/SDL.h>
+#include <glad/glad.h>
+
+// FIXME: Using glu while not using the glm implementation of the camera
+#include <GL/glu.h>
+
+#ifdef __WIN32__
+    #include <GL/glext.h>
+#endif
+
+#include "window.hpp"
 
 // This is ugly but I have to use for a while
 #include "../maths/vector3.hpp"

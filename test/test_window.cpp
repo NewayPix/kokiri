@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2018 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -31,7 +31,13 @@
 #include <glad/glad.h>
 
 #include "graphics/window.hpp"
+<<<<<<< HEAD:test/test_window.cpp
 #include "graphics/renderer.hpp"
+=======
+#include "graphics/renderer_opengl.hpp"
+#include "graphics/shader.hpp"
+#include "utils/object_loader.hpp"
+>>>>>>> master:src/main.cpp
 #include "utils/debug/debug.hpp"
 
 /**
@@ -68,16 +74,16 @@ int main(int argc, char *argv[]) {
              */
             switch(event.key.keysym.sym) {
             case SDLK_UP:
-                renderer.rotate(2, -1, 0, 0);
+                //renderer.rotate(2, -1, 0, 0);
                 break;
             case SDLK_DOWN:
-                renderer.rotate(2, 1, 0, 0);
+                //renderer.rotate(2, 1, 0, 0);
                 break;
             case SDLK_LEFT:
-                renderer.rotate(2, 0, -1, 0);
+                //renderer.rotate(2, 0, -1, 0);
                 break;
             case SDLK_RIGHT:
-                renderer.rotate(2, 0, 1, 0);
+                //renderer.rotate(2, 0, 1, 0);
                 break;
             case SDLK_ESCAPE:
                 running = false;
@@ -89,7 +95,11 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
                 std::cout << "Event: " << event.type << std::endl;
 #endif // DEBUG
+<<<<<<< HEAD:test/test_window.cpp
             break;
+=======
+                break;
+>>>>>>> master:src/main.cpp
             }
         }
 
@@ -113,3 +123,20 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+<<<<<<< HEAD:test/test_window.cpp
+=======
+
+void usage() {
+    std::cerr << ERROR_COLOR
+              << "This program should be run with one of the current ways:\n"
+              << "\n";
+#ifdef __WIN32__
+    std::cerr << "\t1) kokiri.exe <path_to_object.obj>\n"
+              << "\t2) kokiri.exe";
+#else
+    std::cerr << "\t1) kokiri.out <path_to_object.obj>\n"
+              << "\t2) kokiri.out";
+#endif
+    std::cerr << RESET_COLOR << std::endl;
+}
+>>>>>>> master:src/main.cpp
