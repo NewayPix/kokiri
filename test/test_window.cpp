@@ -32,14 +32,7 @@
 
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
-#include "graphics/shader.hpp"
-#include "utils/object_loader.hpp"
 #include "utils/debug/debug.hpp"
-
-/**
- * @brief Prints the usage of the renderer.
- */
-void usage();
 
 int main(int argc, char *argv[]) {
 
@@ -88,6 +81,11 @@ int main(int argc, char *argv[]) {
             case SDLK_d:
                 debug = !debug;
                 break;
+            default:
+#ifdef DEBUG
+                std::cout << "Event: " << event.type << std::endl;
+#endif // DEBUG
+            break;
             }
         }
 
@@ -110,18 +108,4 @@ int main(int argc, char *argv[]) {
     SDL_Quit();
 
     return 0;
-}
-
-void usage() {
-    std::cerr << ERROR_COLOR
-              << "This program should be run with one of the current ways:\n"
-              << "\n";
-#ifdef __WIN32__
-    std::cerr << "\t1) kokiri.exe <path_to_object.obj>\n"
-              << "\t2) kokiri.exe";
-#else
-    std::cerr << "\t1) kokiri.out <path_to_object.obj>\n"
-              << "\t2) kokiri.out";
-#endif
-    std::cerr << RESET_COLOR << std::endl;
 }
