@@ -31,19 +31,8 @@
 #include <glad/glad.h>
 
 #include "graphics/window.hpp"
-<<<<<<< HEAD:test/test_window.cpp
 #include "graphics/renderer.hpp"
-=======
-#include "graphics/renderer_opengl.hpp"
-#include "graphics/shader.hpp"
-#include "utils/object_loader.hpp"
->>>>>>> master:src/main.cpp
 #include "utils/debug/debug.hpp"
-
-/**
- * @brief Prints the usage of the renderer.
- */
-void usage();
 
 int main(int argc, char *argv[]) {
 
@@ -95,11 +84,7 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
                 std::cout << "Event: " << event.type << std::endl;
 #endif // DEBUG
-<<<<<<< HEAD:test/test_window.cpp
             break;
-=======
-                break;
->>>>>>> master:src/main.cpp
             }
         }
 
@@ -123,20 +108,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-<<<<<<< HEAD:test/test_window.cpp
-=======
-
-void usage() {
-    std::cerr << ERROR_COLOR
-              << "This program should be run with one of the current ways:\n"
-              << "\n";
-#ifdef __WIN32__
-    std::cerr << "\t1) kokiri.exe <path_to_object.obj>\n"
-              << "\t2) kokiri.exe";
-#else
-    std::cerr << "\t1) kokiri.out <path_to_object.obj>\n"
-              << "\t2) kokiri.out";
-#endif
-    std::cerr << RESET_COLOR << std::endl;
-}
->>>>>>> master:src/main.cpp
