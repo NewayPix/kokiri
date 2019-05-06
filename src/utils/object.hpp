@@ -42,6 +42,8 @@ public:
     ~Object();
 
 public:
+    /// Filename of the object
+    std::string name;
     /// The vertices of the object as encoded on the specified format
     std::vector<glm::vec3> vertices;
     /// The normals of the vertices as encoded on the specified format

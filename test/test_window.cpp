@@ -31,32 +31,10 @@
 #include <glad/glad.h>
 
 #include "graphics/window.hpp"
-#include "graphics/renderer_opengl.hpp"
-#include "graphics/shader.hpp"
-#include "utils/object_loader.hpp"
+#include "graphics/renderer.hpp"
 #include "utils/debug/debug.hpp"
 
-/**
- * @brief Prints the usage of the renderer.
- */
-void usage();
-
 int main(int argc, char *argv[]) {
-
-    ObjectLoader *loader = nullptr;
-
-    if (argc > 1) {
-        const std::string object_path = argv[1];
-        auto const dot_pos = object_path.find_last_of('.');
-
-        if (object_path.substr(dot_pos+1) == "obj") {
-            // TODO: Render the loaded object onto the screen.
-            loader = new ObjectLoader(object_path);
-        } else {
-            usage();
-            exit(0);
-        }
-    }
 
     bool running = true;
     bool debug = false;
@@ -106,7 +84,7 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
                 std::cout << "Event: " << event.type << std::endl;
 #endif // DEBUG
-                break;
+            break;
             }
         }
 
@@ -128,22 +106,5 @@ int main(int argc, char *argv[]) {
     Debug::log("Exiting SDL2");
     SDL_Quit();
 
-    // Cleaning everything else.
-    delete loader;
-
     return 0;
-}
-
-void usage() {
-    std::cerr << ERROR_COLOR
-              << "This program should be run with one of the current ways:\n"
-              << "\n";
-#ifdef __WIN32__
-    std::cerr << "\t1) kokiri.exe <path_to_object.obj>\n"
-              << "\t2) kokiri.exe";
-#else
-    std::cerr << "\t1) kokiri.out <path_to_object.obj>\n"
-              << "\t2) kokiri.out";
-#endif
-    std::cerr << RESET_COLOR << std::endl;
 }
