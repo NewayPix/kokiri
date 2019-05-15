@@ -34,8 +34,9 @@
 #include <GL/glext.h>
 #endif
 
-#include "renderer.hpp"
 #include "window.hpp"
+#include "context.hpp"
+#include "renderer.hpp"
 
 class OpenGLRenderer : Renderer {
 public:
@@ -49,6 +50,8 @@ public:
      * @brief Writes information about the renderer on the default stdout.
      */
     void information() override;
+private:
+    OpenGLContext *m_context;
 };
 
 #endif // RENDERER_OPENGL_H
