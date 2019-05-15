@@ -41,6 +41,7 @@
 class OpenGLRenderer : Renderer {
 public:
     OpenGLRenderer(Window &&window);
+    OpenGLRenderer(Window &&window, OpenGLContext::OGLVersion version);
     ~OpenGLRenderer();
 
     void render_view() override;
@@ -51,6 +52,9 @@ public:
      */
     void information() override;
 private:
+    // An instance of the OpenGLContext which holds all information of the
+    // SDL context. One thing that should be noted is that this is not
+    // verified to be a good encapsulation at this moment.
     OpenGLContext *m_context;
 };
 

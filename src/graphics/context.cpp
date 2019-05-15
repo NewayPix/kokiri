@@ -34,8 +34,12 @@ OpenGLContext::OpenGLContext(Window&& window, OGLContextType context,
     int major = 2;
     int minor = 0;
 
-    if (version == OGLVersion::OPENGL_3_0) {
+    if (version == OGLVersion::OPENGL_3_1) {
         major = 3;
+        minor = 1;
+    } else if (version == OGLVersion::OPENGL_3_2) {
+        major = 3;
+        minor = 2;
     } else if (version == OGLVersion::OPENGL_4_0) {
         major = 4;
     } else if (version == OGLVersion::OPENGL_4_5) {
@@ -45,7 +49,6 @@ OpenGLContext::OpenGLContext(Window&& window, OGLContextType context,
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minor);
-
 
     if (context == OGLContextType::COMPABILITY) {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,

@@ -47,11 +47,11 @@ public:
         COMPABILITY
     };
 
-    // TODO: Make more OpenGL versions available
     /// Describe the current version of OpenGL versions that could be used to
     /// create the context.
     enum class OGLVersion {
-        OPENGL_3_0,
+        OPENGL_3_1,
+        OPENGL_3_2,
         OPENGL_4_0,
         OPENGL_4_5
     };
@@ -65,7 +65,7 @@ public:
      * @param version
      */
     OpenGLContext(Window &&window, OGLContextType context,
-                  OGLVersion version = OGLVersion::OPENGL_3_0);
+                  OGLVersion version = OGLVersion::OPENGL_3_1);
     ~OpenGLContext();
 
     /**
