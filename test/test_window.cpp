@@ -26,10 +26,6 @@
 #include <iostream>
 #include <cstdint>
 
-#include <SDL2/SDL.h>
-
-#include <glad/glad.h>
-
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
 #include "utils/debug/debug.hpp"
@@ -77,7 +73,6 @@ int main(int argc, char *argv[]) {
         SDL_GL_SwapWindow(window.get_window());
     }
 
-    Debug::log("Exiting SDL2");
     SDL_Quit();
 
     return 0;
