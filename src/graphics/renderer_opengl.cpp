@@ -23,7 +23,6 @@
  * IN THE  SOFTWARE.
  */
 
-#include "context.hpp"
 #include "renderer_opengl.hpp"
 
 #include "../3rd/glad/glad.h"
@@ -33,8 +32,8 @@
 OpenGLRenderer::OpenGLRenderer(Window &&window) : Renderer(std::move(window)) {
 
     // Creates an OpenGL context for drawing
-    OpenGLContext opengl_context(std::move(window),
-                                 OpenGLContext::OGLContextType::CORE);
+    m_context = new OpenGLContext(std::move(window),
+                              OpenGLContext::OGLContextType::CORE);
 
     glClearColor(0, 0, 0, 1);
     glMatrixMode(GL_PROJECTION);
@@ -63,26 +62,13 @@ OpenGLRenderer::OpenGLRenderer(Window &&window) : Renderer(std::move(window)) {
     glTranslatef(0.0, 0.0, -3.0);
 }
 
-OpenGLRenderer::~OpenGLRenderer() {}
+OpenGLRenderer::~OpenGLRenderer() {
+    delete m_context;
+}
 
 void OpenGLRenderer::render_view() {
     glClearColor(0.3, 0.5, 0.9, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // need the width and the height of the screen for grid lines
-    /*glColor3f(255, 255, 255);
-      for (int i = 0; i < 800; i += 5) {
-      glBegin(GL_LINES);
-      glVertex2d(-1000, i);
-      glVertex2d(1000, i);
-      glEnd();
-      }
-      for (int i = 0; i < 600; i += 5) {
-      glBegin(GL_LINES);
-      glVertex2d(i, -1000);
-      glVertex2d(i, 1000);
-      glEnd();
-      }*/
 
     // Axis lines
     glColor3f(255, 0, 0);
