@@ -33,6 +33,7 @@
 #include "graphics/window.hpp"
 #include "graphics/renderer.hpp"
 #include "utils/debug/debug.hpp"
+#include "graphics/renderer_opengl.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -58,22 +59,7 @@ int main(int argc, char *argv[]) {
             running = false;
             break;
         case SDL_KEYDOWN:
-            /**
-             * This is synchronous state.
-             */
             switch(event.key.keysym.sym) {
-            case SDLK_UP:
-                //renderer.rotate(2, -1, 0, 0);
-                break;
-            case SDLK_DOWN:
-                //renderer.rotate(2, 1, 0, 0);
-                break;
-            case SDLK_LEFT:
-                //renderer.rotate(2, 0, -1, 0);
-                break;
-            case SDLK_RIGHT:
-                //renderer.rotate(2, 0, 1, 0);
-                break;
             case SDLK_ESCAPE:
                 running = false;
                 break;

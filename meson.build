@@ -35,24 +35,15 @@ glad_c = run_command('./src/3rd/glad/glob.sh')
 glad = glad_c.stdout().strip().split('\n')
 
 # Adding 3rd libraries to the src list
-src += glad
+lib_src += glad
 
 kokiri_lib = shared_library('kokiri',
                             lib_src,
                             include_directories: lib_header,
-                            dependencies: [dl, sdl2, sdl2_ttf, sdl2_image, glu]
+                            dependencies: [dl, sdl2, sdl2_ttf, sdl2_image, glu],
                             install: true)
 
-
-
 #
-# Test the Kokiri library 
+# Test the Kokiri library
 #
-
-test_src = ['test/main.cpp']
-
-executable('renderer_test', 
-           test_src,
-           link_with: kokiri_lib,
-           include_directories: lib_header,
-           dependencies : [dl, sdl2, sdl2_ttf, sdl2_image, glu])
+subdir('test')
