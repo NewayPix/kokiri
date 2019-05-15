@@ -41,17 +41,14 @@ int main(int argc, char *argv[]) {
     bool debug = false;
     SDL_Event event;
 
-    uint32_t frame = 0;
-    uint32_t fps = 60;
-
     Window window(800, 600, "Kokiri Framework",
                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
     OpenGLRenderer renderer = OpenGLRenderer(std::move(window));
 
-    while (running) {
-        frame = SDL_GetTicks();
+    renderer.information();
 
+    while (running) {
         SDL_PollEvent(&event);
 
         switch (event.type) {
@@ -77,16 +74,6 @@ int main(int argc, char *argv[]) {
         renderer.render_view();
 
         SDL_GL_SwapWindow(window.get_window());
-
-        double delay = 1000/fps-(SDL_GetTicks()-frame);
-
-        if (1000/fps > (SDL_GetTicks() - frame)) {
-            SDL_Delay(delay);
-        }
-
-#ifdef DEBUG
-        Debug::log("Delay: ", delay);
-#endif // DEBUG
     }
 
     Debug::log("Exiting SDL2");
