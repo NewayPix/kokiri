@@ -28,6 +28,8 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <iostream>
 
 #include "../maths/vector3.hpp"
 
@@ -44,10 +46,13 @@ public:
 public:
     /// Filename of the object
     std::string name;
+    /// Filepath of the object
+    std::string path;
     /// The vertices of the object as encoded on the specified format
     std::vector<glm::vec3> vertices;
     /// The normals of the vertices as encoded on the specified format
     std::vector<glm::vec3> normals;
+    ///
 };
 
 
