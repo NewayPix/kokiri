@@ -12,6 +12,6 @@ void ObjectPrinter::print(const std::string &filename, const Object &obj) {
 
 }
 
-[[ noreturn ]] Object load() {}
+Object load() {}
 
-[[ noreturn ]] Object load(const std::string &path) {}
+Object load(const std::string &path) {}
