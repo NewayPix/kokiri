@@ -32,11 +32,11 @@
 /**
  * @brief Loads an object file of the .obj extension.
  */
-class ObjectLoader : protected Loader {
+class WavefrontLoader : protected Loader {
 public:
-    ObjectLoader();
-    ObjectLoader(const std::string &path);
-    virtual ~ObjectLoader();
+    WavefrontLoader();
+    WavefrontLoader(const std::string &path);
+    virtual ~WavefrontLoader();
 
     Object load() override;
     Object load(const std::string &path) override;

@@ -34,12 +34,14 @@
 #include <GL/glext.h>
 #endif
 
-#include "renderer.hpp"
 #include "window.hpp"
+#include "context.hpp"
+#include "renderer.hpp"
 
 class OpenGLRenderer : Renderer {
 public:
     OpenGLRenderer(Window &&window);
+    OpenGLRenderer(Window &&window, OpenGLContext::OGLVersion version);
     ~OpenGLRenderer();
 
     void render_view() override;
@@ -49,6 +51,11 @@ public:
      * @brief Writes information about the renderer on the default stdout.
      */
     void information() override;
+private:
+    // An instance of the OpenGLContext which holds all information of the
+    // SDL context. One thing that should be noted is that this is not
+    // verified to be a good encapsulation at this moment.
+    OpenGLContext *m_context;
 };
 
 #endif // RENDERER_OPENGL_H
