@@ -1,10 +1,10 @@
 #include <iostream>
 #include <cstdint>
 
-#include "graphics/window.hpp"
-#include "graphics/renderer.hpp"
-#include "utils/debug/debug.hpp"
-#include "graphics/renderer_opengl.hpp"
+#include "core/debug/log.hpp"
+#include "renderer/window.hpp"
+#include "renderer/renderer.hpp"
+#include "renderer/opengl/opengl.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     Window window(800, 600, "Kokiri Framework",
                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    OpenGLRenderer renderer = OpenGLRenderer(std::move(window));
+    OpenGLRenderer renderer = OpenGLRenderer(std::move(window), OpenGLContext::OGLVersion::OPENGL_4_5);
 
     renderer.information();
 
