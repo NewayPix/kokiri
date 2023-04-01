@@ -27,7 +27,8 @@ public:
         OPENGL_3_1,
         OPENGL_3_2,
         OPENGL_4_0,
-        OPENGL_4_5
+        OPENGL_4_5,
+        OPENGL_4_6,
     };
 
     /**
