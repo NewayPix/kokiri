@@ -24,7 +24,7 @@ else
         sys = [gl, glu]
 endif
 
-sdl2 = dependency('sdl2', method: 'pkg-config', required: false)
+sdl2 = dependency('sdl2', method: 'pkg-config', required: true)
 sdl2_ttf = dependency('sdl2_ttf', method: 'pkg-config', required: false)
 sdl2_image = dependency('sdl2_image', method: 'pkg-config', required: false)
 sdl2_mixer = dependency('sdl2_mixer', method: 'pkg-config', required: false)

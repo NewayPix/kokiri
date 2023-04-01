@@ -1,11 +1,7 @@
 /**
  * MIT License
  *
-<<<<<<< HEAD
  * Copyright (c) 2018 Rafael C. Nunes
-=======
- * Copyright (c) 2019 Rafael C. Nunes
->>>>>>> b432674 (Remove any references of the old primitives)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -27,21 +23,38 @@
  * IN THE  SOFTWARE.
  */
 
-#include "renderer.hpp"
+#ifndef RENDERER_OPENGL_H
+#define RENDERER_OPENGL_H
 
-#include "../utils/debug/debug.hpp"
+#include <glad/glad.h>
 
-Renderer::Renderer(Window&& window) {
-    // making _renderer point to a copy of the renderer pointer.
-    m_gl_context = SDL_GL_CreateContext(window.get_window());
+#include <GL/glu.h>
 
-    if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
-        // TODO: Improve error message
-        Debug::log_err("OpenGL context couldn't be created");
-        exit(1);
-    }
-}
+#if defined(__WIN32__) || defined(__WIN32) || defined(__MINGW32__)
+#include <GL/glext.h>
+#endif
 
-void Renderer::render_view() {}
 
-void Renderer::information() {}
+#include "context.hpp"
+
+#include "../window.hpp"
+#include "../render.hpp"
+
+class OpenGLRenderer : Render {
+public:
+    OpenGLRenderer(Window &&window);
+    OpenGLRenderer(Window &&window, OpenGLContext::OGLVersion version);
+    ~OpenGLRenderer();
+
+    /**
+     * @brief Writes information about the renderer on the default stdout.
+     */
+    void information() override;
+private:
+    // An instance of the OpenGLContext which holds all information of the
+    // SDL context. One thing that should be noted is that this is not
+    // verified to be a good encapsulation at this moment.
+    OpenGLContext *m_context;
+};
+
+#endif // RENDERER_OPENGL_H

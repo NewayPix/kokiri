@@ -24,9 +24,9 @@
  */
 
 #include "../3rd/glad/glad.h"
+#include "../core/debug/debug.hpp"
 
 #include "context.hpp"
-#include "../utils/debug/debug.hpp"
 
 OpenGLContext::OpenGLContext(Window&& window, OGLContextType context,
                              OGLVersion version) {

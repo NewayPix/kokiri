@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,26 +23,52 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef PRINTER_H
-#define PRINTER_H
+#ifndef WINDOW_H
+#define WINDOW_H
 
-#include <string>
+#include <SDL2/SDL.h>
 
-#include "object.hpp"
+#include <cinttypes>
+
+// Kokiri related includes
+
+#include "../core/debug/debug.hpp"
 
 /**
- * @brief The printer interface describes a function to print objects,
- * implemented by all sort of specific printers like the object_printer which
- * prints an *.obj file.
+ * @brief An abstraction over the SDL_Window struct that provides an object
+ * oriented facilities.
  */
-class Printer {
-private:
-
+class Window {
 public:
-    Printer();
-    virtual ~Printer();
+    Window(int width, int height, const std::string &title);
+    Window(int width, int height, const std::string &title, int32_t flags);
+    ~Window();
 
-    virtual void print(const std::string& filename, const Object& obj) = 0;
+    /**
+     * @brief Returns a pointer to the current SDL_Window.
+     */
+    SDL_Window   *get_window();
+    /**
+     * @brief Returns a pointer to the current renderer of the window.
+     */
+    SDL_Renderer *get_renderer();
+
+    /**
+     * @brief Returns the width of the window
+     */
+    int width();
+    /**
+     * @brief Returns the height of the window
+     */
+    int height();
+
+private:
+    SDL_Window* m_window;
+    SDL_Renderer* m_window_renderer;
+
+    int m_width;
+    int m_height;
 };
 
-#endif // PRINTER_H
+
+#endif // WINDOW_H

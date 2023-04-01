@@ -23,51 +23,32 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef SHADER_H
-#define SHADER_H
+#include "shader.hpp"
 
-#include <string>
+#include "../core/debug/debug.hpp"
 
-#include <glad/glad.h>
+Shader::Shader(const std::string &code, GLenum shader_type) : m_source(code) {
+    // TODO: Change this for the choosen enum
+    m_handle = glCreateShader(GL_FRAGMENT_SHADER);
 
-#ifdef __WIN32__
-#include <GL/glext.h>
-#else
-#include <glm/glm.hpp>
-#endif
+    // Not sure if this is the way to do it
+    const GLchar *const *source = (const GLchar* const *) code.c_str();
 
-/**
- * @brief The Shader class represents a resource that is used in the OpenGL
- * pipeline in order to provide post rendering effects. The shader can be of
- * these three main types:
- * 1. Fragment shader
- * 2. Vertex shader
- * 3. Volume shader
- *
- * The first two are quite used on most applications and the are available
- * through GL_<SHADER_TYPE>_SHADER.
- */
-class Shader {
-private:
-    /// The handle that represents the shader
-    GLuint m_handle;
+    glShaderSource(m_handle, 1, source,  nullptr);
+    glCompileShader(m_handle);
 
-    /// The source code of the shader
-    std::string m_code;
+    // Change this for exceptions and get all possible errors that can occur.
+    if (glGetError() != GL_NO_ERROR) {
+        Debug::log_err("Something wen't wront while compiling the shader: ",
+                       shader_type);
+    }
+}
 
-public:
-    /**
-     * @brief Constructs the shader of a shader_type param
-     * @param code The source code of the shader
-     * @param shader_type The type of the shader, which can vary from
-     *  fragment, vertex and volume shader.
-     */
-    Shader(const std::string &code, GLenum  shader_type);
-    virtual ~Shader();
+Shader::~Shader() {
+    glDeleteShader(m_handle);
+}
 
-    std::string get_source_code() const;
 
-    GLuint get_handle() const;
-};
-
-#endif // SHADER_H
+GLuint Shader::get_handle() const {
+    return m_handle;
+}

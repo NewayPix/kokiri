@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,8 +23,39 @@
  * IN THE  SOFTWARE.
  */
 
-#include "printer.hpp"
+#ifndef OPENGL_RENDERER_HPP
+#define OPENGL_RENDERER_HPP
 
-Printer::Printer() {}
+#include <SDL2/SDL.h>
 
-Printer::~Printer() {}
+#include <glad/glad.h>
+
+// FIXME: Using glu while not using the glm implementation of the camera
+#include <GL/glu.h>
+
+#ifdef __WIN32__
+    #include <GL/glext.h>
+#endif
+
+#include "window.hpp"
+
+/**
+ * @brief An abstract class that serves as a starting point for renderers, the
+ * basic API is down below, anything that is common to all renderers will have
+ * its place here.
+ */
+class Render {
+public:
+    /**
+     * @brief Initializes the renderer with an OpenGL context.
+     */
+    Render(Window &&window);
+    virtual ~Render();
+
+    /**
+     * @brief
+     */
+    virtual void information();
+};
+
+#endif // OPENGL_RENDERER_HPP
