@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     Window window(800, 600, "Kokiri Framework",
                   SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    OpenGLRenderer renderer = OpenGLRenderer(std::move(window), OpenGLContext::OGLVersion::OPENGL_4_5);
+    OpenGLRenderer renderer = OpenGLRenderer(std::move(window), OpenGLContext::OGLVersion::OPENGL_4_6);
 
     renderer.information();
 
