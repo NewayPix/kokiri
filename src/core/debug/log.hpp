@@ -57,5 +57,3 @@ public:
         std::cerr << RESET_COLOR << std::endl;
     }
 };
-
-#endif // DEBUG_H
