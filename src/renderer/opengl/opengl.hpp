@@ -1,7 +1,5 @@
 #pragma once
 
-#include <GL/glu.h>
-
 #if defined(__WIN32__) || defined(__WIN32) || defined(__MINGW32__)
 #include <GL/glext.h>
 #endif
@@ -10,7 +8,7 @@
 #include "context.hpp"
 
 #include "../window.hpp"
-#include "../render.hpp"
+#include "../renderer.hpp"
 
 class OpenGLRenderer : Renderer {
 public:
