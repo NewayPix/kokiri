@@ -20,6 +20,9 @@ OpenGLContext::OpenGLContext(Window&& window, OGLContextType context, OGLVersion
     } else if (version == OGLVersion::OPENGL_4_5) {
         major = 4;
         minor = 5;
+    } else if (version == OGLVersion::OPENGL_4_6) {
+        major = 4;
+        minor = 6;
     }
 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
