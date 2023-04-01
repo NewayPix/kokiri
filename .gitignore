@@ -39,3 +39,9 @@ bin/
 *.vcxproj.filters
 *.vcxproj.user
 *.sln
+
+#
+# Premake generated files
+#
+kokiri.make
+Makefile
