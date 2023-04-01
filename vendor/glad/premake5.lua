@@ -8,14 +8,15 @@ project "glad"
 
     files
     {
-        "glad.h",
-        "glad.c"
-        "KHR/khrplatform.h",
+        "include/glad/glad.h",
+        "include/KHR/khrplatform.h",
+
+        "src/glad.c"
     }
 
     includedirs
     {
-        "."
+        "include"
     }
 
     filter "configurations:debug"
