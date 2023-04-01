@@ -26,8 +26,8 @@ project "kokiri"
     includedirs {
         "src",
 
-        "%{IncludeDir.glad}",
-        "%{IncludeDir.glm}"
+        "vendor/glad",
+        "vendor/glm"
     }
 
     links {
