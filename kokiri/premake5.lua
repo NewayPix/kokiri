@@ -29,7 +29,7 @@ project "kokiri"
     links {
         "glad",
         "box2d",
-        "sdl2"
+        "SDL2"
     }
 
     -- build options
