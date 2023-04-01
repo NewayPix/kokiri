@@ -45,3 +45,8 @@ bin/
 #
 kokiri.make
 Makefile
+
+#
+# Ignore build files
+#
+build/kokiri
