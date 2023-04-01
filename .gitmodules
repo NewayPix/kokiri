@@ -1,3 +1,3 @@
-[submodule "vendor/glm"]
+[submodule "kokiri/vendor/glm"]
 	path = kokiri/vendor/glm
 	url = https://github.com/g-truc/glm
