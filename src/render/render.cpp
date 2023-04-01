@@ -23,32 +23,13 @@
  * IN THE  SOFTWARE.
  */
 
-#include "shader.hpp"
+#include "render.hpp"
+#include "context.hpp"
 
-#include "../utils/debug/debug.hpp"
+#include "../core/debug/debug.hpp"
 
-Shader::Shader(const std::string &code, GLenum shader_type) : m_code(code) {
-    // TODO: Change this for the choosen enum
-    m_handle = glCreateShader(GL_FRAGMENT_SHADER);
+Render::Render(Window &&window) {}
 
-    // Not sure if this is the way to do it
-    const GLchar *const *source = (const GLchar* const *) code.c_str();
+Render::~Render() {}
 
-    glShaderSource(m_handle, 1, source,  nullptr);
-    glCompileShader(m_handle);
-
-    // Change this for exceptions and get all possible errors that can occur.
-    if (glGetError() != GL_NO_ERROR) {
-        Debug::log_err("Something wen't wront while compiling the shader: ",
-                       shader_type);
-    }
-}
-
-Shader::~Shader() {
-    glDeleteShader(m_handle);
-}
-
-
-GLuint Shader::get_handle() const {
-    return m_handle;
-}
+void Render::information() {}

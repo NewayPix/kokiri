@@ -23,39 +23,35 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef RENDERER_OPENGL_H
-#define RENDERER_OPENGL_H
+#include "opengl.hpp"
 
-#include <glad/glad.h>
+#include "../3rd/glad/glad.h"
+#include "../core/debug/debug.hpp"
 
-#include <GL/glu.h>
 
-#if defined(__WIN32__) || defined(__WIN32) || defined(__MINGW32__)
-#include <GL/glext.h>
-#endif
+OpenGLRenderer::OpenGLRenderer(Window &&window) : Render(std::move(window)) {
+    
+    m_context = new OpenGLContext(std::move(window),
+                                  OpenGLContext::OGLContextType::CORE);
+}
 
-#include "window.hpp"
-#include "context.hpp"
-#include "renderer.hpp"
+OpenGLRenderer::OpenGLRenderer(Window &&window, OpenGLContext::OGLVersion version) : Render(std::move(window)) {
 
-class OpenGLRenderer : Renderer {
-public:
-    OpenGLRenderer(Window &&window);
-    OpenGLRenderer(Window &&window, OpenGLContext::OGLVersion version);
-    ~OpenGLRenderer();
+    m_context = new OpenGLContext(std::move(window),
+                                  OpenGLContext::OGLContextType::CORE, version);
+}
 
-    void render_view() override;
-    void render(Object object) override;
+OpenGLRenderer::~OpenGLRenderer() {
+    delete m_context;
+}
 
-    /**
-     * @brief Writes information about the renderer on the default stdout.
-     */
-    void information() override;
-private:
-    // An instance of the OpenGLContext which holds all information of the
-    // SDL context. One thing that should be noted is that this is not
-    // verified to be a good encapsulation at this moment.
-    OpenGLContext *m_context;
-};
 
-#endif // RENDERER_OPENGL_H
+void OpenGLRenderer::information() {
+    Debug::log("Plataform: ", SDL_GetPlatform());
+    Debug::log("OpenGL version: ", glGetString(GL_VERSION));
+    Debug::log("OpenGL vendor: ", glGetString(GL_VENDOR));
+    Debug::log("OpenGL renderer: ", glGetString(GL_RENDERER));
+#if !__WIN32__
+    Debug::log("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
+#endif // not adding more headers just to have this working, for now.
+}

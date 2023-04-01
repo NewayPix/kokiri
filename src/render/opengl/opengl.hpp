@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2019 Rafael C. Nunes
+ * Copyright (c) 2018 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,56 +23,38 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef OPENGL_RENDERER_HPP
-#define OPENGL_RENDERER_HPP
+#ifndef RENDERER_OPENGL_H
+#define RENDERER_OPENGL_H
 
-#include <SDL2/SDL.h>
 #include <glad/glad.h>
 
-// FIXME: Using glu while not using the glm implementation of the camera
 #include <GL/glu.h>
 
-#ifdef __WIN32__
-    #include <GL/glext.h>
+#if defined(__WIN32__) || defined(__WIN32) || defined(__MINGW32__)
+#include <GL/glext.h>
 #endif
 
-#include "window.hpp"
 
-// This is ugly but I have to use for a while
-#include "../maths/vector3.hpp"
-#include "../utils/object.hpp"
+#include "context.hpp"
 
-#include "window.hpp"
+#include "../window.hpp"
+#include "../render.hpp"
 
-/**
- * @brief An abstract class that serves as a starting point for renderers, the
- * basic API is down below, anything that is common to all renderers will have
- * its place here.
- */
-class Renderer {
+class OpenGLRenderer : Render {
 public:
-    /**
-     * @brief Initializes the renderer with an OpenGL context.
-     */
-    Renderer(Window &&window);
-    virtual ~Renderer();
+    OpenGLRenderer(Window &&window);
+    OpenGLRenderer(Window &&window, OpenGLContext::OGLVersion version);
+    ~OpenGLRenderer();
 
     /**
-     * @brief Renders the render view GUI.
-     * TODO: Should be moved to a UI module.
+     * @brief Writes information about the renderer on the default stdout.
      */
-    virtual void render_view();
-
-    /**
-     * @brief Renders any kind of the object.
-     * @param obj The object to be rendered.
-     */
-    virtual void render(Object obj);
-
-    /**
-     *
-     */
-    virtual void information();
+    void information() override;
+private:
+    // An instance of the OpenGLContext which holds all information of the
+    // SDL context. One thing that should be noted is that this is not
+    // verified to be a good encapsulation at this moment.
+    OpenGLContext *m_context;
 };
 
-#endif // OPENGL_RENDERER_HPP
+#endif // RENDERER_OPENGL_H
