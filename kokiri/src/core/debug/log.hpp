@@ -17,7 +17,7 @@ public:
     template<typename... Ts>
     static void info(const Ts&... args)
     {
-        std::cout << SUCCESS_COLOR << "LOG: ";
+        std::cout << SUCCESS_COLOR << "INFO: ";
 
         int expanded[] = { (std::cout << args << "", 0)... };
         (void)expanded;
