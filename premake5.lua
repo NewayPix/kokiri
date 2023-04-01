@@ -1,3 +1,5 @@
+include "dependencies.lua"
+
 workspace "kokiri"
     configurations {"debug", "release"}
 
