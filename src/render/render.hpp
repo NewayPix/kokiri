@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- * Copyright (c) 2016 Rafael C. Nunes
+ * Copyright (c) 2019 Rafael C. Nunes
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -23,23 +23,38 @@
  * IN THE  SOFTWARE.
  */
 
-#ifndef GENERIC_LOADER_H
-#define GENERIC_LOADER_H
+#ifndef OPENGL_RENDERER_HPP
+#define OPENGL_RENDERER_HPP
 
-#include "object.hpp"
-#include "loader.hpp"
+#include <SDL2/SDL.h>
+#include <glad/glad.h>
+
+// FIXME: Using glu while not using the glm implementation of the camera
+#include <GL/glu.h>
+
+#ifdef __WIN32__
+    #include <GL/glext.h>
+#endif
+
+#include "window.hpp"
 
 /**
- * @brief Loads an object file of the .obj extension.
+ * @brief An abstract class that serves as a starting point for renderers, the
+ * basic API is down below, anything that is common to all renderers will have
+ * its place here.
  */
-class WavefrontLoader : protected Loader {
+class Render {
 public:
-    WavefrontLoader();
-    WavefrontLoader(const std::string &path);
-    virtual ~WavefrontLoader();
+    /**
+     * @brief Initializes the renderer with an OpenGL context.
+     */
+    Render(Window &&window);
+    virtual ~Render();
 
-    Object load() override;
-    Object load(const std::string &path) override;
+    /**
+     * @brief
+     */
+    virtual void information();
 };
 
-#endif // GENERIC_LOADER_H
+#endif // OPENGL_RENDERER_HPP

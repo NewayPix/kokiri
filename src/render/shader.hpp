@@ -53,7 +53,7 @@ private:
     GLuint m_handle;
 
     /// The source code of the shader
-    std::string m_code;
+    std::string m_source;
 
 public:
     /**
