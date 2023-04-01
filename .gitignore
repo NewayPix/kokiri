@@ -31,3 +31,14 @@ bin/
 # VScode directory
 #
 .vscode
+
+#
+# Premake generated files
+#
+kokiri.make
+Makefile
+
+#
+# Ignore build files
+#
+build/kokiri

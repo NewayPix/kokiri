@@ -1,5 +1,4 @@
-#ifndef MACROS_H
-#define MACROS_H
+#pragma once
 
 #if __unix__
 #define WARNING_COLOR "\x1b[33;1m"
@@ -12,5 +11,3 @@
 #define SUCCESS_COLOR ""
 #define RESET_COLOR ""
 #endif // __unix__
-
-#endif // MACROS_H
