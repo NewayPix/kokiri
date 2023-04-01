@@ -49,4 +49,4 @@ Makefile
 #
 # Ignore build files
 #
-build/kokiri
+build
