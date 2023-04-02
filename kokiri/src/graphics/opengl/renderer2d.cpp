@@ -20,12 +20,12 @@ namespace Kokiri {
 
 
             void Renderer2D::information() {
-                Log::info("Plataform: ", SDL_GetPlatform());
-                Log::info("OpenGL version: ", glGetString(GL_VERSION));
-                Log::info("OpenGL vendor: ", glGetString(GL_VENDOR));
-                Log::info("OpenGL renderer: ", glGetString(GL_RENDERER));
+                Core::Log::info("Plataform: ", SDL_GetPlatform());
+                Core::Log::info("OpenGL version: ", glGetString(GL_VERSION));
+                Core::Log::info("OpenGL vendor: ", glGetString(GL_VENDOR));
+                Core::Log::info("OpenGL renderer: ", glGetString(GL_RENDERER));
             #if !__WIN32__
-                Log::info("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
+                Core::Log::info("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
             #endif // not adding more headers just to have this working, for now.
             }
         }

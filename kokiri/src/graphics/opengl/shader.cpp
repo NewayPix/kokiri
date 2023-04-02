@@ -16,7 +16,7 @@ namespace Kokiri {
 
                 // Change this for exceptions and get all possible errors that can occur.
                 if (glGetError() != GL_NO_ERROR) {
-                    Log::error("failed to compile shader, reason ", shader_type);
+                    Core::Log::error("failed to compile shader, reason ", shader_type);
                 }
             }
 
