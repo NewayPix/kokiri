@@ -9,21 +9,21 @@ namespace Kokiri {
             m_window_renderer = nullptr;
 
             if(SDL_Init(SDL_INIT_VIDEO) != 0) {
-                Log::error("failed to initialize SDL2 video system, reason ", SDL_GetError());
+                Core::Log::error("failed to initialize SDL2 video system, reason ", SDL_GetError());
                 exit(1);
             }
 
             m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
 
             if (m_window == nullptr) {
-                Log::error("failed to initialize window, reason ", SDL_GetError());
+                Core::Log::error("failed to initialize window, reason ", SDL_GetError());
                 exit(1);
             }
 
             m_window_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 
             if (m_window_renderer == nullptr) {
-                Log::error("failed to initialize renderer, reason ", SDL_GetError());
+                Core::Log::error("failed to initialize renderer, reason ", SDL_GetError());
                 exit(1);
             }
 
@@ -32,9 +32,9 @@ namespace Kokiri {
         }
 
         Window::~Window() {
-            Log::info("destroying Renderer");
+            Core::Log::info("destroying Renderer");
             SDL_DestroyRenderer(m_window_renderer);
-            Log::info("destroying Window");
+            Core::Log::info("destroying Window");
             SDL_DestroyWindow(m_window);
         }
 

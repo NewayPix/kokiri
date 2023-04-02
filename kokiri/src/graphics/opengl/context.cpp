@@ -1,6 +1,4 @@
 #include "kkr.hpp"
-
-#include "kkr.hpp"
 #include "context.hpp"
 
 #include <glad/glad.h>
@@ -42,13 +40,13 @@ namespace Kokiri {
 
                 if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
                     // TODO: Improve error message
-                    Log::error("failed to create OpenGL context");
+                    Core::Log::error("failed to create OpenGL context");
                     exit(1);
                 }
             }
 
             Context::~Context() {
-                Log::info("destroying OpenGL Context");
+                Core::Log::info("destroying OpenGL Context");
                 SDL_GL_DeleteContext(m_context);
             }
 
