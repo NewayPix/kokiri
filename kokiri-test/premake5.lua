@@ -13,10 +13,16 @@ project "kokiri-test"
     }
 
     includedirs {
-        "%{wks.location}/src",
-        "%{wks.location}/vendor"
+        "%{wks.location}/kokiri/src",
+        "%{wks.location}/kokiri/vendor",
+
+        "%{IncludeDir.box2d}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.glad}"
     }
 
     links {
-        "kokiri"
+        "kokiri",
+        "glad",
+        "SDL2"
     }

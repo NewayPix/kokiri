@@ -1,10 +1,9 @@
 #include <iostream>
 #include <cstdint>
 
+#include "core/debug/log.hpp"
 #include "graphics/window.hpp"
-#include "graphics/renderer.hpp"
-#include "utils/debug/debug.hpp"
-#include "graphics/renderer_opengl.hpp"
+#include "graphics/opengl/renderer2d.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -12,10 +11,9 @@ int main(int argc, char *argv[]) {
     bool debug = false;
     SDL_Event event;
 
-    Window window(800, 600, "Kokiri Framework",
-                  SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+    Kokiri::Graphics::Window window(800, 600, "Kokiri Framework", SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    OpenGLRenderer renderer = OpenGLRenderer(std::move(window));
+    auto renderer = Kokiri::Graphics::OpenGL::Renderer2D(std::move(window), Kokiri::Graphics::OpenGL::Context::ContextVersion::OPENGL_4_6);
 
     renderer.information();
 

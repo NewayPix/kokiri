@@ -14,22 +14,22 @@ project "kokiri"
         "src/**.hpp",
         "src/**.cpp",
 
-        "vendor/glm/**.hpp",
-        "vendor/glm/**.inl",
-
-        "vendor/glad/**.h"
+        "vendor/glm/glm/**.hpp",
+        "vendor/glm/glm/**.inl"
     }
 
     includedirs {
         "src",
 
-        "vendor/glad",
-        "vendor/glm"
+        "%{IncludeDir.box2d}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.glad}",
     }
 
     links {
         "glad",
-        "sdl2"
+        "box2d",
+        "SDL2"
     }
 
     -- build options
