@@ -6,14 +6,15 @@
 #include "graphics/opengl/renderer2d.hpp"
 
 int main(int argc, char *argv[]) {
+    using namespace Kokiri::Graphics;
 
     bool running = true;
     bool debug = false;
     SDL_Event event;
 
-    Kokiri::Graphics::Window window(800, 600, "Kokiri Framework", SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+    Window window(800, 600, "Kokiri Framework", SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    auto renderer = Kokiri::Graphics::OpenGL::Renderer2D(std::move(window), Kokiri::Graphics::OpenGL::Context::ContextVersion::OPENGL_4_6);
+    auto renderer = OpenGL::Renderer2D(std::move(window), OpenGL::Context::ContextVersion::OPENGL_4_6);
 
     renderer.information();
 
