@@ -31,15 +31,16 @@ sdl2_mixer = dependency('sdl2_mixer', method: 'pkg-config', required: false)
 
 # Source files of the library
 lib_src = ['src/graphics/window.cpp',
-       'src/graphics/context.cpp',
-       'src/graphics/renderer.cpp',
-       'src/graphics/shader.cpp',
-       'src/maths/vector3.cpp',
-       'src/utils/loader.cpp',
-       'src/utils/object.cpp',
-       'src/utils/printer.cpp',
-       'src/utils/object_loader.cpp',
-       'src/utils/object_printer.cpp']
+           'src/graphics/context.cpp',
+           'src/graphics/renderer.cpp',
+           'src/graphics/renderer_opengl.cpp',
+           'src/graphics/shader.cpp',
+           'src/maths/vector3.cpp',
+           'src/utils/loader.cpp',
+           'src/utils/object.cpp',
+           'src/utils/printer.cpp',
+           'src/utils/object_printer.cpp',
+           'src/utils/wavefront_loader.cpp']
 
 # Header files of the project
 lib_header = include_directories('src/')
