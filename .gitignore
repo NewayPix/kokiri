@@ -1,14 +1,4 @@
 #
-# Ignore the objs folder
-#
-objs/
-
-#
-# Ignore executables created with the Makefile
-#
-*.out
-
-#
 # Ignore VS config folders
 #
 .vs/
@@ -22,12 +12,6 @@ objs/
 *.sln
 
 #
-# Meson and ninja files
-#
-bin/*ninja*
-bin/
-
-#
 # VScode directory
 #
 .vscode
@@ -38,7 +22,6 @@ bin/
 kokiri.make
 Makefile
 
-#
 # Ignore build files
 #
 build
