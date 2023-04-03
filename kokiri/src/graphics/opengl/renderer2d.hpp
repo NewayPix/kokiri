@@ -18,6 +18,8 @@ namespace Kokiri {
                 Renderer2D(Window &&window, Context::ContextVersion version);
                 ~Renderer2D();
 
+                void draw();
+
                 /**
                  * @brief Writes information about the renderer on the default stdout.
                  */
