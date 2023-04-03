@@ -1,33 +1,4 @@
 #
-# Ignore the objs folder
-#
-objs/
-
-#
-# Ignore executables created with the Makefile
-#
-*.out
-
-#
-# Ignore CMake cache files and folders
-#
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-
-#
-# Meson and ninja files
-#
-bin/*ninja*
-bin/
-
-#
-# Ignore vscode folder
-#
-.vscode/
-
-#
 # Ignore VS config folders
 #
 .vs/
@@ -41,12 +12,16 @@ bin/
 *.sln
 
 #
+# VScode directory
+#
+.vscode
+
+#
 # Premake generated files
 #
 kokiri.make
 Makefile
 
-#
 # Ignore build files
 #
 build
