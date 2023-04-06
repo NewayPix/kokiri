@@ -2,42 +2,64 @@
 #include <cstdint>
 
 #include "core/debug/log.hpp"
-#include "graphics/window.hpp"
+#include "core/window.hpp"
+
 #include "graphics/opengl/renderer2d.hpp"
 
 int main(int argc, char *argv[]) {
+    using namespace Kokiri::Core;
     using namespace Kokiri::Graphics;
+    using namespace Kokiri::Graphics::OpenGL;
 
-    bool running = true;
+    bool is_running = true;
+    bool is_fullscreen = false;
     bool debug = false;
+
     SDL_Event event;
 
     Window window(800, 600, "Kokiri Framework", SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    auto renderer = OpenGL::Renderer2D(std::move(window), OpenGL::Context::ContextVersion::OPENGL_4_6);
+    auto renderer = Renderer2D(std::move(window), Renderer2D::Version::OPENGL_4_6);
 
     renderer.information();
 
-    while (running) {
+    while (is_running) {
         SDL_PollEvent(&event);
 
         switch (event.type) {
         case SDL_QUIT:
-            running = false;
+            is_running = false;
             break;
         case SDL_KEYDOWN:
             switch(event.key.keysym.sym) {
             case SDLK_ESCAPE:
-                running = false;
+                is_running = false;
                 break;
             case SDLK_d:
                 debug = !debug;
                 break;
+            case SDLK_f:
+                {
+                    is_fullscreen = !is_fullscreen;
+
+                    int state = 0;
+
+                    if (is_fullscreen) {
+                        state = SDL_SetWindowFullscreen(window.get_window(), SDL_WINDOW_FULLSCREEN);
+                    } else {
+                        state = SDL_SetWindowFullscreen(window.get_window(), 0);
+                    }
+
+                    if (state < 0) {
+                        Log::error("failed to toggle fullscreen, reason ", SDL_GetError());
+                    }
+                }
+                break;
             default:
 #ifdef DEBUG
-                std::cout << "Event: " << event.type << std::endl;
+                Log::info("event: ", event.type);
 #endif // DEBUG
-            break;
+                break;
             }
         }
 

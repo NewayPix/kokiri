@@ -5,10 +5,10 @@
 namespace Kokiri {
     namespace Core {
         template <typename T>
-        using Reference = std::shared_ptr<T>;
+        using Shared = std::shared_ptr<T>;
 
         template <typename T, typename ...Args>
-        constexpr Reference<T> make_reference(Args&& ...args) {
+        constexpr Shared<T> make_shared(Args&& ...args) {
             return std::make_shared<T>(std::forward<Args>(args)...);
         }
 

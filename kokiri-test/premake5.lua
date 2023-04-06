@@ -26,3 +26,13 @@ project "kokiri-test"
         "glad",
         "SDL2"
     }
+
+    -- build options
+
+    filter "configurations:debug"
+        buildoptions { "-Wextra", "-Wall" }
+        defines { "DEBUG" }
+        symbols "On"
+
+   filter "configurations:release"
+        optimize "On"

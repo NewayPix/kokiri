@@ -35,8 +35,9 @@ project "kokiri"
     -- build options
 
     filter "configurations:debug"
-      defines { "DEBUG" }
-      symbols "On"
+        buildoptions { "-Wextra", "-Wall" }
+        defines { "DEBUG" }
+        symbols "On"
 
    filter "configurations:release"
-      optimize "On"
+        optimize "On"
