@@ -3,7 +3,11 @@
 
 namespace Kokiri {
     namespace Core {
-        Window::Window(int width, int height, const std::string &title, int32_t flags) {
+        Window(const std::string &title, int width, int height) {
+            Window::Window(title, width, height, SDL_WINDOW_SHOWN);
+        }
+
+        Window::Window(const std::string &title, int width, int height, int32_t flags) {
 
             if(SDL_Init(SDL_INIT_VIDEO) != 0) {
                 Core::Log::error("failed to initialize SDL2 video system, reason ", SDL_GetError());

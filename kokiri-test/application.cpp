@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     // create a scope so the window and the renderer can call their destructor
     // after the scope ends and the call to quit is successfully made.
     {
-        Window window(800, 600, "Kokiri Framework", SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+        Window window("Kokiri Framework", 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
         auto renderer = Renderer2D(std::move(window), Renderer2D::Version::OPENGL_4_6);
 

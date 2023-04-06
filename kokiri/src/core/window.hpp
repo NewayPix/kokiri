@@ -22,8 +22,8 @@ namespace Kokiri {
             int m_height;
 
         public:
-            Window(int width, int height, const std::string &title);
-            Window(int width, int height, const std::string &title, int32_t flags);
+            Window(const std::string &title, int width, int height);
+            Window(const std::string &title, int width, int height, int32_t flags);
             ~Window();
 
             /**

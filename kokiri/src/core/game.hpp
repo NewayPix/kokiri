@@ -7,6 +7,8 @@
 #include "core/event.hpp"
 #include "core/references.hpp"
 
+#include "graphics/opengl/renderer2d.hpp"
+
 namespace Kokiri {
     namespace Core {
         class Game {
@@ -17,6 +19,9 @@ namespace Kokiri {
 
                 uint16_t fps;
                 uint16_t target_fps;
+
+                int width;
+                int height;
             };
 
             // local game properties
@@ -24,11 +29,12 @@ namespace Kokiri {
 
             void loop();
 
-            // Game resources
+            // game resources
             Scope<Event> m_event;
             Scope<Window> m_window;
+            Scope<Graphics::OpenGL::Renderer2D> m_renderer;
         public:
-            Game();
+            Game(const std::string& title, int width, int height);
             ~Game();
 
             void init(std::function<void> callback);
