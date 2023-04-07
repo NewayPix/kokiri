@@ -4,9 +4,8 @@
 namespace Kokiri {
     namespace Graphics {
         namespace OpenGL {
-            Shader::Shader(const std::string &code, GLenum shader_type) : m_source(code) {
-                // TODO: Change this for the choosen enum
-                m_handle = glCreateShader(GL_FRAGMENT_SHADER);
+            Shader::Shader(const std::string &code, ShaderType type) : m_source(code) {
+                m_handle = glCreateShader(Core::to_underlying(type));
 
                 // Not sure if this is the way to do it
                 const GLchar *const *source = (const GLchar* const *) code.c_str();
@@ -16,7 +15,7 @@ namespace Kokiri {
 
                 // Change this for exceptions and get all possible errors that can occur.
                 if (glGetError() != GL_NO_ERROR) {
-                    Core::Log::error("failed to compile shader, reason ", shader_type);
+                    Core::Log::error("failed to compile shader, reason ", glGetError());
                 }
             }
 

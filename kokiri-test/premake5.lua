@@ -21,8 +21,23 @@ project "kokiri-test"
         "%{IncludeDir.glad}"
     }
 
+    libdirs {
+        "%{LibraryDir.kokiri}",
+        "%{LibraryDir.glad}"
+    }
+
     links {
-        "kokiri",
-        "glad",
+        "kokiri:static",
+        "glad:static",
         "SDL2"
     }
+
+    -- build options
+
+    filter "configurations:debug"
+        buildoptions { "-Wextra", "-Wall" }
+        defines { "DEBUG" }
+        symbols "On"
+
+    filter "configurations:release"
+        optimize "On"
