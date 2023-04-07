@@ -34,5 +34,5 @@ project "kokiri-test"
         defines { "DEBUG" }
         symbols "On"
 
-   filter "configurations:release"
+    filter "configurations:release"
         optimize "On"
