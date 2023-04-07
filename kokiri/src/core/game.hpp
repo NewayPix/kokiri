@@ -31,7 +31,7 @@ namespace Kokiri {
 
             // game resources
             Scope<Event> m_event;
-            Scope<Window> m_window;
+            Shared<Window> m_window;
             Scope<Graphics::OpenGL::Renderer2D> m_renderer;
         public:
             Game(const std::string& title, int width, int height);

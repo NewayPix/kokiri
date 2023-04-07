@@ -20,9 +20,17 @@ int main(int argc, char *argv[]) {
     // create a scope so the window and the renderer can call their destructor
     // after the scope ends and the call to quit is successfully made.
     {
-        Window window("Kokiri Framework", 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-        auto renderer = Renderer2D(std::move(window), Renderer2D::Version::OPENGL_4_6);
+        auto window_properties = Window::WindowProperties{
+            .width = 800,
+            .height = 600,
+            .flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN,
+
+            .title = "Kokiri Engine"
+        };
+
+        auto window = make_shared<Window>(window_properties);
+        auto renderer = Renderer2D(window);
 
         renderer.information();
 
@@ -49,9 +57,9 @@ int main(int argc, char *argv[]) {
                         int state = 0;
 
                         if (is_fullscreen) {
-                            state = SDL_SetWindowFullscreen(window.get_window(), SDL_WINDOW_FULLSCREEN);
+                            state = SDL_SetWindowFullscreen(window.get()->get_window(), SDL_WINDOW_FULLSCREEN);
                         } else {
-                            state = SDL_SetWindowFullscreen(window.get_window(), 0);
+                            state = SDL_SetWindowFullscreen(window.get()->get_window(), 0);
                         }
 
                         if (state < 0) {
@@ -67,7 +75,7 @@ int main(int argc, char *argv[]) {
                 }
             }
 
-            SDL_GL_SwapWindow(window.get_window());
+            SDL_GL_SwapWindow(window.get()->get_window());
         }
     }
 

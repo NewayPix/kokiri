@@ -17,8 +17,16 @@ namespace Kokiri {
                 .height = height,
             };
 
-            m_window = make_scope<Window>(width, height, title, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-            m_renderer = make_scope<Graphics::OpenGL::Renderer2D>(m_window.get()->get_window());
+            auto window_properties = Window::WindowProperties{
+                .width = width,
+                .height = height,
+                .flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN,
+
+                .title = title
+            };
+
+            m_window = make_shared<Window>(window_properties);
+            m_renderer = make_scope<Graphics::OpenGL::Renderer2D>(m_window);
 
             m_event = make_scope<Event>();
 
@@ -36,10 +44,5 @@ namespace Kokiri {
             while (m_properties.is_running) {
             }
         }
-
-        void Game::event(std::function<void> f) {
-            SDL_PollEvent(m_event.get()->get());
-        }
-
     }
 }

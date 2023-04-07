@@ -36,8 +36,8 @@ namespace Kokiri {
                     OPENGL_4_6,
                 };
 
-                Renderer2D(Core::Window &&window);
-                Renderer2D(Core::Window &&window, Version version, Type type = Type::CORE);
+                Renderer2D(Core::Shared<Core::Window> window);
+                Renderer2D(Core::Shared<Core::Window> window, Version version);
                 ~Renderer2D();
 
                 void draw();

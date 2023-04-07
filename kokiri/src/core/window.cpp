@@ -3,18 +3,21 @@
 
 namespace Kokiri {
     namespace Core {
-        Window(const std::string &title, int width, int height) {
-            Window::Window(title, width, height, SDL_WINDOW_SHOWN);
-        }
-
-        Window::Window(const std::string &title, int width, int height, int32_t flags) {
+        Window::Window(const WindowProperties& properties) {
 
             if(SDL_Init(SDL_INIT_VIDEO) != 0) {
                 Core::Log::error("failed to initialize SDL2 video system, reason ", SDL_GetError());
                 exit(1);
             }
 
-            auto window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+            auto window = SDL_CreateWindow( \
+                properties.title.c_str(), \
+                SDL_WINDOWPOS_CENTERED, \
+                SDL_WINDOWPOS_CENTERED, \
+                properties.width, \
+                properties.height, \
+                properties.flags \
+            );
 
             if (window == nullptr) {
                 Core::Log::error("failed to initialize window, reason ", SDL_GetError());
@@ -31,8 +34,8 @@ namespace Kokiri {
             m_window = window;
             m_window_renderer = renderer;
 
-            m_width = width;
-            m_height = height;
+            m_width = properties.width;
+            m_height = properties.height;
         }
 
         Window::~Window() {

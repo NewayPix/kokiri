@@ -6,11 +6,14 @@
 namespace Kokiri {
     namespace Graphics {
         namespace OpenGL {
-            Renderer2D::Renderer2D(Core::Window &&window) {
-                Renderer2D(std::move(window), Version::OPENGL_4_6);
+            Renderer2D::Renderer2D(Core::Shared<Core::Window> window) {
+                Renderer2D(window, Version::OPENGL_4_6);
             }
 
-            Renderer2D::Renderer2D(Core::Window &&window, Version version, Type type) {
+            Renderer2D::Renderer2D(Core::Shared<Core::Window> window, Version version) {
+
+                auto type = Type::CORE;
+
                 int major = 2;
                 int minor = 0;
 
@@ -39,7 +42,7 @@ namespace Kokiri {
                     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
                 }
 
-                auto context = SDL_GL_CreateContext(window.get_window());
+                auto context = SDL_GL_CreateContext(window.get()->get_window());
 
                 m_context = Core::make_shared<SDL_GLContext>(context);
 
