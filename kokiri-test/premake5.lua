@@ -21,9 +21,14 @@ project "kokiri-test"
         "%{IncludeDir.glad}"
     }
 
+    libdirs {
+        "%{LibraryDir.kokiri}",
+        "%{LibraryDir.glad}"
+    }
+
     links {
-        "kokiri",
-        "glad",
+        "kokiri:static",
+        "glad:static",
         "SDL2"
     }
 
