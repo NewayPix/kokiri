@@ -14,24 +14,8 @@ namespace Kokiri {
 
                 auto type = Type::CORE;
 
-                int major = 2;
-                int minor = 0;
-
-                if (version == Version::OPENGL_3_1) {
-                    major = 3;
-                    minor = 1;
-                } else if (version == Version::OPENGL_3_2) {
-                    major = 3;
-                    minor = 2;
-                } else if (version == Version::OPENGL_4_0) {
-                    major = 4;
-                } else if (version == Version::OPENGL_4_5) {
-                    major = 4;
-                    minor = 5;
-                } else if (version == Version::OPENGL_4_6) {
-                    major = 4;
-                    minor = 6;
-                }
+                int major = m_version.at(version).first;
+                int minor = m_version.at(version).second;
 
                 SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major);
                 SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, minor);
