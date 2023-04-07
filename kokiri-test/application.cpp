@@ -20,7 +20,6 @@ int main(int argc, char *argv[]) {
     // create a scope so the window and the renderer can call their destructor
     // after the scope ends and the call to quit is successfully made.
     {
-
         auto window_properties = Window::WindowProperties{
             .width = 800,
             .height = 600,
