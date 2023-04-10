@@ -40,8 +40,22 @@ namespace Kokiri {
         }
 
 
+        void Game::init(std::function<void()> init) {
+            init();
+        }
+
+        void Game::update(std::function<void(double)> update) {
+
+        }
+
+        void Game::event(std::function<void()> event) {
+
+        }
+
         void Game::loop() {
             while (m_properties.is_running) {
+
+                SDL_Delay(5);
             }
         }
     }

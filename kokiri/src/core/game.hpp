@@ -37,9 +37,9 @@ namespace Kokiri {
             Game(const std::string& title, int width, int height);
             ~Game();
 
-            void init(std::function<void> callback);
-            void update(std::function<void(double dt)> callback);
-            void event(std::function<void> callback);
+            void init(std::function<void()> init);
+            void update(std::function<void(double dt)> update);
+            void event(std::function<void()> event);
         };
     }
 }
