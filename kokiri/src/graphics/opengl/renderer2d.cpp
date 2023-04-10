@@ -42,11 +42,10 @@ namespace Kokiri {
                 SDL_GL_DeleteContext(m_context.get());
             }
 
-
             void Renderer2D::draw() {
 
             }
-
+            
             void Renderer2D::information() {
                 Core::Log::info("Plataform: ", SDL_GetPlatform());
                 Core::Log::info("OpenGL version: ", glGetString(GL_VERSION));

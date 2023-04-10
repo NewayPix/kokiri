@@ -37,7 +37,7 @@ namespace Kokiri {
                 ~Renderer2D();
 
                 void draw();
-
+                
                 /**
                  * @brief Writes information about the renderer on the default stdout.
                  */
