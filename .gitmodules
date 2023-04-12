@@ -1,6 +1,6 @@
 [submodule "kokiri/vendor/box2d"]
 	path = kokiri/vendor/box2d
-	url = https://github.com/erincatto/box2d
+	url = https://github.com/newaypix/box2d
 [submodule "kokiri/vendor/glm"]
 	path = kokiri/vendor/glm
 	url = https://github.com/g-truc/glm/
