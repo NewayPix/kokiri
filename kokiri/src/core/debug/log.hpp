@@ -1,8 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <fmt/core.h>
-#include <fmt/color.h>
 
 #include "colors.hpp"
 
