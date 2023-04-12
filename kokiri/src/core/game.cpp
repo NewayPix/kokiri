@@ -83,16 +83,18 @@ namespace Kokiri {
 
                 auto since = t.since(Timer::Unit::Milliseconds);
 
-                Log::info(since);
+                /* Log::info(since);
 
-                /* if (since < m_properties.target_frame_time) {
+                 if (since < m_properties.target_frame_time) {
                     auto difference = m_properties.target_frame_time - since;
                     auto delay = std::chrono::duration_cast<Timer::Milliseconds>(difference);
 
                     std::this_thread::sleep_for(delay);
                 } */
 
+                // doesn't work for some reason
                 //m_renderer.get()->swap_buffers(m_window);
+
                 SDL_GL_SwapWindow(m_window.get()->get_window());
             }
         }
