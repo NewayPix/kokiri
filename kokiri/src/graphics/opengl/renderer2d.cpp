@@ -6,13 +6,9 @@
 namespace Kokiri {
     namespace Graphics {
         namespace OpenGL {
-            Renderer2D::Renderer2D(Core::Shared<Core::Window> window) {
-                Renderer2D(window, Version::OPENGL_4_6);
-            }
-
-            Renderer2D::Renderer2D(Core::Shared<Core::Window> window, Version version) {
-
+            Renderer2D::Renderer2D(Core::SharedRef<Core::Window>& window) {
                 auto type = Type::CORE;
+                auto version = Version::OPENGL_4_6;
 
                 int major = m_version.at(version).first;
                 int minor = m_version.at(version).second;
@@ -28,7 +24,7 @@ namespace Kokiri {
 
                 auto context = SDL_GL_CreateContext(window.get()->get_window());
 
-                m_context = Core::make_shared<SDL_GLContext>(context);
+                m_context = Core::make_shared_ref<SDL_GLContext>(context);
 
                 if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
                     // TODO: Improve error message
@@ -38,14 +34,18 @@ namespace Kokiri {
             }
 
             Renderer2D::~Renderer2D() {
-                Core::Log::info("destroying OpenGL Context");
+                Core::Log::info("destroying OpenGL context");
                 SDL_GL_DeleteContext(m_context.get());
             }
 
             void Renderer2D::draw() {
 
             }
-            
+
+            void swap_buffers(Core::SharedRef<Core::Window>& window) {
+                SDL_GL_SwapWindow(window.get()->get_window());
+            }
+
             void Renderer2D::information() {
                 Core::Log::info("Plataform: ", SDL_GetPlatform());
                 Core::Log::info("OpenGL version: ", glGetString(GL_VERSION));

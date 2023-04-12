@@ -24,6 +24,7 @@ project "kokiri"
         "%{IncludeDir.box2d}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.glad}",
+        "%{IncludeDir.fmt}",
     }
 
     links {
@@ -39,5 +40,5 @@ project "kokiri"
         defines { "DEBUG" }
         symbols "On"
 
-   filter "configurations:release"
+    filter "configurations:release"
         optimize "On"

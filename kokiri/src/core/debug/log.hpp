@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <fmt/core.h>
+#include <fmt/color.h>
 
 #include "colors.hpp"
 
@@ -13,11 +15,11 @@ namespace Kokiri {
         class Log {
         public:
             /**
-             * @brief log The default log, it prints args on the stdout.
+             * @brief The default log, it prints args on the stdout.
              * @param args The arguments to be printed on the terminal.
              */
-            template<typename... Ts>
-            static void info(const Ts&... args)
+            template<typename... Args>
+            static void info(const Args&... args)
             {
                 std::cout << SUCCESS_COLOR << "INFO: ";
 
@@ -28,12 +30,12 @@ namespace Kokiri {
             }
 
             /**
-             * @brief log_warn The warning log, it prints out args on the stdout
+             * @brief The warning log, it prints out args on the stdout
              * which should be taken with care.
              * @param args The arguments to be printed on the terminal.
              */
-            template<typename... Ts>
-            static void warn(const Ts&... args)
+            template<typename... Args>
+            static void warn(const Args&... args)
             {
                 std::cout << WARNING_COLOR << "WARN: ";
 
@@ -44,12 +46,12 @@ namespace Kokiri {
             }
 
             /**
-             * @brief log_err The error log, use this to print really bad things that
+             * @brief The error log, use this to print really bad things that
              * happened with something.
              * @param args The arguments to be printed on the terminal.
              */
-            template<typename... Ts>
-            static void error(const Ts&... args)
+            template<typename... Args>
+            static void error(const Args&... args)
             {
                 std::cerr << ERROR_COLOR << "ERROR: ";
 
