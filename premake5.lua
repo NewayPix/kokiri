@@ -9,6 +9,7 @@ workspace "kokiri"
 
     group "dependencies"
         include "kokiri/vendor/glad"
+        include "kokiri/vendor/box2d"
     group ""
 
     group "tests"
