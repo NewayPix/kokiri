@@ -13,7 +13,7 @@ namespace Kokiri {
             Track(const std::string& filename);
             ~Track();
 
-            void play();
+            void play(int times = -1);
             void stop();
         };
     }

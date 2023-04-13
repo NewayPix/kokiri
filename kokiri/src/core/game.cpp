@@ -32,7 +32,7 @@ namespace Kokiri {
             auto window_properties = Window::WindowProperties{
                 .width = width,
                 .height = height,
-                //.flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN,
+                //.flags = SDL_WINDOW_OPENGL,
                 .flags = 0,
 
                 .title = title
@@ -54,6 +54,18 @@ namespace Kokiri {
         }
 
         void Game::update(std::function<void(double)> update) {}
+
+        void Game::render(std::function<void()> render) {
+            int r = SDL_RenderClear(m_window.get()->get_renderer());
+            if (r < 0) {
+                Log::error("failed to render clear, reason ", SDL_GetError());
+            }
+
+            // call the user provided render function;
+            render();
+
+            SDL_RenderPresent(m_window.get()->get_renderer());
+        }
 
         void Game::event(std::function<void()> event) {
             auto e = m_event.get()->event;
@@ -84,19 +96,19 @@ namespace Kokiri {
             double dt = 0.0;
 
             while (m_properties.is_running) {
-                //int r = SDL_RenderClear(m_window.get()->get_renderer());
-                //if (r < 0) {
-                //    Log::error("failed to render clear, reason ", SDL_GetError());
-                //}
-
                 Timer t;
 
-                this->event([](){});
-                this->update([&dt](double delta){});
+                render([](){});
+                event([](){});
+                update([&dt](double delta){});
 
                 auto since = t.since(Timer::Unit::Milliseconds);
 
-                /* Log::info(since);
+                if (m_properties.is_debug) {
+                    Log::info("render time ", since, "ms");
+                }
+
+                /*
 
                  if (since < m_properties.target_frame_time) {
                     auto difference = m_properties.target_frame_time - since;
@@ -117,6 +129,10 @@ namespace Kokiri {
             // this code is not to be called from within a library as the
             // documentation prescribes.
             SDL_Quit();
+        }
+
+        SharedRef<Window> Game::get_window() {
+            return m_window;
         }
     }
 }

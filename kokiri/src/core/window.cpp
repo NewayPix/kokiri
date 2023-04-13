@@ -19,6 +19,7 @@ namespace Kokiri {
                 exit(1);
             }
 
+            //auto renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
             auto renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
             if (renderer == nullptr) {

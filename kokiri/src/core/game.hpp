@@ -43,11 +43,16 @@ namespace Kokiri {
             ~Game();
 
             void init(std::function<void()> init);
+            void render(std::function<void()> init);
             void update(std::function<void(double dt)> update);
             void event(std::function<void()> event);
 
             void loop();
             void quit();
+
+            // this is to tie a knot when creating textures from the user side
+            // of view (need to redesign this!)
+            SharedRef<Window> get_window();
         };
     }
 }

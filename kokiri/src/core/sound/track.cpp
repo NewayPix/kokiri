@@ -6,7 +6,12 @@
 namespace Kokiri {
     namespace Core {
         Track::Track(const std::string& filename) {
-            int r = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+            int r = Mix_OpenAudio(
+                MIX_DEFAULT_FREQUENCY,
+                MIX_DEFAULT_FORMAT,
+                MIX_DEFAULT_CHANNELS,
+                1024
+            );
 
             if (r != 0) {
                 Log::error("failed to open audio device");
@@ -15,7 +20,12 @@ namespace Kokiri {
             m_track = Mix_LoadMUS(filename.c_str());
 
             if (m_track == nullptr) {
-                Log::error("failed to open audio track ", filename);
+                Log::error(
+                    "failed to open audio track ",
+                    filename,
+                    ", reason ",
+                    Mix_GetError()
+                );
             }
         }
 
@@ -24,12 +34,12 @@ namespace Kokiri {
             Mix_CloseAudio();
         }
 
-        void Track::play() {
+        void Track::play(int times) {
             if (m_track == nullptr) {
                 return;
             }
 
-            Mix_PlayMusic(m_track, -1);
+            Mix_PlayMusic(m_track, times);
         }
 
         void Track::stop() {
