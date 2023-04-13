@@ -21,17 +21,17 @@ namespace Kokiri {
                     exit(1);
                 }
 
-                int *w = nullptr;
-                int *h = nullptr;
+                int w = 0;
+                int h = 0;
 
-                int r = SDL_QueryTexture(m_texture, nullptr, nullptr, w, h);
-                if (r < 0) {
+                int r = SDL_QueryTexture(m_texture, nullptr, nullptr, &w, &h);
+                if (r != 0) {
                     Core::Log::error("failed to query texture properties, reason ", IMG_GetError());
                     exit(1);
                 }
 
-                m_rect.w = *w;
-                m_rect.h = *h;
+                m_rect.w = w;
+                m_rect.h = h;
             }
 
             Sprite::~Sprite() {
