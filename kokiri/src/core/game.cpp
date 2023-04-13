@@ -49,25 +49,30 @@ namespace Kokiri {
 
         Game::~Game() {}
 
-        void Game::init(std::function<void()> init) {
+        void Game::init() {
             init();
         }
 
-        void Game::update(std::function<void(double)> update) {}
+        void Game::update() {}
 
-        void Game::render(std::function<void()> render) {
+        void Game::render() {
             int r = SDL_RenderClear(m_window.get()->get_renderer());
             if (r < 0) {
                 Log::error("failed to render clear, reason ", SDL_GetError());
             }
 
             // call the user provided render function;
-            render();
+            try {
+                auto render = m_functions.at(FunctionType::Render);
+                render();
+            } catch (const std::exception& e) {
+                // do nothing... on purpose
+            }
 
             SDL_RenderPresent(m_window.get()->get_renderer());
         }
 
-        void Game::event(std::function<void()> event) {
+        void Game::event() {
             auto e = m_event.get()->event;
 
             SDL_PollEvent(&e);
@@ -98,9 +103,9 @@ namespace Kokiri {
             while (m_properties.is_running) {
                 Timer t;
 
-                render([](){});
-                event([](){});
-                update([&dt](double delta){});
+                render();
+                event();
+                update();
 
                 auto since = t.since(Timer::Unit::Milliseconds);
 
@@ -133,6 +138,10 @@ namespace Kokiri {
 
         SharedRef<Window> Game::get_window() {
             return m_window;
+        }
+
+        void Game::bind(FunctionType type, Function<void> function) {
+            m_functions.emplace(type, function);
         }
     }
 }

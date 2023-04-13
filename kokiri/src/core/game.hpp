@@ -5,6 +5,7 @@
 
 #include "core/window.hpp"
 #include "core/event.hpp"
+#include "core/functions.hpp"
 #include "core/references.hpp"
 #include "core/sound/sound.hpp"
 
@@ -38,14 +39,25 @@ namespace Kokiri {
             SharedRef<Window> m_window;
             ScopedRef<Graphics::OpenGL::Renderer2D> m_renderer;
             ScopedRef<Graphics::SDL::Renderer> m_sdl_renderer;
+
+            // stored functions that a user would then provide through bind.
+            std::map<FunctionType, Function<void>> m_functions;
         public:
             Game(const std::string& title, int width, int height);
             ~Game();
 
-            void init(std::function<void()> init);
-            void render(std::function<void()> init);
-            void update(std::function<void(double dt)> update);
-            void event(std::function<void()> event);
+            void init();
+            void render();
+            void update();
+            void event();
+
+            /**
+             * @brief
+             *
+             * @param type
+             * @param function
+             */
+            void bind(FunctionType type, Function<void> function);
 
             void loop();
             void quit();
