@@ -5,11 +5,6 @@ namespace Kokiri {
     namespace Core {
         Window::Window(const WindowProperties& properties) {
 
-            if(SDL_Init(SDL_INIT_VIDEO) != 0) {
-                Core::Log::error("failed to initialize SDL2 video system, reason ", SDL_GetError());
-                exit(1);
-            }
-
             auto window = SDL_CreateWindow( \
                 properties.title.c_str(), \
                 SDL_WINDOWPOS_CENTERED, \
