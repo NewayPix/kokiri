@@ -50,7 +50,6 @@ namespace Kokiri {
         Game::~Game() {}
 
         void Game::init() {
-            init();
         }
 
         void Game::update() {}
