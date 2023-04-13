@@ -35,10 +35,10 @@ namespace Kokiri {
                     result = std::chrono::duration_cast<Seconds>(now - m_start).count();
                     break;
                 case Unit::Milliseconds:
-                    result = std::chrono::duration_cast<Milliseconds>(now - m_start).count() * 10e-3f;
+                    result = std::chrono::duration_cast<Milliseconds>(now - m_start).count();
                     break;
                 case Unit::Nanoseconds:
-                    result = std::chrono::duration_cast<Nanoseconds>(now - m_start).count() * 10e-9f;
+                    result = std::chrono::duration_cast<Nanoseconds>(now - m_start).count();
                     break;
                 }
 
