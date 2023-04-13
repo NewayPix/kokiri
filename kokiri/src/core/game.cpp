@@ -8,6 +8,12 @@ namespace Kokiri {
     namespace Core {
         Game::Game(const std::string& title, int width, int height) {
             using namespace Graphics::OpenGL;
+            using namespace Graphics::SDL;
+
+            if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
+                Log::error("failed to initialize SDL2 subsystems, reason ", SDL_GetError());
+                exit(1);
+            }
 
             m_properties = GameProperties{
                 .is_running = true,
@@ -26,20 +32,22 @@ namespace Kokiri {
             auto window_properties = Window::WindowProperties{
                 .width = width,
                 .height = height,
-                .flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN,
+                //.flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN,
+                .flags = 0,
 
                 .title = title
             };
 
-            m_window = make_shared_ref<Window>(window_properties);
-            m_renderer = make_scope_ref<Renderer2D>(m_window);
+            m_sound = make_scope_ref<Sound>();
             m_event = make_scope_ref<Event>();
+            m_window = make_shared_ref<Window>(window_properties);
+            //m_renderer = make_scope_ref<Renderer2D>(m_window);
+            m_sdl_renderer = make_scope_ref<Renderer>();
 
-            m_renderer->information();
+            //m_renderer->information();
         }
 
         Game::~Game() {}
-
 
         void Game::init(std::function<void()> init) {
             init();
@@ -76,6 +84,11 @@ namespace Kokiri {
             double dt = 0.0;
 
             while (m_properties.is_running) {
+                //int r = SDL_RenderClear(m_window.get()->get_renderer());
+                //if (r < 0) {
+                //    Log::error("failed to render clear, reason ", SDL_GetError());
+                //}
+
                 Timer t;
 
                 this->event([](){});
@@ -92,10 +105,11 @@ namespace Kokiri {
                     std::this_thread::sleep_for(delay);
                 } */
 
-                // doesn't work for some reason
+                // Doesn't work for some reason (for now)
                 //m_renderer.get()->swap_buffers(m_window);
 
-                SDL_GL_SwapWindow(m_window.get()->get_window());
+                // To be used with an OpenGL window context
+                //SDL_GL_SwapWindow(m_window.get()->get_window());
             }
         }
 

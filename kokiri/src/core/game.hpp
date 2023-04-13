@@ -6,8 +6,10 @@
 #include "core/window.hpp"
 #include "core/event.hpp"
 #include "core/references.hpp"
+#include "core/sound/sound.hpp"
 
 #include "graphics/opengl/renderer2d.hpp"
+#include "graphics/sdl/renderer.hpp"
 
 namespace Kokiri {
     namespace Core {
@@ -32,8 +34,10 @@ namespace Kokiri {
 
             // game resources
             ScopedRef<Event> m_event;
+            ScopedRef<Sound> m_sound;
             SharedRef<Window> m_window;
             ScopedRef<Graphics::OpenGL::Renderer2D> m_renderer;
+            ScopedRef<Graphics::SDL::Renderer> m_sdl_renderer;
         public:
             Game(const std::string& title, int width, int height);
             ~Game();
