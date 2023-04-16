@@ -31,9 +31,7 @@ project "kokiri-game"
         "glad:static",
         "SDL2",
         "SDL2_mixer",
-        "SDL2_image",
-        "ogg",
-        "vorbis"
+        "SDL2_image"
     }
 
     -- build options

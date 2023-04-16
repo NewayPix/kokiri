@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     // create assets
     std::vector<Sprite> assets;
 
-    Track bgm("stateStage.ogg");
+    Track bgm("stageState.ogg");
     Track effect("boom.wav");
 
     Sprite background(game.get_window(), "ocean.jpg");
