@@ -12,4 +12,4 @@
 
 #include "core/debug/log.hpp"
 #include "core/references.hpp"
-#include "core/enum.hpp"
+#include "core/utils/enum.hpp"

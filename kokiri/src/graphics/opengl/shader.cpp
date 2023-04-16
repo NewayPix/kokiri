@@ -5,7 +5,7 @@ namespace Kokiri {
     namespace Graphics {
         namespace OpenGL {
             Shader::Shader(const std::string &code, ShaderType type) : m_source(code) {
-                m_handle = glCreateShader(to_underlying(type));
+                m_handle = glCreateShader(Utils::to_underlying(type));
 
                 // Not sure if this is the way to do it
                 const GLchar *const *source = (const GLchar* const *) code.c_str();
