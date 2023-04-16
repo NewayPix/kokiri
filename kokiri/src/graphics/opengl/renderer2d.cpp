@@ -6,7 +6,7 @@
 namespace Kokiri {
     namespace Graphics {
         namespace OpenGL {
-            Renderer2D::Renderer2D(SharedRef<Window>& window) {
+            Renderer2D::Renderer2D(const SharedRef<Window>& window) {
                 auto type = Type::CORE;
                 auto version = Version::OPENGL_4_6;
 
@@ -42,7 +42,7 @@ namespace Kokiri {
 
             }
 
-            void swap_buffers(SharedRef<Window>& window) {
+            void swap_buffers(const SharedRef<Window>& window) {
                 SDL_GL_SwapWindow(window.get()->get_window());
             }
 

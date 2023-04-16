@@ -32,7 +32,7 @@ namespace Kokiri {
                     OPENGL_4_6,
                 };
 
-                Renderer2D(SharedRef<Window>& window);
+                Renderer2D(const SharedRef<Window>& window);
                 ~Renderer2D();
 
                 void draw();
