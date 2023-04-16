@@ -35,6 +35,8 @@ namespace Kokiri {
             }
 
             Sprite::~Sprite() {
+                Log::info("destroying texture ", m_filename);
+                SDL_DestroyTexture(m_texture);
             }
 
             void Sprite::render(int x, int y) {
