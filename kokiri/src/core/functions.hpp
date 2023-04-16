@@ -3,13 +3,11 @@
 #include <functional>
 
 namespace Kokiri {
-    namespace Core {
-        enum class FunctionType {
-            Render,
-            Update,
-        };
+    enum class FunctionType {
+        Render,
+        Update,
+    };
 
-        template <typename Type, typename ...Args>
-        using Function = std::function<Type(Args...)>;
-    }
+    template <typename Type, typename ...Args>
+    using Function = std::function<Type(Args...)>;
 }

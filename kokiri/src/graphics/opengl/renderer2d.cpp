@@ -6,7 +6,7 @@
 namespace Kokiri {
     namespace Graphics {
         namespace OpenGL {
-            Renderer2D::Renderer2D(Core::SharedRef<Core::Window>& window) {
+            Renderer2D::Renderer2D(SharedRef<Window>& window) {
                 auto type = Type::CORE;
                 auto version = Version::OPENGL_4_6;
 
@@ -24,17 +24,17 @@ namespace Kokiri {
 
                 auto context = SDL_GL_CreateContext(window.get()->get_window());
 
-                m_context = Core::make_shared_ref<SDL_GLContext>(context);
+                m_context = make_shared_ref<SDL_GLContext>(context);
 
                 if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
                     // TODO: Improve error message
-                    Core::Log::error("failed to create OpenGL context");
+                    Log::error("failed to create OpenGL context");
                     exit(1);
                 }
             }
 
             Renderer2D::~Renderer2D() {
-                Core::Log::info("destroying OpenGL context");
+                Log::info("destroying OpenGL context");
                 SDL_GL_DeleteContext(m_context.get());
             }
 
@@ -42,17 +42,17 @@ namespace Kokiri {
 
             }
 
-            void swap_buffers(Core::SharedRef<Core::Window>& window) {
+            void swap_buffers(SharedRef<Window>& window) {
                 SDL_GL_SwapWindow(window.get()->get_window());
             }
 
             void Renderer2D::information() {
-                Core::Log::info("Plataform: ", SDL_GetPlatform());
-                Core::Log::info("OpenGL version: ", glGetString(GL_VERSION));
-                Core::Log::info("OpenGL vendor: ", glGetString(GL_VENDOR));
-                Core::Log::info("OpenGL renderer: ", glGetString(GL_RENDERER));
+                Log::info("Plataform: ", SDL_GetPlatform());
+                Log::info("OpenGL version: ", glGetString(GL_VERSION));
+                Log::info("OpenGL vendor: ", glGetString(GL_VENDOR));
+                Log::info("OpenGL renderer: ", glGetString(GL_RENDERER));
             #if !__WIN32__
-                Core::Log::info("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
+                Log::info("GLSL version: ", glGetString(GL_SHADING_LANGUAGE_VERSION));
             #endif // not adding more headers just to have this working, for now.
             }
         }

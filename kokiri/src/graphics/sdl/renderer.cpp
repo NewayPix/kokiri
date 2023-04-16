@@ -10,12 +10,12 @@ namespace Kokiri {
                 int r = IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
                 if (r == 0) {
-                    Core::Log::error("failed to initialize image subsystem");
+                    Log::error("failed to initialize image subsystem");
                 }
             }
 
             Renderer::~Renderer() {
-                Core::Log::info("destroying image renderer");
+                Log::info("destroying image renderer");
                 IMG_Quit();
             }
         }

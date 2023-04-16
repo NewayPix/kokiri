@@ -18,9 +18,9 @@ namespace Kokiri {
 
                 std::string m_filename;
 
-                Core::SharedRef<Core::Window> m_window;
+                SharedRef<Window> m_window;
             public:
-                Sprite(Core::SharedRef<Core::Window> window, const std::string& filename);
+                Sprite(SharedRef<Window> window, const std::string& filename);
                 ~Sprite();
 
                 void render(int x, int y);

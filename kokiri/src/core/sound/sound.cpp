@@ -4,18 +4,16 @@
 #include <SDL2/SDL_mixer.h>
 
 namespace Kokiri {
-    namespace Core {
-        Sound::Sound() {
-            int r = Mix_Init(MIX_INIT_OGG);
+    Sound::Sound() {
+        int r = Mix_Init(MIX_INIT_OGG);
 
-            if (r == 0) {
-                Log::error("failed to initialize audio");
-            }
+        if (r == 0) {
+            Log::error("failed to initialize audio");
         }
+    }
 
-        Sound::~Sound() {
-            Log::info("destroying mixer");
-            Mix_Quit();
-        }
+    Sound::~Sound() {
+        Log::info("destroying mixer");
+        Mix_Quit();
     }
 }

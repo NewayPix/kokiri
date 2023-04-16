@@ -4,14 +4,14 @@
 namespace Kokiri {
     namespace Graphics {
         namespace SDL {
-            Sprite::Sprite(Core::SharedRef<Core::Window> window, const std::string& filename) {
+            Sprite::Sprite(SharedRef<Window> window, const std::string& filename) {
                 m_window = window;
                 m_filename = filename;
 
                 m_texture = IMG_LoadTexture(m_window.get()->get_renderer(), filename.c_str());
 
                 if (m_texture == nullptr) {
-                    Core::Log::error(
+                    Log::error(
                         "failed to load image ",
                         filename,
                         ", reason ",
@@ -26,7 +26,7 @@ namespace Kokiri {
 
                 int r = SDL_QueryTexture(m_texture, nullptr, nullptr, &w, &h);
                 if (r != 0) {
-                    Core::Log::error("failed to query texture properties, reason ", IMG_GetError());
+                    Log::error("failed to query texture properties, reason ", IMG_GetError());
                     exit(1);
                 }
 

@@ -1,11 +1,9 @@
 #pragma once
 
 namespace Kokiri {
-    namespace Core {
-        class Sound {
-        public:
-            Sound();
-            ~Sound();
-        };
-    }
+    class Sound {
+    public:
+        Sound();
+        ~Sound();
+    };
 }
