@@ -7,7 +7,7 @@
 #include "graphics/sdl/sprite.hpp"
 
 int main(int argc, char *argv[]) {
-    using namespace Kokiri::Core;
+    using namespace Kokiri;
     using namespace Kokiri::Graphics::SDL;
 
     Game game("A Game", 1024, 600);
