@@ -10,7 +10,7 @@
 #include "core/sound/sound.hpp"
 
 #include "graphics/opengl/renderer2d.hpp"
-#include "graphics/sdl/renderer.hpp"
+#include "graphics/sdl/renderer2d.hpp"
 
 namespace Kokiri {
     class Game {
@@ -36,8 +36,8 @@ namespace Kokiri {
         ScopedRef<Event> m_event;
         ScopedRef<Sound> m_sound;
         SharedRef<Window> m_window;
-        ScopedRef<Graphics::OpenGL::Renderer2D> m_renderer;
-        ScopedRef<Graphics::SDL::Renderer> m_sdl_renderer;
+        ScopedRef<Graphics::OpenGL::Renderer2D> m_opengl_renderer;
+        ScopedRef<Graphics::SDL::Renderer2D> m_sdl_renderer;
 
         // stored functions that a user would then provide through bind.
         std::map<FunctionType, Function<void>> m_functions;

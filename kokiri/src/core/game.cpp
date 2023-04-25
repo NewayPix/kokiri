@@ -6,8 +6,7 @@
 
 namespace Kokiri {
     Game::Game(const std::string& title, int width, int height) {
-        using namespace Graphics::OpenGL;
-        using namespace Graphics::SDL;
+        using namespace Graphics;
 
         if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
             Log::error("failed to initialize SDL2 subsystems, reason ", SDL_GetError());
@@ -40,10 +39,10 @@ namespace Kokiri {
         m_sound = make_scope_ref<Sound>();
         m_event = make_scope_ref<Event>();
         m_window = make_shared_ref<Window>(window_properties);
-        //m_renderer = make_scope_ref<Renderer2D>(m_window);
-        m_sdl_renderer = make_scope_ref<Renderer>();
+        m_opengl_renderer = make_scope_ref<OpenGL::Renderer2D>(m_window);
+        m_sdl_renderer = make_scope_ref<SDL::Renderer2D>(m_window);
 
-        //m_renderer->information();
+        //m_opengl_renderer->information();
     }
 
     Game::~Game() {}
@@ -121,7 +120,7 @@ namespace Kokiri {
             } */
 
             // Doesn't work for some reason (for now)
-            //m_renderer.get()->swap_buffers(m_window);
+            //m_opengl_renderer.get()->swap_buffers(m_window);
 
             // To be used with an OpenGL window context
             //SDL_GL_SwapWindow(m_window.get()->get_window());
