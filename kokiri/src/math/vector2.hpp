@@ -5,12 +5,12 @@ namespace Kokiri {
         template <class T>
         class Vector2 {
         public:
-            T m_x;
-            T m_y;
+            T x;
+            T y;
         public:
             Vector2(T x, T y) {
-                m_x = x;
-                m_y = y;
+                x = x;
+                y = y;
             }
 
             ~Vector2() {}
@@ -18,14 +18,14 @@ namespace Kokiri {
             Vector2<T> norm() {
                 Vector2<T> normalized = *this;
 
-                normalized.m_x /= mag();
-                normalized.m_y /= mag();
+                normalized.x /= mag();
+                normalized.y /= mag();
 
                 return normalized;
             }
 
             T mag() {
-                return  sqrt(pow(m_x, 2) + pow(m_y, 2));
+                return  sqrt(pow(x, 2) + pow(y, 2));
             }
         };
     }

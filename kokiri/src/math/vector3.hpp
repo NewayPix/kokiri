@@ -7,14 +7,14 @@ namespace Kokiri {
         template <class T>
         class Vector3 {
         public:
-            T m_x;
-            T m_y;
-            T m_z;
+            T x;
+            T y;
+            T z;
         public:
             Vector3(T x, T y, T z) {
-                m_x = x;
-                m_y = y;
-                m_z = z;
+                x = x;
+                y = y;
+                z = z;
             }
 
             ~Vector3() {}
@@ -22,15 +22,15 @@ namespace Kokiri {
             Vector3<T> norm() {
                 Vector3<T> normalized = *this;
 
-                normalized.m_x /= mag();
-                normalized.m_y /= mag();
-                normalized.m_z /= mag();
+                normalized.x /= mag();
+                normalized.y /= mag();
+                normalized.z /= mag();
 
                 return normalized;
             }
 
             T mag() {
-                return  sqrt(pow(m_x, 2) + pow(m_y, 2) + pow(m_z, 2));
+                return  sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
             }
         };
     }
