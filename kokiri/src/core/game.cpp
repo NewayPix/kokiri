@@ -37,7 +37,7 @@ namespace Kokiri {
         };
 
         m_sound = make_scope_ref<Sound>();
-        m_event = make_scope_ref<Event>();
+        m_event = make_shared_ref<Event>();
         m_window = make_shared_ref<Window>(window_properties);
         m_opengl_renderer = make_scope_ref<OpenGL::Renderer2D>(m_window);
         m_sdl_renderer = make_scope_ref<SDL::Renderer2D>(m_window);
@@ -58,11 +58,11 @@ namespace Kokiri {
             Log::error("failed to render clear, reason ", SDL_GetError());
         }
 
-        // call the user provided render function;
+        // call the user provided render function
         try {
-            auto render = m_functions.at(FunctionType::Render);
-            render();
-        } catch (const std::exception& e) {
+            auto r = m_functions.at(FunctionType::Render);
+            r();
+        } catch (const std::exception& ex) {
             // do nothing... on purpose
         }
 
@@ -78,7 +78,7 @@ namespace Kokiri {
             m_properties.is_running = false;
         }
 
-        if (e->is_key_down(Event::Key::Q)) {
+        if (e->is_key_down(Event::Key::Q) || e->is_key_down(Event::Key::ESC)) {
             m_properties.is_running = false;
         }
         if (e->is_key_down(Event::Key::F1)) {
@@ -87,6 +87,16 @@ namespace Kokiri {
 
         if (m_properties.is_debug) {
             Log::info("event happened");
+        }
+
+        {
+            // call the user provided event function
+            try {
+                auto e = m_functions.at(FunctionType::Event);
+                e();
+            } catch (const std::exception& ex) {
+                // do nothing... on purpose
+            }
         }
     }
 
@@ -129,11 +139,15 @@ namespace Kokiri {
         SDL_Quit();
     }
 
+    void Game::bind(FunctionType type, Function<void> function) {
+        m_functions.emplace(type, function);
+    }
+
     SharedRef<Window> Game::get_window() {
         return m_window;
     }
 
-    void Game::bind(FunctionType type, Function<void> function) {
-        m_functions.emplace(type, function);
+    SharedRef<Event> Game::get_event() {
+        return m_event;
     }
 }

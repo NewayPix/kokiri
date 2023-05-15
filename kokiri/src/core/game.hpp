@@ -33,22 +33,23 @@ namespace Kokiri {
         GameProperties m_properties;
 
         // game resources
-        ScopedRef<Event> m_event;
         ScopedRef<Sound> m_sound;
+        SharedRef<Event> m_event;
         SharedRef<Window> m_window;
         ScopedRef<Graphics::OpenGL::Renderer2D> m_opengl_renderer;
         ScopedRef<Graphics::SDL::Renderer2D> m_sdl_renderer;
 
         // stored functions that a user would then provide through bind.
         std::map<FunctionType, Function<void>> m_functions;
+    private:
+        void render();
+        void update();
+        void event();
     public:
         Game(const std::string& title, int width, int height);
         ~Game();
 
         void init();
-        void render();
-        void update();
-        void event();
 
         /**
          * @brief
@@ -64,5 +65,7 @@ namespace Kokiri {
         // this is to tie a knot when creating textures from the user side
         // of view (need to redesign this!)
         SharedRef<Window> get_window();
+
+        SharedRef<Event> get_event();
     };
 }
