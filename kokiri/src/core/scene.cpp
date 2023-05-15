@@ -10,7 +10,7 @@ namespace Kokiri {
 
     }
 
-    void add_entity(const Entity& e) {
-        m_entities[e.get_name()] = e;
+    void Scene::add_entity(const Entity& e) {
+        // m_entities[e.get_name()] = e;
     }
 }

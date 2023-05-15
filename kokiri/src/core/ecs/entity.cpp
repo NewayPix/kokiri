@@ -9,7 +9,7 @@ namespace Kokiri {
 
     Entity::~Entity() {}
 
-    const std::string get_name() {
+    const std::string Entity::get_name() {
         return m_name;
     }
 }

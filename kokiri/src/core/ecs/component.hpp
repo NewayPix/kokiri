@@ -8,7 +8,7 @@ namespace Kokiri {
     private:
         SharedRef<T> m_component;
     public:
-        Component(T t);
-        ~Component();
+        Component(T t) {};
+        ~Component() {};
     };
 }
