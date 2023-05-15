@@ -81,6 +81,8 @@ namespace Kokiri {
             F10 = SDL_SCANCODE_F10,
             F11 = SDL_SCANCODE_F11,
             F12 = SDL_SCANCODE_F12,
+
+            ESC = SDL_SCANCODE_ESCAPE,
         };
 
         Event();
