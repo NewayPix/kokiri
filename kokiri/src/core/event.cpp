@@ -3,7 +3,13 @@
 
 namespace Kokiri {
     Event::Event() {
-        m_key_state = SDL_GetKeyboardState(nullptr);
+        m_key_state = (u8*) SDL_GetKeyboardState(nullptr);
+
+        m_mouse_click = false;
+        m_mouse_move = false;
+        m_key_pressed = false;
+
+        m_quit = false;
     }
 
     Event::~Event() {}
@@ -25,6 +31,8 @@ namespace Kokiri {
             case SDL_KEYDOWN:
                 m_key_pressed = true;
                 break;
+            case SDL_QUIT:
+                m_quit = true;
             }
         }
     }
@@ -37,15 +45,19 @@ namespace Kokiri {
     }
 
     bool Event::is_key_down(Key key) {
-        return false;
+        return m_key_state[Utils::to_underlying(key)];
     }
 
     bool Event::is_mouse_click(Mouse::Buttons button) {
         return m_mouse_click && m_mouse_button_event.button == button;
     }
 
+    bool Event::quit() {
+        return m_quit;
+    }
+
     v2<int> Event::get_mouse_position() {
-        v2<int> p;
+        v2<int> p(0, 0);
 
         SDL_GetMouseState(&p.x, &p.y);
 
