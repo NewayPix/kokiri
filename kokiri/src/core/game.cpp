@@ -70,27 +70,23 @@ namespace Kokiri {
     }
 
     void Game::event() {
-        auto e = m_event.get()->event;
+        auto e = m_event.get();
 
-        SDL_PollEvent(&e);
+        e->pool();
 
-        switch (e.type) {
-        case SDL_QUIT:
+        if (e->quit()) {
             m_properties.is_running = false;
-            break;
-        case SDL_KEYDOWN:
-            switch(e.key.keysym.sym) {
-            case SDLK_ESCAPE:
-            case SDLK_q:
-                m_properties.is_running = false;
-                break;
-            case SDLK_F1:
-                m_properties.is_debug = !m_properties.is_debug;
-            }
+        }
+
+        if (e->is_key_down(Event::Key::Q)) {
+            m_properties.is_running = false;
+        }
+        if (e->is_key_down(Event::Key::F1)) {
+            m_properties.is_debug = !m_properties.is_debug;
         }
 
         if (m_properties.is_debug) {
-            Log::info("event ", e.type);
+            Log::info("event happened");
         }
     }
 
