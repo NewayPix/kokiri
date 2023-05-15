@@ -6,6 +6,7 @@ namespace Kokiri {
     enum class FunctionType {
         Render,
         Update,
+        Event,
     };
 
     template <typename Type, typename ...Args>
