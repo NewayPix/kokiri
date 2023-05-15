@@ -12,25 +12,20 @@ int main(int argc, char *argv[]) {
 
     Game game("A Game", 1024, 600);
 
-    // create assets
-    std::vector<Sprite> assets;
-
     Track bgm("stageState.ogg");
     Track effect("boom.wav");
 
     Sprite background(game.get_window(), "ocean.jpg");
 
-    assets.push_back(background);
-
-    game.bind(FunctionType::Render, [&game, assets](){
-        for (auto asset: assets) {
-            asset.render(0, 0);
-        }
+    game.bind(FunctionType::Render, [&game, &background](){
+        background.render(0, 0);
     });
 
     effect.play(1);
     bgm.play(1);
 
     game.loop();
+
+    return 0;
 }
 
