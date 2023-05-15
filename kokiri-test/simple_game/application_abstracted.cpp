@@ -1,9 +1,15 @@
 #include <iostream>
 #include <cstdint>
+#include <vector>
+#include <utility>
 
 #include "core/game.hpp"
+#include "core/event.hpp"
+#include "core/types.hpp"
 #include "core/functions.hpp"
 #include "core/sound/track.hpp"
+#include "core/debug/log.hpp"
+
 #include "graphics/sdl/sprite.hpp"
 
 void test_1();
@@ -38,6 +44,7 @@ void test_1() {
 
 void test_2() {
     using namespace Kokiri;
+    using namespace Kokiri::Math;
     using namespace Kokiri::Graphics::SDL;
 
     Game game("A Game", 1024, 600);
@@ -47,13 +54,39 @@ void test_2() {
 
     Sprite background(game.get_window(), "ocean.jpg");
 
-    game.bind(FunctionType::Render, [&game, &background](){
+    std::vector<std::pair<v2<int>, Sprite*>> assets;
+
+    game.bind(FunctionType::Render, [&game, &background, &assets](){
         background.render(0, 0);
+
+        for (const auto& asset : assets) {
+            auto p = asset.first;
+            auto s = asset.second;
+
+            s->render(p.x, p.y);
+        }
     });
 
-    effect.play(1);
-    bgm.play(1);
+    game.bind(FunctionType::Event, [&game, &assets]() {
+        auto e = game.get_event();
+
+        if (e.get()->is_mouse_click(Event::Mouse::LeftButton)) {
+            auto p = e.get()->get_mouse_position();
+            auto s = new Sprite(game.get_window(), "penguin.png");
+
+            Log::info("click: ", p.x, p.y);
+
+            assets.push_back(std::make_pair(p, s));
+        }
+    });
 
     game.loop();
+
+    // clean everything
+    for (const auto& asset : assets) {
+        delete asset.second;
+    }
+
+    return 0;
 }
 
