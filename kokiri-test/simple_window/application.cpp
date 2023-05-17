@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
             .title = "Kokiri Engine"
         };
 
-        auto window = make_shared<Window>(window_properties);
+        auto window = make_shared_ref<Window>(window_properties);
         auto renderer = Renderer2D(window);
 
         renderer.information();

@@ -1,36 +1,31 @@
 #pragma once
 
-#include <cmath>
-
 namespace Kokiri {
     namespace Math {
         template <class T>
-        class Vector3 {
+        class Vector2 {
         public:
             T x;
             T y;
-            T z;
         public:
-            Vector3(T x, T y, T z) {
+            Vector2(T x, T y) {
                 x = x;
                 y = y;
-                z = z;
             }
 
-            ~Vector3() {}
+            ~Vector2() {}
 
-            Vector3<T> norm() {
-                Vector3<T> normalized = *this;
+            Vector2<T> norm() {
+                Vector2<T> normalized = *this;
 
                 normalized.x /= mag();
                 normalized.y /= mag();
-                normalized.z /= mag();
 
                 return normalized;
             }
 
             T mag() {
-                return  sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+                return  sqrt(pow(x, 2) + pow(y, 2));
             }
         };
     }
