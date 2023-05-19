@@ -86,7 +86,5 @@ void test_2() {
     for (const auto& asset : assets) {
         delete asset.second;
     }
-
-    return 0;
 }
 
