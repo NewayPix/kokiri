@@ -17,7 +17,7 @@ namespace Kokiri {
         bool m_mouse_click;
         bool m_mouse_move;
 
-        bool m_key_pressed;
+        bool m_key_down;
 
         bool m_quit;
     public:
@@ -83,6 +83,11 @@ namespace Kokiri {
             F12 = SDL_SCANCODE_F12,
 
             ESC = SDL_SCANCODE_ESCAPE,
+
+            UP = SDL_SCANCODE_UP,
+            DOWN = SDL_SCANCODE_DOWN,
+            LEFT = SDL_SCANCODE_LEFT,
+            RIGHT = SDL_SCANCODE_RIGHT
         };
 
         Event();
@@ -100,7 +105,8 @@ namespace Kokiri {
          */
         void clear();
 
-        bool is_key_down(Key key);
+        bool is_key_press(Key key);
+
         bool is_mouse_click(Mouse::Buttons mouse);
 
         bool quit();

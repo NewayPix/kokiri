@@ -7,7 +7,8 @@ namespace Kokiri {
 
         m_mouse_click = false;
         m_mouse_move = false;
-        m_key_pressed = false;
+
+        m_key_down = false;
 
         m_quit = false;
     }
@@ -24,12 +25,11 @@ namespace Kokiri {
                 m_mouse_motion_event = m_event.motion;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-            case SDL_MOUSEBUTTONUP:
                 m_mouse_click = true;
                 m_mouse_button_event = m_event.button;
                 break;
             case SDL_KEYDOWN:
-                m_key_pressed = true;
+                m_key_down = true;
                 break;
             case SDL_QUIT:
                 m_quit = true;
@@ -41,11 +41,11 @@ namespace Kokiri {
         m_mouse_click = false;
         m_mouse_move = false;
 
-        m_key_pressed = false;
+        m_key_down = false;
     }
 
-    bool Event::is_key_down(Key key) {
-        return m_key_state[Utils::to_underlying(key)];
+    bool Event::is_key_press(Key key) {
+        return m_key_down && m_key_state[Utils::to_underlying(key)];
     }
 
     bool Event::is_mouse_click(Mouse::Buttons button) {

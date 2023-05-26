@@ -78,10 +78,10 @@ namespace Kokiri {
             m_properties.is_running = false;
         }
 
-        if (e->is_key_down(Event::Key::Q) || e->is_key_down(Event::Key::ESC)) {
+        if (e->is_key_press(Event::Key::Q) || e->is_key_press(Event::Key::ESC)) {
             m_properties.is_running = false;
         }
-        if (e->is_key_down(Event::Key::F1)) {
+        if (e->is_key_press(Event::Key::F1)) {
             m_properties.is_debug = !m_properties.is_debug;
         }
 
@@ -118,12 +118,14 @@ namespace Kokiri {
 
             /*
 
-                if (since < m_properties.target_frame_time) {
+            if (since < m_properties.target_frame_time) {
                 auto difference = m_properties.target_frame_time - since;
                 auto delay = std::chrono::duration_cast<Timer::Milliseconds>(difference);
 
                 std::this_thread::sleep_for(delay);
-            } */
+            }
+
+            */
 
             // Doesn't work for some reason (for now)
             //m_opengl_renderer.get()->swap_buffers(m_window);
