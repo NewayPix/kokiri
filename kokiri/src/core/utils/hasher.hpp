@@ -38,6 +38,7 @@ namespace Kokiri {
 
             static std::string hash(const std::string& s) {
                 std::stringstream ss;
+                ss << std::hex;
 
                 ss << std::hash<std::string>{}(s);
 
