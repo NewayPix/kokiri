@@ -25,7 +25,12 @@ namespace Kokiri {
             }
 
             T mag() {
-                return  sqrt(pow(x, 2) + pow(y, 2));
+                return sqrt(pow(x, 2) + pow(y, 2));
+            }
+
+            void scale(T n) {
+                this->x *= n;
+                this->y *= n;
             }
         };
     }
