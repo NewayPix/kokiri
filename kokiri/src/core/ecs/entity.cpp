@@ -1,10 +1,12 @@
+#include "kkr.hpp"
 #include "entity.hpp"
 
-namespace Kokiri {
-    Entity::Entity(const std::string& name) {
-        m_name = name;
+#include "core/utils/hasher.hpp"
 
-        // TODO: generate UUID
+namespace Kokiri {
+    Entity::Entity(const std::string &name) {
+        m_name = name;
+        m_uuid = Utils::Hasher::uuid();
     }
 
     Entity::~Entity() {}
