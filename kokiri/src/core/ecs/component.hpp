@@ -1,31 +1,36 @@
 #pragma once
 
+#include "core/types.hpp"
 #include "core/references.hpp"
 
 namespace Kokiri {
     enum class ComponentType {
             Sprite,
             Soundtrack,
+            Tilemap
     };
 
     template <typename T>
     class Component {
-    private:
+    protected:
         ComponentType m_type;
 
     public:
         Component(const ComponentType type) {
             m_type = type;
         }
-        
+
         Component(T t, const ComponentType type) {
             m_type = type;
         };
 
-        ~Component() {};
+        virtual ~Component() {};
 
         ComponentType get_type() const {
             return m_type;
         }
+
+        virtual void render() {};
+        virtual void update(f32 dt) {};
     };
 }

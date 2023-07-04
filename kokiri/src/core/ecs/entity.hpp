@@ -33,7 +33,16 @@ namespace Kokiri {
         void update(f32 dt);
         void render();
 
-        void add_component(const Component<ComponentType>& c);
-        void remove_component(const Component<ComponentType>& c);
+        void add_component(Component<ComponentType>* c);
+
+        /**
+         * @brief Removes the component from the entity. If the component
+         * doesn't exist, it doesn't do anything. If the component exists, it is
+         * removed from the entity but the memory should be freed manually by
+         * the caller (up to this point).
+         *
+         * @param c
+         */
+        void remove_component(Component<ComponentType>* c);
     };
 }

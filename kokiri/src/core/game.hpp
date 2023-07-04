@@ -7,6 +7,8 @@
 #include "core/event.hpp"
 #include "core/functions.hpp"
 #include "core/references.hpp"
+#include "core/resources.hpp"
+#include "core/scene.hpp"
 #include "core/sound/sound.hpp"
 
 #include "graphics/opengl/renderer2d.hpp"
@@ -41,10 +43,18 @@ namespace Kokiri {
 
         // stored functions that a user would then provide through bind.
         std::map<FunctionType, Function<void>> m_functions;
+
+        std::string m_active_scene;
+        std::map<std::string, Scene> m_scenes;
+
+        ScopedRef<Resources> m_resources;
     private:
         void render();
         void update();
         void event();
+
+        // free every allocated resource
+        void free();
     public:
         Game(const std::string& title, int width, int height);
         ~Game();
@@ -52,7 +62,8 @@ namespace Kokiri {
         void init();
 
         /**
-         * @brief
+         * @brief Binds a function type to a user provided function that gets
+         * executed every time the game loops.
          *
          * @param type
          * @param function
@@ -67,5 +78,30 @@ namespace Kokiri {
         SharedRef<Window> get_window();
 
         SharedRef<Event> get_event();
+
+        /**
+         * @brief Add a scene to the game
+         *
+         * @param scene
+         */
+        void add_scene(const Scene& scene);
+
+        /**
+         * @brief Set the active scene object. It's required to set the active
+         * scene or the game will pick the first entry alphabetically.
+         *
+         * @param scene
+         */
+        void set_active_scene(const std::string &scene);
+
+        /**
+         * @brief Load a resource into the game
+         *
+         * @param name
+         * @param filename
+         * @return true If the resource has been successfully loaded
+         * @return false If something wrong happened when loading the resource
+         */
+        bool load(const std::string& name, const std::string& filename);
     };
 }

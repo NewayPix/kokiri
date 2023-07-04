@@ -5,13 +5,16 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#include "core/references.hpp"
 #include "core/window.hpp"
+#include "core/types.hpp"
+#include "core/references.hpp"
+
+#include "core/ecs/component.hpp"
 
 namespace Kokiri {
     namespace Graphics {
         namespace SDL {
-            class Sprite {
+            class Sprite : public Component<ComponentType> {
             private:
                 SDL_Surface* m_surface;
                 SDL_Texture* m_texture;
@@ -24,7 +27,10 @@ namespace Kokiri {
                 Sprite(SharedRef<Window> window, const std::string& filename);
                 ~Sprite();
 
-                void render(int x, int y);
+                void render(i32 x, i32 y);
+
+                u32 get_width();
+                u32 get_height();
             };
         }
     }

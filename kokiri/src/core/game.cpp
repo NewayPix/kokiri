@@ -1,6 +1,16 @@
 #include "kkr.hpp"
 #include "game.hpp"
-#include "timer.hpp"
+
+#include "core/timer.hpp"
+#include "core/utils/strings.hpp"
+
+#include "core/ecs/component.hpp"
+
+#include "core/sound/sound.hpp"
+#include "core/sound/track.hpp"
+
+#include "graphics/sdl/sprite.hpp"
+#include "graphics/sdl/tilemap.hpp"
 
 #include <SDL2/SDL.h>
 
@@ -39,15 +49,21 @@ namespace Kokiri {
         m_sound = make_scope_ref<Sound>();
         m_event = make_shared_ref<Event>();
         m_window = make_shared_ref<Window>(window_properties);
+        m_resources = make_scope_ref<Resources>();
         m_opengl_renderer = make_scope_ref<OpenGL::Renderer2D>(m_window);
         m_sdl_renderer = make_scope_ref<SDL::Renderer2D>(m_window);
-
-        //m_opengl_renderer->information();
     }
 
-    Game::~Game() {}
+    Game::~Game() {
+        free();
+    }
 
     void Game::init() {
+    }
+
+    void Game::free() {
+        m_resources.get()->free();
+        m_resources.release();
     }
 
     void Game::update() {}
@@ -151,5 +167,30 @@ namespace Kokiri {
 
     SharedRef<Event> Game::get_event() {
         return m_event;
+    }
+
+    bool Game::load(const std::string& name, const std::string& filename) {
+        using namespace Graphics::SDL;
+
+        bool loaded = true;
+        auto extension = Utils::Strings::extension(filename);
+
+        if (extension == ".png" || extension == ".jpg") {
+            auto c = new Sprite(m_window, filename);
+
+            loaded = m_resources.get()->add(name, c);
+        } else if (extension == ".ogg") {
+            auto c = new Track(filename);
+
+            loaded = m_resources.get()->add(name, c);
+        } else {
+            Log::info("no available load method for ", extension, " extension");
+        }
+
+        if (!loaded) {
+            Log::error("failed to load resource ", filename);
+        }
+
+        return loaded;
     }
 }

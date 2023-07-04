@@ -4,7 +4,7 @@
 namespace Kokiri {
     namespace Graphics {
         namespace SDL {
-            Sprite::Sprite(SharedRef<Window> window, const std::string& filename) {
+            Sprite::Sprite(SharedRef<Window> window, const std::string& filename) : Component::Component(ComponentType::Sprite) {
                 m_window = window;
                 m_filename = filename;
 
@@ -39,11 +39,19 @@ namespace Kokiri {
                 SDL_DestroyTexture(m_texture);
             }
 
-            void Sprite::render(int x, int y) {
+            void Sprite::render(i32 x, i32 y) {
                 m_rect.x = x;
                 m_rect.y = y;
 
                 SDL_RenderCopy(m_window.get()->get_renderer(), m_texture, nullptr, &m_rect);
+            }
+
+            u32 Sprite::get_width() {
+                return u32(m_rect.w);
+            }
+
+            u32 Sprite::get_height() {
+                return u32(m_rect.h);
             }
         }
     }
