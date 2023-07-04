@@ -3,8 +3,11 @@
 #include <vector>
 #include <utility>
 
+#include <SDL2/SDL.h>
+
 #include "core/game.hpp"
 #include "core/event.hpp"
+#include "core/scene.hpp"
 #include "core/types.hpp"
 #include "core/functions.hpp"
 #include "core/sound/track.hpp"
@@ -14,9 +17,10 @@
 
 void test_1();
 void test_2();
+void test_3();
 
 int main(int argc, char *argv[]) {
-    test_2();
+    test_3();
 
     return 0;
 }
@@ -88,3 +92,67 @@ void test_2() {
     }
 }
 
+
+void test_3() {
+    using namespace Kokiri;
+    using namespace Kokiri::Math;
+    using namespace Kokiri::Graphics::SDL;
+
+    Game game("A Game", 1024, 600);
+
+    game.load("main-bgm", "stageState.ogg");
+    game.load("ocean-background", "ocean.jpg");
+
+    game.loop();
+    game.quit();
+}
+
+/*void test_4() {
+    using namespace Kokiri;
+    using namespace Kokiri::Math;
+    using namespace Kokiri::Graphics::SDL;
+
+    Game game("A Game", 1024, 600);
+
+    //Track bgm("stageState.ogg");
+    //Track effect("boom.wav");
+
+    //Sprite background(game.get_window(), "ocean.jpg");
+
+    game.load("ocean.jpg");
+    game.load("stageState.ogg");
+    game.load("boom.wav");
+
+    Scene menu_scene("menu");
+    Scene play_scene("play");
+    Scene settings_scene("settings");
+    Scene game_over_scene("over");
+
+    game.set_active_scene("play")
+
+    Entity alien("alien");
+    Entity penguin("penguin");
+
+    alien.add_component(game.get_component("ocean.jpg"));
+    alien.add_component(game.get_component("shoot.ogg"));
+
+    play_scene.add(alien);
+
+    play_scene.bind(FunctionType::Render, [alien](){
+
+    });
+
+    play_scene.bind(FunctionType::Update, [alien](){
+
+    });
+
+    play_scene.bind(FunctionType::Event, [alien, penguin](){
+        auto e = game.get_event();
+
+        if (e.get()->is_keyboard_press(Event::Key::UP)) {
+            penguin.
+        }
+    });
+
+    std::vector<std::pair<v2<int>, Sprite*>> assets;
+}*/
