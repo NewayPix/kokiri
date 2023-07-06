@@ -178,7 +178,7 @@ namespace Kokiri {
             auto c = new Sprite(m_window, filename);
 
             loaded = m_resources.get()->add(name, c);
-        } else if (extension == ".ogg") {
+        } else if (extension == ".ogg" || extension == ".wav") {
             auto c = new Track(filename);
 
             loaded = m_resources.get()->add(name, c);
