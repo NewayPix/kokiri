@@ -5,7 +5,7 @@
 
 #include "core/window.hpp"
 #include "core/event.hpp"
-#include "core/functions.hpp"
+#include "core/types.hpp"
 #include "core/references.hpp"
 #include "core/resources.hpp"
 #include "core/scene.hpp"
@@ -41,25 +41,17 @@ namespace Kokiri {
         ScopedRef<Graphics::OpenGL::Renderer2D> m_opengl_renderer;
         ScopedRef<Graphics::SDL::Renderer2D> m_sdl_renderer;
 
-        // stored functions that a user would then provide through bind.
-        std::map<FunctionType, Function<void>> m_functions;
-
         std::string m_active_scene;
         std::map<std::string, Scene> m_scenes;
 
         ScopedRef<Resources> m_resources;
     private:
         void render();
-        void update();
+        void update(f32 dt);
         void event();
-
-        // free every allocated resource
-        void free();
     public:
         Game(const std::string& title, int width, int height);
         ~Game();
-
-        void init();
 
         /**
          * @brief Binds a function type to a user provided function that gets
@@ -71,7 +63,6 @@ namespace Kokiri {
         void bind(FunctionType type, Function<void> function);
 
         void loop();
-        void quit();
 
         // this is to tie a knot when creating textures from the user side
         // of view (need to redesign this!)
@@ -84,7 +75,7 @@ namespace Kokiri {
          *
          * @param scene
          */
-        void add_scene(const Scene& scene);
+        void add_scene(Scene& scene);
 
         /**
          * @brief Set the active scene object. It's required to set the active
@@ -92,7 +83,7 @@ namespace Kokiri {
          *
          * @param scene
          */
-        void set_active_scene(const std::string &scene);
+        void set_active_scene(const std::string& scene);
 
         /**
          * @brief Load a resource into the game

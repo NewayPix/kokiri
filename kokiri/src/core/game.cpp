@@ -55,18 +55,19 @@ namespace Kokiri {
     }
 
     Game::~Game() {
-        free();
-    }
-
-    void Game::init() {
-    }
-
-    void Game::free() {
         m_resources.get()->free();
         m_resources.release();
     }
 
-    void Game::update() {}
+    void Game::update(f32 dt) {
+        // call the update function of the active scene
+        try {
+            auto active_scene = m_scenes.at(m_active_scene);
+            active_scene.update(dt);
+        } catch (const std::exception& ex) {
+            // do nothing... on purpose
+        }
+    }
 
     void Game::render() {
         int r = SDL_RenderClear(m_window.get()->get_renderer());
@@ -74,10 +75,10 @@ namespace Kokiri {
             Log::error("failed to render clear, reason ", SDL_GetError());
         }
 
-        // call the user provided render function
+        // call the render function of the active scene
         try {
-            auto r = m_functions.at(FunctionType::Render);
-            r();
+            auto active_scene = m_scenes.at(m_active_scene);
+            active_scene.render();
         } catch (const std::exception& ex) {
             // do nothing... on purpose
         }
@@ -106,10 +107,10 @@ namespace Kokiri {
         }
 
         {
-            // call the user provided event function
+            // call the event function of the active scene
             try {
-                auto e = m_functions.at(FunctionType::Event);
-                e();
+                auto active_scene = m_scenes.at(m_active_scene);
+                active_scene.event();
             } catch (const std::exception& ex) {
                 // do nothing... on purpose
             }
@@ -124,7 +125,7 @@ namespace Kokiri {
 
             render();
             event();
-            update();
+            update(dt);
 
             auto since = t.since(Timer::Unit::Milliseconds);
 
@@ -151,22 +152,20 @@ namespace Kokiri {
         }
     }
 
-    void Game::quit() {
-        // this code is not to be called from within a library as the
-        // documentation prescribes.
-        SDL_Quit();
-    }
-
-    void Game::bind(FunctionType type, Function<void> function) {
-        m_functions.emplace(type, function);
-    }
-
     SharedRef<Window> Game::get_window() {
         return m_window;
     }
 
     SharedRef<Event> Game::get_event() {
         return m_event;
+    }
+
+    void Game::add_scene(Scene& scene) {
+        m_scenes.insert(std::make_pair(scene.get_name(), scene));
+    }
+
+    void Game::set_active_scene(const std::string& scene) {
+        m_active_scene = scene;
     }
 
     bool Game::load(const std::string& name, const std::string& filename) {
