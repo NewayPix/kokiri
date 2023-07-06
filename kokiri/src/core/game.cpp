@@ -192,4 +192,13 @@ namespace Kokiri {
 
         return loaded;
     }
+
+    Component<ComponentType>* Game::retrieve(const std::string& name) {
+        try {
+            auto component = m_resources.get()->get(name);
+            return component;
+        } catch(std::exception ex) {
+            Log::error("failed to retrieve resource ", name, " from pool");
+        }
+    }
 }

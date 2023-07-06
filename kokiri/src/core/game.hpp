@@ -94,5 +94,12 @@ namespace Kokiri {
          * @return false If something wrong happened when loading the resource
          */
         bool load(const std::string& name, const std::string& filename);
+
+        /**
+         * @brief Retrieve a resource loaded from the game
+         *
+         * @param name
+         */
+        Component<ComponentType>* retrieve(const std::string& name);
     };
 }
