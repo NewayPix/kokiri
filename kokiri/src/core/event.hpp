@@ -115,9 +115,9 @@ namespace Kokiri {
         /**
          * @brief Get the mouse position
          *
-         * @return v2<int> A two dimensional vector containing the x and y
+         * @return v2<i32> A two dimensional vector containing the x and y
          * coordinates of the mouse on the window
          */
-        v2<int> get_mouse_position();
+        v2<i32> get_mouse_position();
     };
 }

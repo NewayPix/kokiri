@@ -56,8 +56,8 @@ namespace Kokiri {
         return m_quit;
     }
 
-    v2<int> Event::get_mouse_position() {
-        v2<int> p(0, 0);
+    v2<i32> Event::get_mouse_position() {
+        v2<i32> p(0, 0);
 
         SDL_GetMouseState(&p.x, &p.y);
 
