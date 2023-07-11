@@ -17,7 +17,7 @@ namespace Kokiri {
         bool add(const std::string& name, Component<ComponentType>* c);
         bool remove(const std::string& name);
 
-        bool free();
+        void free();
 
         Component<ComponentType>* get(const std::string& name);
     };

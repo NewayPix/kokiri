@@ -33,13 +33,13 @@ namespace Kokiri {
         }
     }
 
-    bool Resources::free() {
-        for (auto it = m_resources.begin(); it != m_resources.end(); ++it) {
-            ::free(it->second);
+    void Resources::free() {
+        Log::info("destroying resources");
 
-            m_resources.erase(it);
+        for (auto p : m_resources) {
+            ::free(p.second);
         }
 
-        return true;
+        m_resources.clear();
     }
 }
