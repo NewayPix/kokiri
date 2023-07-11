@@ -65,6 +65,7 @@ namespace Kokiri {
             T = SDL_SCANCODE_T,
             U = SDL_SCANCODE_U,
             V = SDL_SCANCODE_V,
+            W = SDL_SCANCODE_W,
             X = SDL_SCANCODE_X,
             Y = SDL_SCANCODE_Y,
             Z = SDL_SCANCODE_Z,
