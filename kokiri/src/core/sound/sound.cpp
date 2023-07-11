@@ -13,7 +13,7 @@ namespace Kokiri {
     }
 
     Sound::~Sound() {
-        Log::info("destroying mixer");
+        Log::info("destroying SDL mixer");
         Mix_Quit();
     }
 }
