@@ -42,7 +42,7 @@ namespace Kokiri {
         ScopedRef<Graphics::SDL::Renderer2D> m_sdl_renderer;
 
         std::string m_active_scene;
-        std::map<std::string, Scene> m_scenes;
+        std::map<std::string, Scene*> m_scenes;
 
         ScopedRef<Resources> m_resources;
     private:
@@ -75,7 +75,7 @@ namespace Kokiri {
          *
          * @param scene
          */
-        void add_scene(Scene& scene);
+        void add_scene(Scene* scene);
 
         /**
          * @brief Set the active scene object. It's required to set the active
@@ -85,15 +85,30 @@ namespace Kokiri {
          */
         void set_active_scene(const std::string& scene);
 
+        struct Resource {
+            std::string name;
+            std::string filename;
+
+            ComponentType type;
+
+            v2<u32> dimension;
+
+            Resource(const std::string &name, const std::string& filename, ComponentType type) {
+                this->name = name;
+                this->filename = filename;
+                this->type = type;
+                this->dimension = v2<u32>();
+            }
+        };
+
         /**
          * @brief Load a resource into the game
          *
-         * @param name
-         * @param filename
+         * @param resource
          * @return true If the resource has been successfully loaded
          * @return false If something wrong happened when loading the resource
          */
-        bool load(const std::string& name, const std::string& filename);
+        bool load(const Resource& resource);
 
         /**
          * @brief Retrieve a resource loaded from the game

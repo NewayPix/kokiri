@@ -63,7 +63,7 @@ namespace Kokiri {
         // call the update function of the active scene
         try {
             auto active_scene = m_scenes.at(m_active_scene);
-            active_scene.update(dt);
+            active_scene->update(dt);
         } catch (const std::exception& ex) {
             // do nothing... on purpose
         }
@@ -78,7 +78,7 @@ namespace Kokiri {
         // call the render function of the active scene
         try {
             auto active_scene = m_scenes.at(m_active_scene);
-            active_scene.render();
+            active_scene->render();
         } catch (const std::exception& ex) {
             // do nothing... on purpose
         }
@@ -110,7 +110,7 @@ namespace Kokiri {
             // call the event function of the active scene
             try {
                 auto active_scene = m_scenes.at(m_active_scene);
-                active_scene.event();
+                active_scene->event();
             } catch (const std::exception& ex) {
                 // do nothing... on purpose
             }
@@ -160,34 +160,54 @@ namespace Kokiri {
         return m_event;
     }
 
-    void Game::add_scene(Scene& scene) {
-        m_scenes.insert(std::make_pair(scene.get_name(), scene));
+    void Game::add_scene(Scene* scene) {
+        m_scenes.insert(std::make_pair(scene->get_name(), scene));
     }
 
-    void Game::set_active_scene(const std::string& scene) {
-        m_active_scene = scene;
+    void Game::set_active_scene(const std::string& scene_name) {
+        m_active_scene = scene_name;
     }
 
-    bool Game::load(const std::string& name, const std::string& filename) {
+    bool Game::load(const Resource& resource) {
         using namespace Graphics::SDL;
 
         bool loaded = true;
-        auto extension = Utils::Strings::extension(filename);
+        auto extension = Utils::Strings::extension(resource.filename);
 
-        if (extension == ".png" || extension == ".jpg") {
-            auto c = new Sprite(m_window, filename);
+        bool isSprite = extension == ".png" || extension == ".jpg";
+        bool isSound = extension == ".ogg" || extension == ".wav";
 
-            loaded = m_resources.get()->add(name, c);
-        } else if (extension == ".ogg" || extension == ".wav") {
-            auto c = new Track(filename);
+        if (!isSprite && !isSound) {
+            Log::info("no available load method for ", extension, " file type");
+        }
 
-            loaded = m_resources.get()->add(name, c);
-        } else {
-            Log::info("no available load method for ", extension, " extension");
+        switch (resource.type) {
+            case ComponentType::Tilemap:
+            {
+                auto t = new Tileset(m_window, resource.filename, resource.dimension);
+                auto c = new Tilemap(m_window, resource.filename, t);
+
+                loaded = m_resources.get()->add(resource.name, c);
+            }
+            break;
+            case ComponentType::Sprite:
+            {
+                auto c = new Sprite(m_window, resource.filename);
+
+                loaded = m_resources.get()->add(resource.name, c);
+            }
+            break;
+            case ComponentType::Soundtrack:
+            {
+                auto c = new Track(resource.filename);
+
+                loaded = m_resources.get()->add(resource.name, c);
+            }
+            break;
         }
 
         if (!loaded) {
-            Log::error("failed to load resource ", filename);
+            Log::error("failed to load resource ", resource.filename);
         }
 
         return loaded;
