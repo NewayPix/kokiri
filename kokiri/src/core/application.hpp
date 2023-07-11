@@ -3,6 +3,8 @@
 #include "core/game.hpp"
 #include "core/window.hpp"
 #include "core/references.hpp"
+#include "core/types.hpp"
+
 #include "graphics/opengl/renderer2d.hpp"
 #include "graphics/sdl/renderer2d.hpp"
 
@@ -21,7 +23,16 @@ namespace Kokiri {
             OpenGL,
         };
 
-        Application(ApplicationRenderType render_type);
+        struct ApplicationWindow {
+            std::string title;
+
+            v2<u32> dimension;
+            v2<u32> position;
+
+            ApplicationRenderType type;
+        };
+
+        Application(ApplicationWindow& window);
         ~Application();
     };
 }
