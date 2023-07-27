@@ -15,13 +15,13 @@ namespace Kokiri {
                 m_file = file;
                 m_tileset = tileset;
 
+                std::stringstream ss;
                 std::ifstream tilemap(m_file);
+
                 if (!tilemap.is_open()) {
                     Log::error("failed to open tilemap file ", m_file);
                     exit(1);
                 }
-
-                std::stringstream ss;
 
                 if (tilemap) {
                     ss << tilemap.rdbuf();
@@ -80,7 +80,9 @@ namespace Kokiri {
 				//SDL_RenderCopy(m_window.get(), );
             }
 
-            void Tilemap::render_layer(v3<i32> position) {}
+            void Tilemap::render_layer(v3<i32> position) {
+                this->render_layer(position[2], v2<i32>(position[0], position[1]));
+            }
 
 
             i32 Tilemap::at(v3<i32> position) {
