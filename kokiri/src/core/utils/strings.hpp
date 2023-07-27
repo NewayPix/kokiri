@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <sstream>
 
 namespace Kokiri {
     namespace Utils {
@@ -20,6 +22,19 @@ namespace Kokiri {
                 }
 
                 return e;
+            }
+
+            static std::vector<std::string> split(const std::string& s, const char& delimiter) {
+                std::stringstream ss(s);
+
+                std::string item;
+                std::vector<std::string> items;
+
+                while (std::getline(ss, item, delimiter)) {
+                    items.push_back(item);
+                }
+
+                return items;
             }
         };
     }
