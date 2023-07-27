@@ -17,7 +17,7 @@ namespace Kokiri {
             }
 
             Renderer2D::~Renderer2D() {
-                Log::info("destroying image renderer");
+                Log::info("destroying SDL renderer");
                 IMG_Quit();
             }
         }

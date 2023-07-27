@@ -17,7 +17,7 @@ namespace Kokiri {
         bool m_mouse_click;
         bool m_mouse_move;
 
-        bool m_key_pressed;
+        bool m_key_down;
 
         bool m_quit;
     public:
@@ -65,6 +65,7 @@ namespace Kokiri {
             T = SDL_SCANCODE_T,
             U = SDL_SCANCODE_U,
             V = SDL_SCANCODE_V,
+            W = SDL_SCANCODE_W,
             X = SDL_SCANCODE_X,
             Y = SDL_SCANCODE_Y,
             Z = SDL_SCANCODE_Z,
@@ -83,6 +84,11 @@ namespace Kokiri {
             F12 = SDL_SCANCODE_F12,
 
             ESC = SDL_SCANCODE_ESCAPE,
+
+            UP = SDL_SCANCODE_UP,
+            DOWN = SDL_SCANCODE_DOWN,
+            LEFT = SDL_SCANCODE_LEFT,
+            RIGHT = SDL_SCANCODE_RIGHT
         };
 
         Event();
@@ -100,7 +106,8 @@ namespace Kokiri {
          */
         void clear();
 
-        bool is_key_down(Key key);
+        bool is_key_press(Key key);
+
         bool is_mouse_click(Mouse::Buttons mouse);
 
         bool quit();
@@ -108,9 +115,9 @@ namespace Kokiri {
         /**
          * @brief Get the mouse position
          *
-         * @return v2<int> A two dimensional vector containing the x and y
+         * @return v2<i32> A two dimensional vector containing the x and y
          * coordinates of the mouse on the window
          */
-        v2<int> get_mouse_position();
+        v2<i32> get_mouse_position();
     };
 }

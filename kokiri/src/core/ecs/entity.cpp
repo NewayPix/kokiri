@@ -1,10 +1,21 @@
+#include "kkr.hpp"
 #include "entity.hpp"
 
-namespace Kokiri {
-    Entity::Entity(const std::string& name) {
-        m_name = name;
+#include "core/utils/hasher.hpp"
 
-        // TODO: generate UUID
+#include "graphics/sdl/sprite.hpp"
+
+namespace Kokiri {
+    Entity::Entity(EntityProperties& properties) {
+        m_name = properties.name;
+
+        m_rect = SDL_Rect();
+        m_rect.x = properties.position.x;
+        m_rect.y = properties.position.y;
+        m_rect.w = properties.size.x;
+        m_rect.h = properties.size.y;
+
+        m_uuid = Utils::Hasher::uuid();
     }
 
     Entity::~Entity() {}
@@ -12,4 +23,50 @@ namespace Kokiri {
     const std::string Entity::get_name() {
         return m_name;
     }
+
+    void Entity::set_position(v2<i32> p) {
+        this->m_rect.x = p.x;
+        this->m_rect.y = p.y;
+    }
+
+    void Entity::set_position(i32 x, i32 y) {
+        this->m_rect.x = x;
+        this->m_rect.y = y;
+    }
+
+    void Entity::add_component(Component<ComponentType>* c) {
+        m_components.push_back(c);
+    }
+
+    void Entity::remove_component(Component<ComponentType>* c) {
+        auto it = std::remove(m_components.begin(), m_components.end(), c);
+
+        m_components.erase(it, m_components.end());
+    }
+
+    void Entity::update(f32 dt) {}
+
+    void Entity::render() {
+        for (auto c: m_components) {
+            auto t = c->get_type();
+
+            switch (t) {
+                case ComponentType::Sprite:
+                {
+                    auto s = dynamic_cast<Graphics::SDL::Sprite*>(c);
+
+                    s->render(m_rect.x, m_rect.y);
+                }
+                case ComponentType::Tilemap:
+                {
+
+                }
+                break;
+                case ComponentType::Soundtrack:
+                break;
+            }
+        }
+    }
+
+    void Entity::event() {}
 }

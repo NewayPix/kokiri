@@ -4,7 +4,7 @@
 #include <SDL2/SDL_mixer.h>
 
 namespace Kokiri {
-    Track::Track(const std::string& filename) {
+    Track::Track(const std::string& filename) : Component::Component(ComponentType::Soundtrack) {
         int r = Mix_OpenAudio(
             MIX_DEFAULT_FREQUENCY,
             MIX_DEFAULT_FORMAT,
