@@ -16,7 +16,7 @@ namespace Kokiri {
         std::unordered_map<std::string, Entity*> m_entities;
 
         // stored functions that a user would then provide through bind.
-        std::map<FunctionType, Function<void>> m_functions;
+        std::unordered_map<FunctionType, Function<void>> m_functions;
     public:
         Scene(SharedRef<Window> window, const std::string& name);
         ~Scene();

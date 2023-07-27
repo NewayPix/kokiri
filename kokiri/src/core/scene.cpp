@@ -53,6 +53,12 @@ namespace Kokiri {
     }
 
     void Scene::event() {
+        try {
+            m_functions.at(FunctionType::Event)();
+        } catch (std::exception e) {
+            Log::error("failed to get event function on scene ", m_scene_name, " ", e.what());
+        }
+
         for (auto e : m_entities) {
             // e.second.event();
         }
