@@ -22,16 +22,39 @@ namespace Kokiri {
 
         std::vector<Component<ComponentType>*> m_components;
 
-        SDL_Rect m_dimensions;
-    protected:
-        Entity(const std::string &name);
+        SDL_Rect m_rect;
     public:
+        struct EntityProperties {
+            v2<u32> size;
+            v2<i32> position;
+
+            std::string name;
+
+            EntityProperties(const std::string& name) {
+                this->name = name;
+
+                size = v2<u32>();
+                position = v2<i32>();
+            }
+
+            EntityProperties(const std::string& name, v2<u32>& size, v2<i32>& position) {
+                this->name = name;
+                this->size = size;
+                this->position = position;
+            }
+        };
+
+        Entity(EntityProperties& properties);
         virtual ~Entity();
 
         const std::string get_name();
 
+        void set_position(v2<i32> p);
+        void set_position(i32 x, i32 y);
+
         void update(f32 dt);
         void render();
+        void event();
 
         void add_component(Component<ComponentType>* c);
 
