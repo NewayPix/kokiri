@@ -1,6 +1,9 @@
 #pragma once
 
+#include "core/debug/log.hpp"
+
 #include <cmath>
+#include <cstdint>
 
 namespace Kokiri {
     namespace Math {
@@ -11,6 +14,7 @@ namespace Kokiri {
             T y;
             T z;
         public:
+            Vector3() : x(0), y(0), z(0) {}
             Vector3(T x, T y, T z) {
                 x = x;
                 y = y;
@@ -19,24 +23,44 @@ namespace Kokiri {
 
             ~Vector3() {}
 
-            Vector3<T> norm() {
-                Vector3<T> normalized = *this;
+            T operator[](uint8_t i) const {
+                T r = 0;
 
-                normalized.x /= mag();
-                normalized.y /= mag();
-                normalized.z /= mag();
+                if (i < 0 || i > 2) {
+                    Log::error("v3<T> invalid index i=", i, " returning default 0");
+                }
 
-                return normalized;
+                switch (i) {
+                case 0:
+                    r = x;
+                    break;
+                case 1:
+                    r = y;
+                    break;
+                case 2:
+                    r = z;
+                    break;
+                }
+
+                return r;
             }
 
             T mag() {
-                return  sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+                return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+            }
+
+            void norm() {
+                auto magnitude = mag();
+
+                x /= magnitude;
+                y /= magnitude;
+                z /= magnitude;
             }
 
             void scale(T n) {
-                this->x *= n;
-                this->y *= n;
-                this->z *= n;
+                x *= n;
+                y *= n;
+                z *= n;
             }
         };
     }
