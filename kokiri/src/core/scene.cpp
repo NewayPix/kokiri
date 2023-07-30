@@ -40,7 +40,7 @@ namespace Kokiri {
         }
     }
 
-    void Scene::update(f32 dt) {
+    void Scene::update(f64 dt) {
         for (auto e : m_entities) {
             e.second->update(dt);
         }

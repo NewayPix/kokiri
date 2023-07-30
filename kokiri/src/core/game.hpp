@@ -25,7 +25,7 @@ namespace Kokiri {
             uint16_t fps;
             uint16_t target_fps;
 
-            float target_frame_time; // the frame time objective
+            double target_frame_time; // the frame time objective
 
             int width;
             int height;
@@ -47,7 +47,7 @@ namespace Kokiri {
         ScopedRef<Resources> m_resources;
     private:
         void render();
-        void update(f32 dt);
+        void update(f64 dt);
         void event();
     public:
         Game(const std::string& title, int width, int height);

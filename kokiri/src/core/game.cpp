@@ -15,6 +15,9 @@
 #include <SDL2/SDL.h>
 
 namespace Kokiri {
+    // TODO: remove this ugly thing from here
+    using namespace std::chrono_literals;
+
     Game::Game(const std::string& title, int width, int height) {
         using namespace Graphics;
 
@@ -59,7 +62,7 @@ namespace Kokiri {
         m_resources.release();
     }
 
-    void Game::update(f32 dt) {
+    void Game::update(f64 dt) {
         // call the update function of the active scene
         try {
             auto active_scene = m_scenes.at(m_active_scene);
@@ -123,26 +126,29 @@ namespace Kokiri {
         while (m_properties.is_running) {
             Timer t;
 
+            auto frame_start = SDL_GetTicks64();
+
             render();
             event();
             update(dt);
 
-            auto since = t.since(Timer::Unit::Milliseconds);
+            // SDL_GetTicks is more precise than using the current timer because
+            // it uses the internal state.
+            dt = SDL_GetTicks64() - frame_start;
+            // dt = t.since(Timer::Unit::Milliseconds);
 
-            if (m_properties.is_debug) {
-                Log::info("render time ", since, "ms");
+            if (dt < m_properties.target_frame_time) {
+                auto difference = m_properties.target_frame_time - dt;
+
+                if (m_properties.is_debug) {
+                    Log::info("diff ", difference, " | dt: ", dt, "ms");
+                }
+
+                // auto delay = std::chrono::duration_cast<Timer::Milliseconds>(difference);
+                //std::this_thread::sleep_for(delay);
+
+                SDL_Delay(difference);
             }
-
-            /*
-
-            if (since < m_properties.target_frame_time) {
-                auto difference = m_properties.target_frame_time - since;
-                auto delay = std::chrono::duration_cast<Timer::Milliseconds>(difference);
-
-                std::this_thread::sleep_for(delay);
-            }
-
-            */
 
             // Doesn't work for some reason (for now)
             //m_opengl_renderer.get()->swap_buffers(m_window);

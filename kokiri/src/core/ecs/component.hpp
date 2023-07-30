@@ -7,7 +7,8 @@ namespace Kokiri {
     enum class ComponentType {
             Sprite,
             Soundtrack,
-            Tilemap
+            Tilemap,
+            Camera,
     };
 
     template <typename T>
@@ -31,6 +32,6 @@ namespace Kokiri {
         }
 
         virtual void render() {};
-        virtual void update(f32 dt) {};
+        virtual void update(f64 dt) {};
     };
 }

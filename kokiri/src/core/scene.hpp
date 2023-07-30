@@ -45,6 +45,6 @@ namespace Kokiri {
 
         void render();
         void event();
-        void update(f32 dt);
+        void update(f64 dt);
     };
 }

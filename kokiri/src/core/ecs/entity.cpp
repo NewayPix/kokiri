@@ -44,7 +44,7 @@ namespace Kokiri {
         m_components.erase(it, m_components.end());
     }
 
-    void Entity::update(f32 dt) {}
+    void Entity::update(f64 dt) {}
 
     void Entity::render() {
         for (auto c: m_components) {

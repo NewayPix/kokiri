@@ -52,7 +52,7 @@ namespace Kokiri {
         void set_position(v2<i32> p);
         void set_position(i32 x, i32 y);
 
-        void update(f32 dt);
+        void update(f64 dt);
         void render();
         void event();
 
