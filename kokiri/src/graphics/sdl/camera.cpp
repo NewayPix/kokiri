@@ -12,7 +12,7 @@ namespace Kokiri {
 
             Camera::~Camera() {}
 
-            void Camera::update(f32 dt) {}
+            void Camera::update(f64 dt) {}
 
             v2<i32> Camera::get_coordinates() {
                 return m_position;

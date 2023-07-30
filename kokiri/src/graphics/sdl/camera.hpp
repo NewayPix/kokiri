@@ -18,7 +18,7 @@ namespace Kokiri {
                 Camera(v2<i32> position, v2<i32> speed, SharedRef<Entity> entity);
                 ~Camera();
 
-                void update(f32 dt);
+                void update(f64 dt);
 
                 v2<i32> get_coordinates();
             };
