@@ -15,9 +15,9 @@ namespace Kokiri {
                 m_tile_width = dimension.x;
                 m_tile_height = dimension.y;
 
-                // TODO: check calculation below
-                m_columns = m_sprite.get()->get_width()/m_tile_width;
+
                 m_rows = m_sprite.get()->get_height()/m_tile_height;
+                m_columns = m_sprite.get()->get_width()/m_tile_width;
             }
 
             Tileset::~Tileset() {}

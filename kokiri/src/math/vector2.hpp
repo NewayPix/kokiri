@@ -1,5 +1,10 @@
 #pragma once
 
+#include "core/debug/log.hpp"
+
+#include <cmath>
+#include <cstdint>
+
 namespace Kokiri {
     namespace Math {
         template <class T>
@@ -16,22 +21,39 @@ namespace Kokiri {
 
             ~Vector2() {}
 
-            Vector2<T> norm() {
-                Vector2<T> normalized = *this;
+            T operator[](uint8_t i) const {
+                T r = 0;
 
-                normalized.x /= mag();
-                normalized.y /= mag();
+                if (i < 0 || i > 1) {
+                    Log::error("v3<T> invalid index i=", i, " returning default 0");
+                }
 
-                return normalized;
+                switch (i) {
+                case 0:
+                    r = x;
+                    break;
+                case 1:
+                    r = y;
+                    break;
+                }
+
+                return r;
             }
 
             T mag() {
                 return sqrt(pow(x, 2) + pow(y, 2));
             }
 
+            void norm() {
+                auto magnitude = mag();
+
+                x /= magnitude;
+                y /= magnitude;
+            }
+
             void scale(T n) {
-                this->x *= n;
-                this->y *= n;
+                x *= n;
+                y *= n;
             }
         };
     }

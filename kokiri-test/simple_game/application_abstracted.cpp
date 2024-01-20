@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <vector>
 #include <utility>
+#include <memory>
 
 #include <SDL2/SDL.h>
 
@@ -15,96 +16,100 @@
 
 #include "graphics/sdl/sprite.hpp"
 
-void test_1();
-void test_2();
-void test_3();
+void test_resources();
+void test_scenes();
 
 int main(int argc, char *argv[]) {
-    test_3();
+    test_scenes();
 
     return 0;
 }
 
-void test_1() {
-    using namespace Kokiri;
-    using namespace Kokiri::Graphics::SDL;
-
-    Game game("A Game", 1024, 600);
-
-    Track bgm("stageState.ogg");
-    Track effect("boom.wav");
-
-    Sprite background(game.get_window(), "ocean.jpg");
-
-    game.bind(FunctionType::Render, [&game, &background](){
-        background.render(0, 0);
-    });
-
-    effect.play(1);
-    bgm.play(1);
-
-    game.loop();
-}
-
-void test_2() {
+void test_resources() {
     using namespace Kokiri;
     using namespace Kokiri::Math;
     using namespace Kokiri::Graphics::SDL;
 
     Game game("A Game", 1024, 600);
 
-    Track bgm("stageState.ogg");
-    Track effect("boom.wav");
+    game.load(Game::Resource("bgm", "stageState.ogg", ComponentType::Soundtrack));
+    game.load(Game::Resource("ocean", "ocean.jpg", ComponentType::Sprite));
 
-    Sprite background(game.get_window(), "ocean.jpg");
+    auto c = dynamic_cast<Sprite*>(game.retrieve("ocean"));
 
-    std::vector<std::pair<v2<int>, Sprite*>> assets;
+    Log::info("x -> ", c->get_width(), " y -> ", c->get_height());
 
-    game.bind(FunctionType::Render, [&game, &background, &assets](){
-        background.render(0, 0);
+    game.loop();
+}
 
-        for (const auto& asset : assets) {
-            auto p = asset.first;
-            auto s = asset.second;
+void test_scenes() {
+    using namespace Kokiri;
+    using namespace Kokiri::Math;
+    using namespace Kokiri::Graphics::SDL;
 
-            s->render(p.x, p.y);
-        }
-    });
+    Game game("A Game", 1024, 600);
 
-    game.bind(FunctionType::Event, [&game, &assets]() {
+    auto level = new Scene(game.get_window(), "level");
+    auto menu = new Scene(game.get_window(), "menu");
+    auto over = new Scene(game.get_window(), "over");
+
+    game.add_scene(menu);
+    game.add_scene(level);
+    game.add_scene(over);
+
+    game.set_active_scene("level");
+
+    game.load(Game::Resource("bgm", "stageState.ogg", ComponentType::Soundtrack));
+    game.load(Game::Resource("shot", "boom.wav", ComponentType::Soundtrack));
+    game.load(Game::Resource("background", "ocean.jpg", ComponentType::Sprite));
+    game.load(Game::Resource("penguin", "penguin.png", ComponentType::Sprite));
+
+    Entity::EntityProperties world_properties("background");
+    world_properties.size.x = 1024;
+    world_properties.size.y = 600;
+
+    Entity world(world_properties);
+
+    auto b = game.retrieve("background");
+    auto m = game.retrieve("bgm");
+
+    if (b == nullptr || m == nullptr) {
+        Log::error("resource is null");
+        return;
+    }
+
+    world.add_component(b);
+    world.add_component(m);
+
+    world.play("");
+
+    auto p = dynamic_cast<Sprite*>(game.retrieve("penguin"));
+
+    Entity::EntityProperties player_properties("player");
+    player_properties.size.x = p->get_width();
+    player_properties.size.y = p->get_height();
+
+    Entity player(player_properties);
+
+    player.add_component(game.retrieve("penguin"));
+
+    // rendering order is VERY important
+    level->add_entity(&player);
+    level->add_entity(&world);
+
+    level->bind(FunctionType::Render, [&game](){});
+
+    level->bind(FunctionType::Event, [&game, &player]() {
         auto e = game.get_event();
 
         if (e.get()->is_mouse_click(Event::Mouse::LeftButton)) {
             auto p = e.get()->get_mouse_position();
-            auto s = new Sprite(game.get_window(), "penguin.png");
 
-            Log::info("click: ", p.x, p.y);
-
-            assets.push_back(std::make_pair(p, s));
+            player.set_position(p);
         }
     });
 
     game.loop();
-
-    // clean everything
-    for (const auto& asset : assets) {
-        delete asset.second;
-    }
-}
-
-
-void test_3() {
-    using namespace Kokiri;
-    using namespace Kokiri::Math;
-    using namespace Kokiri::Graphics::SDL;
-
-    Game game("A Game", 1024, 600);
-
-    game.load("main-bgm", "stageState.ogg");
-    game.load("ocean-background", "ocean.jpg");
-
-    game.loop();
-    game.quit();
 }
 
 /*void test_4() {

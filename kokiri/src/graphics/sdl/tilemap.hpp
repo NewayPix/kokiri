@@ -33,6 +33,7 @@ namespace Kokiri {
 
                 void render() override;
                 void render_layer(i32 layer, v2<i32> position);
+                void render_layer(v3<i32> position);
 
                 u32 get_width();
                 u32 get_height();

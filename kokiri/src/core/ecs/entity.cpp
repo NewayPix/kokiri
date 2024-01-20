@@ -3,6 +3,9 @@
 
 #include "core/utils/hasher.hpp"
 
+#include "core/sound/sound.hpp"
+#include "core/sound/track.hpp"
+
 #include "graphics/sdl/sprite.hpp"
 
 namespace Kokiri {
@@ -44,10 +47,10 @@ namespace Kokiri {
         m_components.erase(it, m_components.end());
     }
 
-    void Entity::update(f32 dt) {}
+    void Entity::update(f64 dt) {}
 
     void Entity::render() {
-        for (auto c: m_components) {
+        for (auto c : m_components) {
             auto t = c->get_type();
 
             switch (t) {
@@ -69,4 +72,27 @@ namespace Kokiri {
     }
 
     void Entity::event() {}
+
+    void Entity::play(std::string music) {
+        Track* m = nullptr;
+
+        for (auto c : m_components) {
+            auto t = c->get_type();
+
+            switch (t) {
+            case ComponentType::Soundtrack:
+            {
+                m = (Track*) c;
+                goto play;
+            }
+            break;
+            }
+        }
+
+        play:
+
+        if (m != nullptr) {
+            m->play();
+        }
+    }
 }

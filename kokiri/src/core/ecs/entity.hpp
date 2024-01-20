@@ -52,9 +52,18 @@ namespace Kokiri {
         void set_position(v2<i32> p);
         void set_position(i32 x, i32 y);
 
-        void update(f32 dt);
+        void update(f64 dt);
         void render();
         void event();
+
+        /**
+         * @brief Play a background music on the scene given a music name on the
+         * resource manager.
+         *
+         * @param music The name of the music loaded on the resource manager
+         * (not supported yet, it plays the first soundtrack it finds)
+         */
+        void play(std::string music);
 
         void add_component(Component<ComponentType>* c);
 
