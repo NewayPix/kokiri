@@ -86,7 +86,7 @@ namespace Kokiri {
 
 
             i32 Tilemap::at(v3<i32> position) {
-                // this engine supports a tilemap with at two layers at most
+                // this engine supports a tilemap with two layers at most
                 return 0;
             }
 

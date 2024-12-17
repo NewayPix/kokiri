@@ -64,8 +64,10 @@ namespace Kokiri {
 
         void loop();
 
-        // this is to tie a knot when creating textures from the user side
-        // of view (need to redesign this!)
+        /**
+         * @brief this is to tie a knot when creating textures from the user side
+         * of view (need to redesign this!)
+         */
         SharedRef<Window> get_window();
 
         SharedRef<Event> get_event();
